@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use DB;
-
-use App\alumni;
+use App\Alumni;
 
 class AlumniController extends Controller
 {
@@ -17,7 +16,7 @@ class AlumniController extends Controller
      */
     public function index()
     {   
-        $alumni = alumni::all();
+        $alumni = Alumni::all();
         return view('alumni.index', compact('alumni'));
     }
 
@@ -69,7 +68,7 @@ class AlumniController extends Controller
      */
     public function show($id)
     {
-        $alumni = alumni::find($id);
+        $alumni = Alumni::find($id);
         return view('alumni.show', compact('alumni'));
     }
 
@@ -81,7 +80,7 @@ class AlumniController extends Controller
      */
     public function edit($id)
     {
-        $alumni = alumni::find($id);
+        $alumni = Alumni::find($id);
         return view('alumni.edit', compact('alumni'));
     }
 

@@ -39,14 +39,19 @@ class AlumniController extends Controller
      */
     public function store(Request $request)
     {
+          $request->validate([
+            'fName' => 'required',
+            'lName' => 'required',
+        ]);
         $alumni = new Alumni;
         $alumni->first_name = $request->input('fName');
         $alumni->last_name = $request->input('lName');
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');
         $alumni->diocese = $request->input('diocese');
+        $alumni->birthdate = $request->input('birthdate');
         $alumni->ordination = $request->input('ordination');
-        $alumni->address = $request->input('sddress');
+        $alumni->address = $request->input('address');
         $alumni->telephone_num = $request->input('telephone');
         $alumni->fax_num = $request->input('fax');
         $alumni->mobile_num = $request->input('mobile');

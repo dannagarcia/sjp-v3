@@ -8,8 +8,8 @@ class Event extends Model
 {
     public function alumnis() {
 
-    	return $this->belongsToMany('App\Alumni')->withTimestamps();
-    	
+    	return $this->belongsToMany(Alumni::class)->withTimestamps();
+
     }
 
 }

@@ -6,6 +6,8 @@ use App\Event;
 
 use Illuminate\Http\Request;
 
+use DB;
+
 class EventController extends Controller
 {
     /**
@@ -16,7 +18,7 @@ class EventController extends Controller
     public function index()
     {
         $events = event::all();
-        return view($events);
+        return view('event.index', compact('events'));
     }
 
     /**
@@ -26,7 +28,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view('event.create');
     }
 
     /**
@@ -37,7 +39,15 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $event = new Event; // Initialize
+
+        $event->name = $request->input('event_name'); 
+        $event->place = $request->input('event_place');
+        $event->date = $request->input('event_date');
+
+        $event->save();
+        return redirect('/event');
     }
 
     /**
@@ -48,7 +58,11 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+        $event = event::find($id);
+        $attendees = $event->alumnis;
+        return view('event.show')
+            ->with('event', $event)
+            ->with('attendees', $attendees);
     }
 
     /**

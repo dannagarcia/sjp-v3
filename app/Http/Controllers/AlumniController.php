@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
+
+use App\alumni;
+
 class AlumniController extends Controller
 {
     /**
@@ -12,8 +16,9 @@ class AlumniController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {   
+        $alumni = alumni::all();
+        return view('alumni.index', compact('alumni'));
     }
 
     /**
@@ -23,7 +28,7 @@ class AlumniController extends Controller
      */
     public function create()
     {
-        //
+        return view('alumni.create');
     }
 
     /**
@@ -34,7 +39,21 @@ class AlumniController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $alumni = new Alumni;
+        $alumni->first_name = $request->input('fName');
+        $alumni->last_name = $request->input('lName');
+        $alumni->alumni_type = $request->input('alumni_type');
+        $alumni->years_in_sj = $request->input('yrs_sj');
+        $alumni->diocese = $request->input('diocese');
+        $alumni->ordination = $request->input('ordination');
+        $alumni->address = $request->input('sddress');
+        $alumni->telephone_num = $request->input('telephone');
+        $alumni->fax_num = $request->input('fax');
+        $alumni->mobile_num = $request->input('mobile');
+        $alumni->email = $request->input('email');
+
+        $alumni->save();
+        return redirect('/alumni');
     }
 
     /**
@@ -45,7 +64,8 @@ class AlumniController extends Controller
      */
     public function show($id)
     {
-        //
+        $alumni = alumni::find($id);
+        return view('alumni.show', compact('alumni'));
     }
 
     /**
@@ -56,7 +76,8 @@ class AlumniController extends Controller
      */
     public function edit($id)
     {
-        //
+        $alumni = alumni::find($id);
+        return view('alumni.edit', compact('alumni'));
     }
 
     /**

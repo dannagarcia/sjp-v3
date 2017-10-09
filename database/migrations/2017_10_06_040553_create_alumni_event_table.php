@@ -15,10 +15,10 @@ class CreateAlumniEventTable extends Migration
     {
         Schema::create('alumni_event', function (Blueprint $table) {
             $table->integer('alumni_id')->unsigned()->nullable();
-            $table->foreign('alumni_id')->references('id')->on('alumnis')->onDelete('cascade');
+            // $table->foreign('alumni_id')->references('id')->on('alumnis')->onDelete('cascade');
 
             $table->integer('event_id')->unsigned()->nullable();
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            // $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
 
             $table->timestamps();
         });

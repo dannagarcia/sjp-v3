@@ -18,15 +18,15 @@ class CreateAlumnisTable extends Migration
             $table->enum('alumni_type', ['lay', 'ordained']);
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('diocese');
-            $table->date('birthdate');
-            $table->string('ordination');
-            $table->string('years_in_sj');
-            $table->string('address');
-            $table->string('telephone_num');
-            $table->string('fax_num');
-            $table->string('mobile_num');
-            $table->string('email');
+            $table->string('diocese')->nullable();
+            $table->date('birthdate')->nullable();
+            $table->string('ordination')->nullable();
+            $table->string('years_in_sj')->nullable();
+            $table->string('address')->nullable();
+            $table->string('telephone_num')->nullable();
+            $table->string('fax_num')->nullable();
+            $table->string('mobile_num')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

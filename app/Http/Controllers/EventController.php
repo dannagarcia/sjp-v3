@@ -17,7 +17,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = event::all();
+        $events = Event::all();
         return view('event.index', compact('events'));
     }
 
@@ -40,7 +40,7 @@ class EventController extends Controller
     public function store(Request $request)
     {
 
-        $event = new Event; // Initialize
+        $event = new Event(); // Initialize
 
         $event->name = $request->input('event_name'); 
         $event->place = $request->input('event_place');
@@ -58,7 +58,7 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        $event = event::find($id);
+        $event = Event::find($id);
         $attendees = $event->alumnis;
         return view('event.show')
             ->with('event', $event)

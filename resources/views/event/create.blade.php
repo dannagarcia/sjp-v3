@@ -42,7 +42,7 @@
         
         <div class="x_content">
 
-            <form class="form-horizontal form-label-left" action="/event/" method="POST">
+            <form class="form-horizontal form-label-left" action="/event" method="POST">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="Event Name" class="control-label col-md-3 col-sm-3 col-xs-12">Event Name</label>

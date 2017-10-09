@@ -48,10 +48,10 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="{{ URL::to('/')}}"><i class="fa fa-home"></i> Dashboard</a></li>
-                  <li><a href="{{ URL::to('/event')}}"><i class="fa fa-calendar"></i> Events</a>
+                  <li><a href="/"><i class="fa fa-home"></i> Dashboard</a></li>
+                  <li><a href="/event"><i class="fa fa-calendar"></i> Events</a>
                   </li>
-                  <li><a href="{{ URL::to('/alumni')}}"><i class="fa fa-users"></i> Alumni</a>
+                  <li><a href="/alumni"><i class="fa fa-users"></i> Alumni</a>
                   </li>
                 </ul>
               </div>

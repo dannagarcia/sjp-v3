@@ -14,6 +14,6 @@
 Route::get('/', function () {
     return view('index');
 });
-Route::resource('alumni', 'AlumniController');
+Route::resource('/alumni', 'AlumniController');
 
-Route::resource('event', 'EventController');
+Route::resource('/event', 'EventController');

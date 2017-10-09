@@ -11,19 +11,19 @@
     <title>@yield('page_title')</title>
 
     <!-- Bootstrap -->
-    <link href="{{ URL::asset('/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="{{ URL::asset('/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="{{ URL::asset('/vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
-    <link href="{{ URL::asset('/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
+    <link href="/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
-    <link href="{{ URL::asset('/vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+    <link href="/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     
     <!-- Custom Theme Style -->
-    <link href="{{ URL::asset('/css/custom.min.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('/css/style.css') }}" rel="stylesheet">
+    <link href="/css/custom.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 
     @section('styles')
      @show
@@ -108,44 +108,44 @@
     </div>
 
     <!-- jQuery -->
-    <script src="{{ URL::asset('/vendors/jquery/dist/jquery.min.js') }}"></script>
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="{{ URL::asset('/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
-    <script src="{{ URL::asset('/vendors/fastclick/lib/fastclick.js')}}"></script>
+    <script src="/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
-    <script src="{{ URL::asset('vendors/nprogress/nprogress.js')}}"></script>
+    <script src="vendors/nprogress/nprogress.js"></script>
     <!-- Chart.js -->
-    <script src="{{ URL::asset('/vendors/Chart.js/dist/Chart.min.js')}}"></script>
+    <script src="/vendors/Chart.js/dist/Chart.min.js"></script>
     <!-- jQuery Sparklines -->
-    <script src="{{ URL::asset('/vendors/jquery-sparkline/dist/jquery.sparkline.min.js')}}"></script>
+    <script src="/vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
     <!-- morris.js -->
-    <script src="{{ URL::asset('/vendors/raphael/raphael.min.js')}}"></script>
-    <script src="{{ URL::asset('/vendors/morris.js/morris.min.js')}}"></script>
+    <script src="/vendors/raphael/raphael.min.js"></script>
+    <script src="/vendors/morris.js/morris.min.js"></script>
     <!-- gauge.js -->
-    <script src="{{ URL::asset('/vendors/gauge.js/dist/gauge.min.js')}}"></script>
+    <script src="/vendors/gauge.js/dist/gauge.min.js"></script>
     <!-- bootstrap-progressbar -->
-    <script src="{{ URL::asset('/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
+    <script src="/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
     <!-- Skycons -->
-    <script src="{{ URL::asset('/vendors/skycons/skycons.js')}}"></script>
+    <script src="/vendors/skycons/skycons.js"></script>
     <!-- Flot -->
-    <script src="{{ URL::asset('/vendors/Flot/jquery.flot.js')}}"></script>
-    <script src="{{ URL::asset('/vendors/Flot/jquery.flot.pie.js')}}"></script>
-    <script src="{{ URL::asset('/vendors/Flot/jquery.flot.time.js')}}"></script>
-    <script src="{{ URL::asset('/vendors/Flot/jquery.flot.stack.js')}}"></script>
-    <script src="{{ URL::asset('/vendors/Flot/jquery.flot.resize.js')}}"></script>
+    <script src="/vendors/Flot/jquery.flot.js"></script>
+    <script src="/vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="/vendors/Flot/jquery.flot.time.js"></script>
+    <script src="/vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="/vendors/Flot/jquery.flot.resize.js"></script>
     <!-- Flot plugins -->
-    <script src="{{ URL::asset('/vendors/flot.orderbars/js/jquery.flot.orderBars.js')}}"></script>
-    <script src="{{ URL::asset('/vendors/flot-spline/js/jquery.flot.spline.min.js')}}"></script>
-    <script src="{{ URL::asset('/vendors/flot.curvedlines/curvedLines.js')}}"></script>
+    <script src="/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="/vendors/flot.curvedlines/curvedLines.js"></script>
     <!-- DateJS -->
-    <script src="{{ URL::asset('/vendors/DateJS/build/date.js')}}"></script>
+    <script src="/vendors/DateJS/build/date.js"></script>
     <!-- bootstrap-daterangepicker -->
-    <script src="{{ URL::asset('/vendors/moment/min/moment.min.js')}}"></script>
-    <script src="{{ URL::asset('/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+    <script src="/vendors/moment/min/moment.min.js"></script>
+    <script src="/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="{{ URL::asset('/js/custom.min.js')}}"></script>
+    <script src="/js/custom.min.js"></script>
 
     @section('scripts')
      @show

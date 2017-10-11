@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 Route::resource('/alumni', 'AlumniController');
 Route::resource('/event', 'EventController');
+

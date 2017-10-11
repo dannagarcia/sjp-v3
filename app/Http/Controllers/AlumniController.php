@@ -38,7 +38,7 @@ class AlumniController extends Controller
      */
     public function store(Request $request)
     {
-          $request->validate([
+        $request->validate([
             'fName' => 'required',
             'lName' => 'required',
         ]);
@@ -69,7 +69,10 @@ class AlumniController extends Controller
     public function show($id)
     {
         $alumni = Alumni::find($id);
-        return view('alumni.show', compact('alumni'));
+        $events = $alumni->events;
+        return view('alumni.show')
+            ->with('alumni', $alumni)
+            ->with('events', $events);
     }
 
     /**
@@ -81,7 +84,8 @@ class AlumniController extends Controller
     public function edit($id)
     {
         $alumni = Alumni::find($id);
-        return view('alumni.edit', compact('alumni'));
+        return view('alumni.edit')
+            ->with('alumni', $alumni);
     }
 
     /**
@@ -93,7 +97,24 @@ class AlumniController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $alumni = Alumni::find($request->id); // found on input hidden field in view
+        $alumni->first_name = $request->input('fName');
+        $alumni->last_name = $request->input('lName');
+        $alumni->alumni_type = $request->input('alumni_type');
+        $alumni->years_in_sj = $request->input('yrs_sj');
+        $alumni->diocese = $request->input('diocese');
+        $alumni->birthdate = $request->input('birthdate');
+        $alumni->ordination = $request->input('ordination');
+        $alumni->address = $request->input('address');
+        $alumni->telephone_num = $request->input('telephone');
+        $alumni->fax_num = $request->input('fax');
+        $alumni->mobile_num = $request->input('mobile');
+        $alumni->email = $request->input('email');
+
+        $alumni->save();
+
+        return redirect('/alumni/' . $request->id);
+
     }
 
     /**

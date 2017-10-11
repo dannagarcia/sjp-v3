@@ -91,6 +91,11 @@
 
         <div class="right_col" role="main">
             <div class="row">
+              @if (Session::has('message'))
+                <div class="alert alert-success">
+                  {{ session('message') }}
+                </div>
+              @endif
                 @section('body')
                  @show
             </div>

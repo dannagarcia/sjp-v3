@@ -2,11 +2,9 @@
 
 @section('page_title', 'Create Event')
 
-@section('page_heading', 'Create Event')
-
 @section('styles')
 
-    <link href="{{ URL::asset('/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css')}}" rel="stylesheet">
+    <link href="/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <style type="text/css">
         .datePicker {
             padding: 0 10px !important;
@@ -16,7 +14,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ URL::asset('/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
+    <script src="/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 
     <script type="text/javascript">
 
@@ -31,6 +29,15 @@
 
 
 @section('body')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="x_panel">
         <div class="x_title">
             <h2>Create Event</h2>

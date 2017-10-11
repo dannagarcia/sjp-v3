@@ -1,37 +1,35 @@
 @extends('layout.app')
 
-@section('page_title', "View $event->id" ) 
-
-@section('page_heading', 'View Event')
+@section('page_title', "View $event->name") 
 
 @section('styles')
 
 	 <!-- Datatables -->
-    <link href="{{ URL::asset('/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
 @endsection
 
 @section('scripts')
 	<!-- Datatables -->
-    <script src="{{URL::asset('/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{URL::asset('/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
-    <script src="{{URL::asset('/vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
-    <script src="{{URL::asset('/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
-    <script src="{{URL::asset('/vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
-    <script src="{{URL::asset('/vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
-    <script src="{{URL::asset('/vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
-    <script src="{{URL::asset('/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
-    <script src="{{URL::asset('/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
-    <script src="{{URL::asset('/vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
-    <script src="{{URL::asset('/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
-    <script src="{{URL::asset('/vendors/datatables.net-scroller/js/dataTables.scroller.min.js')}}"></script>
-    <script src="{{URL::asset('/vendors/jszip/dist/jszip.min.js')}}"></script>
-    <script src="{{URL::asset('/vendors/pdfmake/build/pdfmake.min.js')}}"></script>
-    <script src="{{URL::asset('/vendors/pdfmake/build/vfs_fonts.js')}}"></script>
+    <script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
 
     <script type="text/javascript">
     	$('.dataTable').DataTable();
@@ -48,10 +46,10 @@
 	        <div class="clearfix"></div>                
 	    </div>
 	    <div class="content">
-	    	<ul class="list">
-	    		<li>Event Name: <span>{{$event->name}}</span></li>
-	    		<li>Place: <span>{{$event->place}}</span></li>
-	    		<li>Date: <span>{{$event->date}}</span></li>
+	    	<ul class="detail-list">
+	    		<li><span>Event Name:</span> {{$event->name}}</li>
+	    		<li><span>Place:</span> {{$event->place}}</li>
+	    		<li><span>Date:</span> {{$event->date}}</li>
 	    	</ul>
 	    </div>
 	
@@ -93,4 +91,38 @@
 	        </table>
 		</div>
 	</div>
+
+		<div class="x_panel">
+			<div class="x_title">
+				<h2><i class="fa fa-users" aria-hidden="true"></i> Search Alumni</h2> 
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+
+				<table class="table table-hover dataTable">
+		            <thead>
+			            <tr>
+			            	<th>ID</th>
+			                <th>Name</th>
+			                <th>Email</th>
+			                <th>Manage</th>
+			            </tr>
+		            </thead>
+		            <tbody>
+						@foreach ( $unattended as $unattend => $value )
+							<tr>
+								<td>{{ $value->id }}</td>
+								<td>{{ $value->last_name }}, {{ $value->first_name }}</td>
+								<td>{{ $value->email }}</td>
+								<td>
+									<a href="#" class="btn btn-primary btn-xs">View Details</a>
+									<a href="#" class="btn btn-danger btn-xs">Attend</a>
+								</td>
+							</tr> 
+						@endforeach
+		            </tbody>
+		        </table>
+			</div>
+		</div>
+	
 @endsection

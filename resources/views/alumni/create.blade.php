@@ -6,7 +6,7 @@
 
 @section('styles')
 
-    <link href="{{ URL::asset('/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css')}}" rel="stylesheet">
+    <link href="/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <style type="text/css">
         .datePicker {
             padding: 0 10px !important;
@@ -19,7 +19,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ URL::asset('/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
+    <script src="/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 
     <script type="text/javascript">
 

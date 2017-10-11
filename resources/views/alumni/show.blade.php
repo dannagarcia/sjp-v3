@@ -100,7 +100,6 @@
 							<td>{{ $value->date }}</td>
 							<td>
 								<a href="/event/{{$value->id}}" class="btn btn-success btn-xs">View Event</a>
-								<a href="#" class="btn btn-danger btn-xs">Remove</a>
 							</td>
 						</tr> 
 					@endforeach

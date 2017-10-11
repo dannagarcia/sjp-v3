@@ -35,7 +35,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="{{URL::to('/')}}" class="site_title"><i class="fa fa-users" aria-hidden="true"></i> <span>San Jose</span></a>
+              <a href="/" class="site_title"><i class="fa fa-users" aria-hidden="true"></i> <span>San Jose</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -49,9 +49,9 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="/"><i class="fa fa-home"></i> Dashboard</a></li>
-                  <li><a href="/event"><i class="fa fa-calendar"></i> Events</a>
-                  </li>
                   <li><a href="/alumni"><i class="fa fa-users"></i> Alumni</a>
+                  </li>
+                  <li><a href="/event"><i class="fa fa-calendar"></i> Events</a>
                   </li>
                 </ul>
               </div>

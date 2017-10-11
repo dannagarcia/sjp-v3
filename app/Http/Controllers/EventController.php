@@ -126,4 +126,38 @@ class EventController extends Controller
     {
         //
     }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function attend(Request $request)
+    {
+        DB::table('alumni_event')->insert([
+            'alumni_id' => $request->alumni_id,
+            'event_id' => $request->event_id
+         ]);
+        return redirect('/event/' . $request->event_id);
+        
+    }
+
+    /**
+     * Removes the alumni_event m2m
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function remove(Request $request)
+    {
+        DB::table('alumni_event')
+        ->where('alumni_id', $request->alumni_id)
+        ->where('event_id', $request->event_id)
+        ->delete();
+        return redirect('/event/' . $request->event_id);
+        
+    }
+
 }

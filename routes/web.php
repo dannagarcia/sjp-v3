@@ -16,4 +16,7 @@ Route::get('/', function () {
 });
 Route::resource('/alumni', 'AlumniController');
 Route::resource('/event', 'EventController');
+// I love you
+Route::post('/event/attend', 'EventController@attend');
+Route::post('/event/remove', 'EventController@remove');
 

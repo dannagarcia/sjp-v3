@@ -69,6 +69,7 @@
 		            <tr>
 		            	<th>ID</th>
 		                <th>Event Name</th>
+						{{--<th>Description</th>--}}
 		                <th>Place</th>
 		                <th>Date</th>
 		                <th>Manage</th>
@@ -79,7 +80,8 @@
 			            <tr>
 			                <td>{{$event->id}}</td>
 			                <td>{{$event->name}}</td>
-			                <td>{{$event->place}}</td>
+							{{--<td>{{$event->description}}</td>--}}
+							<td>{{$event->place}}</td>
 			                <td>{{$event->date}}</td>
 			                <td>
 			                    <a href="/event/{{$event->id}}/edit" type="button" class="btn btn-primary btn-xs">Edit</a>

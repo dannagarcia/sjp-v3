@@ -52,22 +52,22 @@
 	    </div>
 	    <div class="content">
 	    	<a class="btn btn-primary btn-xs" href="/alumni/{{$alumni->id}}/edit">Edit</a>
-	    	<ul class="detail-list">
+	    	<ul class="details">
 	    		<li><span>First Name:</span> {{$alumni->first_name}}</li>
 	    		<li><span>Last Name:</span> {{$alumni->last_name}}</li>
 	    		<li><span>Alumni Type:</span> {{$alumni->alumni_type}}</li>
 	    		@if($alumni->alumni_type === 'Ordained')
 	    			<li><span>Diocese:</span> {{$alumni->diocese}}</li>
 	    			<li><span>Ordination {{$alumni->ordination}}</li>
-	    		@else 
+	    		@else
 	    			<li><span>Years in San Jose:</span> {{$alumni->years_in_sj}}</li>
 	    		@endif
-	    		<li><span>Birthdate :{{$alumni->birthdate}}</li>
-	    		<li><span>Address :{{$alumni->address}}</li>
+				<li><span>Birthdate: </span>{{$alumni->birthdate}}</li>
+				<li><span>Address: </span>{{$alumni->address}}</li>
 	    		<li><span>Telephone:</span> {{$alumni->telephone_num}}</li>
 	    		<li><span>Fax:</span> {{$alumni->fax_num}}</li>
 	    		<li><span>Mobile:</span> {{$alumni->mobile_num}}</li>
-	    		<li><span>Email:</span> {{$alumni->email}}</li>
+	    		<li><span>Email:</span> <a href="mailto:{{$alumni->email}}"><strong><em>{{$alumni->email}}</em></strong></a></li>
 	    	</ul>
 
 
@@ -86,6 +86,7 @@
 		            <tr>
 		            	<th>ID</th>
 		                <th>Event Name</th>
+						{{--<th>Description</th>--}}
 		                <th>Place</th>
 		                <th>Date</th>
 		                <th>Manage</th>
@@ -96,6 +97,7 @@
 						<tr>
 							<td>{{ $value->id }}</td>
 							<td>{{ $value->name }}</td>
+							{{--<td>{{ $value->description}}</td>--}}
 							<td>{{ $value->place }}</td>
 							<td>{{ $value->date }}</td>
 							<td>

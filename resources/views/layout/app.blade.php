@@ -25,6 +25,26 @@
     <link href="/css/custom.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
 
+    <style>
+      .details {
+        padding-left: 0;
+        list-style: none;
+      }
+      .details li {
+        position: relative;
+        padding-left: 150px;
+        margin-bottom: 5px;
+      }
+      .details li > span {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .dashb-title {
+        margin: 20px 0;
+      }
+    </style>
+
     @section('styles')
      @show
   </head>

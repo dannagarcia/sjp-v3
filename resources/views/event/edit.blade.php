@@ -53,6 +53,13 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="Event Description" class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {{--<input name="event_desciption" type="text" class="form-control">--}}
+                        <textarea value="{{$event->description}}" name="event_description" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="Event Place" class="control-label col-md-3 col-sm-3 col-xs-12">Place</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <input value="{{$event->place}}" name="event_place" type="text" class="form-control">

@@ -47,9 +47,10 @@
 	    </div>
 	    <div class="content">
 	    	<a class="btn btn-primary btn-xs" href="/event/{{$event->id}}/edit">Edit</a>
-	    	<ul class="detail-list">
-	    		<li><span>Event Name:</span> {{$event->name}}</li>
-	    		<li><span>Place:</span> {{$event->place}}</li>
+	    	<ul class="details">
+				<li><span>Event Name:</span> {{$event->name}}</li>
+				<li><span>Description:</span> {{$event->description}}</li>
+				<li><span>Place:</span> {{$event->place}}</li>
 	    		<li><span>Date:</span> {{$event->date}}</li>
 	    	</ul>
 	    </div>
@@ -121,7 +122,7 @@
 								<td>{{ $value->last_name }}, {{ $value->first_name }}</td>
 								<td>{{ $value->email }}</td>
 								<td>
-									<a href="#" class="btn btn-primary btn-xs">View Details</a>
+									<a href="/alumni/{{$value->id}}" class="btn btn-primary btn-xs">View Details</a>
 									<form style="display:inline" method="post" action="/event/attend">
 										{{ csrf_field() }}
 										<input type="hidden" name="event_id" value="{{ $event->id }}">

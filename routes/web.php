@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,12 +12,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'DashboardController@index');
+
 Route::resource('/alumni', 'AlumniController');
 Route::resource('/event', 'EventController');
 // I love you
 Route::post('/event/attend', 'EventController@attend');
 Route::post('/event/remove', 'EventController@remove');
+Route::get('/reports/test', 'ReportsController@test');
 

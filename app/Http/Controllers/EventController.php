@@ -46,7 +46,8 @@ class EventController extends Controller
         ]);
         $event = new Event(); // Initialize
 
-        $event->name = $request->input('event_name'); 
+        $event->name = $request->input('event_name');
+        $event->description = $request->input('event_description');
         $event->place = $request->input('event_place');
         $event->date = $request->input('event_date');
 
@@ -102,12 +103,14 @@ class EventController extends Controller
     {
         $request->validate([
             'event_name' => 'required',
+            'event_description' => 'required',
             'event_place' => 'required',
             'event_date' => 'required'
         ]);
         $event = Event::find($request->id);
 
-        $event->name = $request->input('event_name'); 
+        $event->name = $request->input('event_name');
+        $event->description = $request->input('event_description');
         $event->place = $request->input('event_place');
         $event->date = $request->input('event_date');
 

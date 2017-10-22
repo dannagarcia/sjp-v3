@@ -57,6 +57,7 @@ class AlumniController extends Controller
         $alumni->email = $request->input('email');
 
         $alumni->save();
+        $request->session()->flash('message', 'Successfuly registered');
         return redirect('/alumni');
     }
 
@@ -97,6 +98,17 @@ class AlumniController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'fName' => 'required',
+            'lName' => 'required',
+            'alumni_type' => 'required',
+            'telephone' => 'numeric',
+            'mobile' => 'numeric',
+            'fax' => 'numeric',
+            'birthdate' => 'date'
+        ]);
+
         $alumni = Alumni::find($request->id); // found on input hidden field in view
         $alumni->first_name = $request->input('fName');
         $alumni->last_name = $request->input('lName');
@@ -112,6 +124,8 @@ class AlumniController extends Controller
         $alumni->email = $request->input('email');
 
         $alumni->save();
+
+        $request->session()->flash('message', 'Update Sucess');
 
         return redirect('/alumni/' . $request->id);
 

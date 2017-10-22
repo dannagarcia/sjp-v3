@@ -61,6 +61,8 @@
 	<div class="x_panel">
 		<div class="x_title">
 			<h2><i class="fa fa-users" aria-hidden="true"></i> Attendees List</h2> 
+			<a href="/" class="pull-right btn btn-success btn-xs">Download Excel</a>
+
 	        <div class="clearfix"></div>  
 		</div>
 		<div class="x_content">

@@ -19,29 +19,43 @@ class DashboardController extends Controller
      */
     public function index() {
         $current = Carbon::now()->format('Y-m-d');
-        $events_today = Event::whereDate('date', $current )
+        $event_today = Event::whereDate('date', $current )
                                 ->orderBy('created_at', 'asc')
-                                ->get();
+                                ->first();
 
-        $event_id;
-        foreach ( $events_today as $event_today => $et ) {
-            $event_id = $et->id;
-        }
-        $attendants = Event::find($event_id)->alumnis;
+        $top_five = Event::orderBy('date', 'desc')->limit(5)->get();
 
-        $attendants_count = count($attendants); // Number of Attendants
 
         $event = Event::orderBy('created_at', 'desc')->first();
         $alumni = Alumni::orderBy('created_at', 'desc')->first();
 
-        $counter = 0;
+        // return $top_five;
 
         return view('index')
-            ->with('event', $event)
-            ->with('alumni', $alumni)
-            ->with('events_today', $events_today)
-            ->with('attendants', $attendants)
-            ->with('attendants_count', $attendants_count)
-            ->with('counter', $counter);
+                ->with('event', $event)
+                ->with('alumni', $alumni)
+                ->with('event_today', $event_today)
+                ->with('top_five', $top_five);
+
+
+        // if($event_today) {
+        //     $event_id = $event_today->id;
+        //     $attendants = Event::find($event_id)->alumnis;
+        //     $attendants_count = count($attendants); // Number of Attendants
+
+        //     return view('index')
+        //         ->with('event', $event)
+        //         ->with('alumni', $alumni)
+        //         ->with('event_today', $event_today)
+        //         ->with('attendants', $attendants)
+        //         ->with('attendants_count', $attendants_count)
+        //         ->with('event_id', $event_id);
+
+        // } else {
+        //     $event_id = null;
+        //     return view('index')
+        //         ->with('event_id', $event_id);
+        // }
+
     }
 }

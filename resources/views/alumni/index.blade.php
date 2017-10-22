@@ -45,15 +45,9 @@
 
 	
 	<div class="x_panel">
-		<div class="x_title">
-			<h2>Manage Alumni</h2>
-			<ul class="nav navbar-right panel_toolbox">
-	            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-			</ul>
-	        <div class="clearfix"></div>                
-		</div>
 		<div class="x_content">
 			<a href="/alumni/create" class="btn btn-primary btn-lg">Register Alumni</a>
+			<a href="/" class="pull-right btn btn-success btn-lg">Download Excel</a>
 		</div>
 	</div>
 

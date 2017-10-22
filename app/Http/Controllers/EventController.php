@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Event;
 
 use App\Alumni;
-
+ 
 use Illuminate\Http\Request;
 
 use DB;
@@ -52,6 +52,7 @@ class EventController extends Controller
         $event->date = $request->input('event_date');
 
         $event->save();
+        $request->session()->flash('message', 'Successfuly created');
         return redirect('/event');
     }
 

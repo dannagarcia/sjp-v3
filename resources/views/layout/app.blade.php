@@ -110,7 +110,17 @@
         <!-- /top navigation -->
 
         <div class="right_col" role="main">
+          <div class="x_content">
             <div class="row">
+              @if ($errors->any())
+                <div class="alert alert-danger">
+                  <ul>
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
               @if (Session::has('message'))
                 <div class="alert alert-success">
                   {{ session('message') }}
@@ -119,6 +129,8 @@
                 @section('body')
                  @show
             </div>
+          </div>
+            
         </div>
 
         <!-- footer content -->

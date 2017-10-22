@@ -147,7 +147,7 @@
                 <div class="ln_solid"></div>
                   <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                      <button type="button" class="btn btn-primary">Cancel</button>
+                      <a href="/alumni/" type="button" class="btn btn-primary">Cancel</a>
                       <button type="reset" class="btn btn-primary">Reset</button>
                       <button type="submit" class="btn btn-success" value="Submit">Submit</button>
                     </div>

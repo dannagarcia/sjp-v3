@@ -25,7 +25,7 @@
 
         $(document).ready(function() {
             $('.datePicker').datetimepicker({
-                format: 'MM/DD/YYYY'
+                format: 'YYYY-MM-DD'
             });
 
             $("#alumni_type > label.ord-lbl").click(function(e) {

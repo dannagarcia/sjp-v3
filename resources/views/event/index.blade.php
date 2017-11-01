@@ -45,7 +45,7 @@
 	<div class="x_panel">
 		<div class="x_content">
 			<a href="/event/create" class="btn btn-primary btn-lg">Create Event</a>
-			<a href="/" class="pull-right btn btn-success btn-lg">Download Excel</a>
+			<a href="/reports/alumni" class="pull-right btn btn-success btn-lg">Download Excel</a>
 			
 		</div>
 	</div>

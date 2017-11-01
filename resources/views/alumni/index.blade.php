@@ -47,7 +47,7 @@
 	<div class="x_panel">
 		<div class="x_content">
 			<a href="/alumni/create" class="btn btn-primary btn-lg">Register Alumni</a>
-			<a href="/" class="pull-right btn btn-success btn-lg">Download Excel</a>
+			<a href="/reports/alumni" class="pull-right btn btn-success btn-lg">Download Excel</a>
 		</div>
 	</div>
 

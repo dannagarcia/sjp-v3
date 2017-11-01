@@ -42,7 +42,10 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'event_name' => 'required'
+            'event_name' => 'required',
+            'event_description' => 'required',
+            'event_place' => 'required',
+            'event_date' => 'required'
         ]);
         $event = new Event(); // Initialize
 

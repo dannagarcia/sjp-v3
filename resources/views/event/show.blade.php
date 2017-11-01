@@ -61,7 +61,7 @@
 	<div class="x_panel">
 		<div class="x_title">
 			<h2><i class="fa fa-users" aria-hidden="true"></i> Attendees List</h2> 
-			<a href="/" class="pull-right btn btn-success btn-xs">Download Excel</a>
+			<a href="/reports/eventreports" class="pull-right btn btn-success btn-xs">Download Excel</a>
 
 	        <div class="clearfix"></div>  
 		</div>
@@ -88,11 +88,12 @@
 							<td>{{ $value->phone_num }}</td>
 							<td>
 								<form method="post" action="/event/remove">
-										{{ csrf_field() }}
-										<input type="hidden" name="event_id" value="{{ $event->id }}">
-										<input type="hidden" name="alumni_id" value="{{ $value->id }}">
-										<button class="btn btn-danger btn-xs">Remove</button>
-									</form>
+									{{ csrf_field() }}
+									<input type="hidden" name="event_name" value="{{ $event->name }}">
+									<input type="hidden" name="event_id" value="{{ $event->id }}">
+									<input type="hidden" name="alumni_id" value="{{ $value->id }}">
+									<button class="btn btn-danger btn-xs">Remove</button>
+								</form>
 							</td>
 						</tr> 
 					@endforeach

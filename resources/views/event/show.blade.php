@@ -61,7 +61,7 @@
 	<div class="x_panel">
 		<div class="x_title">
 			<h2><i class="fa fa-users" aria-hidden="true"></i> Attendees List</h2> 
-			<a href="/reports/eventreports" class="pull-right btn btn-success btn-xs">Download Excel</a>
+			<a href="/reports/eventreports?event_id={{ $event->id }}" class="pull-right btn btn-success btn-xs">Download Excel</a>
 
 	        <div class="clearfix"></div>  
 		</div>
@@ -126,6 +126,52 @@
 								<td>{{ $value->email }}</td>
 								<td>
 									<a href="/alumni/{{$value->id}}" class="btn btn-primary btn-xs">View Details</a>
+									<!-- Large modal -->
+									<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-lg-{{ $value->id }}">Modal Test</button>
+
+									<div class="modal fade" id="modal-lg-{{ $value->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+													</button>
+													<h4 class="modal-title" id="myModalLabel">Alumni Details</h4>
+												</div>
+												<div class="modal-body">
+													<?php
+                                                        $alumni = \App\Alumni::find($value->id);
+                                                    ?>
+                                                        <div class="content">
+                                                            <a class="btn btn-primary btn-xs" href="/alumni/{{$alumni->id}}/edit">Edit</a>
+                                                            <ul class="details">
+                                                                <li><span>First Name:</span> {{$alumni->first_name}}</li>
+                                                                <li><span>Last Name:</span> {{$alumni->last_name}}</li>
+                                                                <li><span>Alumni Type:</span> {{$alumni->alumni_type}} </li>
+                                                                @if($alumni->alumni_type === 'Ordained')
+                                                                    <li><span>Diocese:</span>   {{$alumni->diocese}}</li>
+                                                                    <li><span>Ordination:</span>   {{ $alumni->ordination}}</li>
+                                                                @else
+                                                                    <li><span>Years in San Jose:</span>  {{ $alumni->years_in_sj }}</li>
+                                                                @endif
+
+                                                                <li><span>Birthdate: </span>{{$alumni->birthdate}}</li>
+                                                                <li><span>Address: </span>{{$alumni->address}}</li>
+                                                                <li><span>Telephone:</span> {{$alumni->telephone_num}}</li>
+                                                                <li><span>Fax:</span> {{$alumni->fax_num}}</li>
+                                                                <li><span>Mobile:</span> {{$alumni->mobile_num}}</li>
+                                                                <li><span>Email:</span> <a href="mailto:{{$alumni->email}}"><strong><em>{{$alumni->email}}</em></strong></a></li>
+                                                            </ul>
+                                                        </div>
+                                                </div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+													{{--<button type="button" class="btn btn-primary">Save changes</button>--}}
+												</div>
+
+											</div>
+										</div>
+									</div>
 									<form style="display:inline" method="post" action="/event/attend">
 										{{ csrf_field() }}
 										<input type="hidden" name="event_id" value="{{ $event->id }}">

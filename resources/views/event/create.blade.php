@@ -29,15 +29,6 @@
 
 
 @section('body')
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <div class="x_panel">
         <div class="x_title">
             <h2>Create Event</h2>
@@ -82,7 +73,7 @@
                 <div class="ln_solid"></div>
                   <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                      <button type="button" class="btn btn-primary">Cancel</button>
+                      <a href="/event/" type="button" class="btn btn-primary">Cancel</a>
                       <button type="reset" class="btn btn-primary">Reset</button>
                       <button type="submit" class="btn btn-success" value="Submit">Submit</button>
                     </div>

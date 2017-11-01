@@ -17,9 +17,11 @@ Route::get('/', 'DashboardController@index');
 Route::resource('/alumni', 'AlumniController');
 
 Route::resource('/event', 'EventController');
-// I love you
+
 Route::post('/event/attend', 'EventController@attend');
 Route::post('/event/remove', 'EventController@remove');
 Route::get('/reports/test', 'ReportsController@test');
 
 Route::get('/reports/alumni', 'ReportsController@reports');
+
+Route::get('/reports/eventreports', 'ReportsController@eventreport');

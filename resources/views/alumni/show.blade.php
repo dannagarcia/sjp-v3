@@ -69,8 +69,6 @@
 	    		<li><span>Mobile:</span> {{$alumni->mobile_num}}</li>
 	    		<li><span>Email:</span> <a href="mailto:{{$alumni->email}}"><strong><em>{{$alumni->email}}</em></strong></a></li>
 	    	</ul>
-
-
 	    </div>
 	
 	</div>

@@ -107,7 +107,7 @@
                 <div class="form-group for-lay">
                     <label for="Years in San Jose" class="control-label col-md-3 col-sm-3 col-xs-12">Years in San Jose</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input value="{{$alumni->yrs_in_sj}}" name="yrs_sj" type="text" class="form-control">
+                      <input value="{{$alumni->years_in_sj}}" name="yrs_sj" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">

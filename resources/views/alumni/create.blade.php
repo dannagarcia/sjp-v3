@@ -102,7 +102,7 @@
                 <div class="form-group for-ordination">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Ordination Date</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
-                        <input type='text' class="form-control" />
+                        <input type='text' class="form-control" name="ordination" />
                         <span class="input-group-addon">
                            <span name="ordination" class="glyphicon glyphicon-calendar"></span>
                         </span>

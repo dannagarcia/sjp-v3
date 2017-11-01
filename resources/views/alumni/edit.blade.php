@@ -37,6 +37,11 @@
                 $( ".for-ordination" ).hide();
             });
 
+            @if($alumni->alumni_type === 'ordained')
+            $( ".for-ordination" ).show();
+            $( ".for-lay" ).hide();
+            @endif
+
         });
 
     </script>
@@ -59,10 +64,10 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Type</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <div id="alumni_type" class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-default active lay-lbl" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                        <label class="btn btn-default {{ $alumni->alumni_type === 'ordained' ? 'lay' :  ''}} lay-lbl" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                           <input checked type="radio" name="alumni_type" value="Lay"> &nbsp; Lay &nbsp;
                         </label>
-                        <label class="btn btn-default ord-lbl" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                        <label class="btn btn-default ord-lbl {{ $alumni->alumni_type === 'ordained' ? 'active' :  ''}}" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                           <input type="radio" name="alumni_type" value="Ordained"> Ordained
                         </label>
                       </div>
@@ -98,7 +103,7 @@
                 <div class="form-group for-ordination">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Ordination Date</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
-                        <input value="{{$alumni->ordination}}" type='text' class="form-control" />
+                        <input value="{{$alumni->ordination}}" name="ordination" type='text' class="form-control" />
                         <span class="input-group-addon">
                            <span name="ordination" class="glyphicon glyphicon-calendar"></span>
                         </span>

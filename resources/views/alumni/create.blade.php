@@ -75,19 +75,25 @@
                 <div class="form-group">
                     <label for="First Name" class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input name="fName" type="text" class="form-control">
+                      <input name="fName" type="text" class="form-control" value="{{ old('fName') }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Last Name" class="control-label col-md-3 col-sm-3 col-xs-12">Last Name</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input name="lName" type="text" class="form-control">
+                      <input name="lName" type="text" class="form-control" value="{{ old('lName') }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Nickname" class="control-label col-md-3 col-sm-3 col-xs-12">Nickname</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input name="nickname" type="text" class="form-control" value="{{ old('nickname') }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Date of Birth</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
-                        <input name="birthdate" type='text' class="form-control" />
+                        <input name="birthdate" type='text' class="form-control" value="{{ old('birthdate') }}" placeholder="yyyy-mm-dd"/>
                         <span class="input-group-addon">
                            <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -96,13 +102,13 @@
                 <div class="form-group for-ordination">
                     <label for="Diocese" class="control-label col-md-3 col-sm-3 col-xs-12">Diocese</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input name="diocese" type="text" class="form-control">
+                      <input name="diocese" type="text" class="form-control" value="{{ old('diocese') }}">
                     </div>
                 </div>
                 <div class="form-group for-ordination">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Ordination Date</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
-                        <input type='text' class="form-control" name="ordination" />
+                        <input type='text' class="form-control" name="ordination" value="{{ old('ordination') }}"/>
                         <span class="input-group-addon">
                            <span name="ordination" class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -111,37 +117,37 @@
                 <div class="form-group for-lay">
                     <label for="Years in San Jose" class="control-label col-md-3 col-sm-3 col-xs-12">Years in San Jose</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input name="yrs_sj" type="text" class="form-control">
+                      <input name="yrs_sj" type="text" class="form-control" value="{{ old('yrs_sj') }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Address" class="control-label col-md-3 col-sm-3 col-xs-12">Address</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input name="address" type="text" class="form-control">
+                      <input name="address" type="text" class="form-control" value="{{ old('address') }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Telephone" class="control-label col-md-3 col-sm-3 col-xs-12">Telephone</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input name="telephone" type="text" class="form-control">
+                      <input name="telephone" type="text" class="form-control" value="{{ old('telephone') }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Fax" class="control-label col-md-3 col-sm-3 col-xs-12">Fax</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input name="fax" type="text" class="form-control">
+                      <input name="fax" type="text" class="form-control" value="{{ old('fax') }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Mobile" class="control-label col-md-3 col-sm-3 col-xs-12">Mobile</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input name="mobile" type="text" class="form-control">
+                      <input name="mobile" type="text" class="form-control" value="{{ old('mobile') }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Email" class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input name="email" type="email" class="form-control">
+                      <input name="email" type="email" class="form-control" value="{{ old('email') }}">
                     </div>
                 </div>
                 <div class="ln_solid"></div>

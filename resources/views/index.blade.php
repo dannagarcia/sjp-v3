@@ -56,34 +56,36 @@
 
 	<div class="row">
 		
-		<div class="col-xs-12 col-sm-6 col-md-6">
-			
-			<div class="x_panel">
-				<div class="x_title">
-					<h2><i class="fa fa-calendar"></i> Event </h2>
-					<div class="pull-right">
-						<a class="btn btn-primary btn-xs" href="/event/create">Create an Event</a>
-						<a class="btn btn-info btn-xs" href="/event/">View All Events</a>
+		@if($event)
+			<div class="col-xs-12 col-sm-6 col-md-6">
+
+				<div class="x_panel">
+					<div class="x_title">
+						<h2><i class="fa fa-calendar"></i> Event </h2>
+						<div class="pull-right">
+							<a class="btn btn-primary btn-xs" href="/event/create">Create an Event</a>
+							<a class="btn btn-info btn-xs" href="/event/">View All Events</a>
+						</div>
+
+						<div class="clearfix"></div>
 					</div>
+					<div class="x_content">
+						<span><em><small>Recently created event</small></em></span>
+						<span class="pull-right"><em><small>Date created: {{$event->created_at}}</small></em></span>
 
-					<div class="clearfix"></div>
+						<h2 class="dashb-title page-header">{{$event->name}}</h2>
+						<ul class="details">
+							<li><span>Description:</span> <b>{{$event->description}}</b></li>
+							<li><span>Place:</span> <b>{{$event->place}}</b></li>
+							<li><span>Date:</span> <b>{{$event->date}}</b></li>
+						</ul>
+						<a class="btn btn-success btn-xs" href="event/{{$event->id}}"><em>View More Details</em></a>
+					</div>
 				</div>
-				<div class="x_content">
-					<span><em><small>Recently created event</small></em></span>
-					<span class="pull-right"><em><small>Date created: {{$event->created_at}}</small></em></span>
 
-					<h2 class="dashb-title page-header">{{$event->name}}</em></h2>
-					<ul class="details">
-						<li><span>Description:</span> <b>{{$event->description}}</b></li>
-						<li><span>Place:</span> <b>{{$event->place}}</b></li>
-						<li><span>Date:</span> <b>{{$event->date}}</b></li>
-					</ul>
-					<a class="btn btn-success btn-xs" href="event/{{$event->id}}"><em>View More Details</em></a>
-				</div>
+
 			</div>
-		
-			
-		</div>
+		@endif
 
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			

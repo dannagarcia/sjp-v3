@@ -43,6 +43,8 @@
       .dashb-title {
         margin: 20px 0;
       }
+      /* Ateneo color #360000 */
+
     </style>
 
     @section('styles')
@@ -55,8 +57,9 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="/" class="site_title"><i class="fa fa-users" aria-hidden="true"></i> <span>San Jose</span></a>
+              <a href="/" class="site_title text-center"> <span>San Jose Seminary</span></a>
             </div>
+            <img src="/images/logo.png" class="img-responsive" alt="Logo" style="filter: invert(100%);">
 
             <div class="clearfix"></div>
             <!-- /menu profile quick info -->

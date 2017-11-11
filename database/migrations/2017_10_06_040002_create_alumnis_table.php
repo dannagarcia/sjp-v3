@@ -18,6 +18,7 @@ class CreateAlumnisTable extends Migration
             $table->enum('alumni_type', ['lay', 'ordained']);
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('nickname');
             $table->string('diocese')->nullable();
             $table->date('birthdate')->nullable();
             $table->string('ordination')->nullable();

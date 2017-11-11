@@ -86,6 +86,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="Nickname" class="control-label col-md-3 col-sm-3 col-xs-12">Nickname</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input name="nickname" type="text" class="form-control" value="{{ $alumni->nickname }}">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Date of Birth</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
                         <input value="{{$alumni->birthdate}}" name="birthdate" type='text' class="form-control" />

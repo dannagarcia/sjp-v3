@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Alumni;
@@ -10,6 +11,7 @@ use App\Event;
 use Illuminate\Support\Facades\View;
 use Jimmyjs\ReportGenerator\ReportMedia\PdfReport;
 use Maatwebsite\Excel\Facades\Excel;
+use App;
 
 
 class ReportsController extends Controller
@@ -23,14 +25,14 @@ class ReportsController extends Controller
             $excel->sheet('Ordained', function ($sheet) {
 
 
-                $ordained = Alumni::select('first_name', 'last_name', 'diocese', 'birthdate',
+                $ordained = Alumni::select('first_name', 'last_name', 'nickname', 'diocese', 'birthdate',
                     'ordination', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'ordained')
                     ->get();
                 $sheet->fromModel($ordained->toArray(), null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Dicoese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Nickname', 'Dicoese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -51,14 +53,14 @@ class ReportsController extends Controller
             });
 
             $excel->sheet('Lay', function ($sheet) {
-                $lay = Alumni::select( 'first_name', 'last_name', 'birthdate',
+                $lay = Alumni::select( 'first_name', 'last_name','nickname', 'birthdate',
                     'years_in_sj', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'lay')
                     ->get();
                 $sheet->fromModel($lay->toArray(), null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Nickname','Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -82,10 +84,10 @@ class ReportsController extends Controller
         $ordained  = [];
         foreach ($alumnis as $a){
             if($a->alumni_type === 'lay'){
-                $lay[] = [$a->first_name, $a->last_name, $a->birthdate, $a->years_in_sj, $a->address, $a->telephone_num,
+                $lay[] = [$a->first_name, $a->last_name, $a->nickname, $a->birthdate, $a->years_in_sj, $a->address, $a->telephone_num,
                 $a->fax_num, $a->mobile_num, $a->email];
             } elseif ($a->alumni_type === 'ordained'){
-                $ordained[] = [$a->first_name, $a->last_name, $a->diocese,$a->birthdate, $a->ordination, $a->address, $a->telephone_num,
+                $ordained[] = [$a->first_name, $a->last_name, $a->nickname, $a->diocese,$a->birthdate, $a->ordination, $a->address, $a->telephone_num,
                     $a->fax_num, $a->mobile_num, $a->email];
             }
 
@@ -99,7 +101,7 @@ class ReportsController extends Controller
                 $sheet->fromArray($ordained, null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Dicoese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Nickname','Dicoese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -114,7 +116,7 @@ class ReportsController extends Controller
                 $sheet->fromArray($lay);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Nickname', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -125,6 +127,16 @@ class ReportsController extends Controller
             });
 
         })->export('xls');
+
+    }
+
+    public function downloadId($id){
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper([0, 0, 270, 360], 'portrait');
+        $data = ['alumni' => Alumni::find($id)];
+        $pdf = $pdf->loadView('pdf.id', $data);
+
+        return $pdf->stream();
 
     }
 }

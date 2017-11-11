@@ -82,7 +82,9 @@
 			                <td>
 			                    <a href="/alumni/{{$alumnus->id}}/edit" type="button" class="btn btn-primary btn-xs">Edit</a>
 			                    <a href="/alumni/{{$alumnus->id}}" type="button" class="btn btn-success btn-xs">View details</a>
-			                </td>
+								<a href="/reports/download-id/{{$alumnus->id}}" type="button" class="btn btn-info btn-xs">Id</a>
+
+							</td>
 			            </tr>
 				    @endforeach
 	            </tbody>

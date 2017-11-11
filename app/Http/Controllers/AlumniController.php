@@ -9,6 +9,16 @@ use App\Alumni;
 
 class AlumniController extends Controller
 {
+    private $rules = [
+        'fName' => 'required',
+        'lName' => 'required',
+        'nickname' => 'required',
+        'alumni_type' => 'required',
+        'telephone' => 'string|nullable',
+        'mobile' => 'string|nullable',
+        'fax' => 'string|nullable',
+        'birthdate' => 'date|nullable'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -38,13 +48,11 @@ class AlumniController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'fName' => 'required',
-            'lName' => 'required',
-        ]);
+        $request->validate($this->rules);
         $alumni = new Alumni;
         $alumni->first_name = $request->input('fName');
         $alumni->last_name = $request->input('lName');
+        $alumni->nickname = $request->input('nickname');
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');
         $alumni->diocese = $request->input('diocese');
@@ -99,19 +107,12 @@ class AlumniController extends Controller
     public function update(Request $request, $id)
     {
 
-        $request->validate([
-            'fName' => 'required',
-            'lName' => 'required',
-            'alumni_type' => 'required',
-            'telephone' => 'numeric',
-            'mobile' => 'numeric',
-            'fax' => 'numeric',
-            'birthdate' => 'date'
-        ]);
+        $request->validate($this->rules);
 
         $alumni = Alumni::find($request->id); // found on input hidden field in view
         $alumni->first_name = $request->input('fName');
         $alumni->last_name = $request->input('lName');
+        $alumni->nickname = $request->input('nickname');
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');
         $alumni->diocese = $request->input('diocese');

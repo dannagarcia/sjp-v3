@@ -85,15 +85,17 @@
 							<td>{{ $value->first_name }}</td>
 							<td>{{ $value->last_name }}</td>
 							<td>{{ $value->email }}</td>
-							<td>{{ $value->phone_num }}</td>
+							<td>{{ $value->mobile_num }}</td>
 							<td>
-								<form method="post" action="/event/remove">
+								<form method="post" action="/event/remove" class="pull-left">
 									{{ csrf_field() }}
 									<input type="hidden" name="event_name" value="{{ $event->name }}">
 									<input type="hidden" name="event_id" value="{{ $event->id }}">
 									<input type="hidden" name="alumni_id" value="{{ $value->id }}">
 									<button class="btn btn-danger btn-xs">Remove</button>
 								</form>
+								<a href="/reports/download-id/{{$value->id}}" type="button" class="pull-left btn btn-info btn-xs">Id</a>
+
 							</td>
 						</tr> 
 					@endforeach

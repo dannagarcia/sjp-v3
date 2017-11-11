@@ -24,9 +24,6 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
-            $('.datePicker').datetimepicker({
-                format: 'YYYY-MM-DD'
-            });
 
             $("#alumni_type > label.ord-lbl").click(function(e) {
                 e.preventDefault();

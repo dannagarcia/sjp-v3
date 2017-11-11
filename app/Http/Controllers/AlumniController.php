@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use DB;
 use App\Alumni;
-
+use DateTime;
 class AlumniController extends Controller
 {
     private $rules = [
@@ -17,7 +17,7 @@ class AlumniController extends Controller
         'telephone' => 'string|nullable',
         'mobile' => 'string|nullable',
         'fax' => 'string|nullable',
-        'birthdate' => 'date|nullable'
+        'birthdate' => 'date_format:m-d-Y|nullable'
     ];
     /**
      * Display a listing of the resource.
@@ -56,8 +56,10 @@ class AlumniController extends Controller
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');
         $alumni->diocese = $request->input('diocese');
-        $alumni->birthdate = $request->input('birthdate');
-        $alumni->ordination = $request->input('ordination');
+        $alumni->birthdate =  DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
+        if ($alumni->type === 'ordained'){
+            $alumni->ordination =  DateTime::createFromFormat('m-d-Y', $request->ordination)->format('Y-m-d');
+        }
         $alumni->address = $request->input('address');
         $alumni->telephone_num = $request->input('telephone');
         $alumni->fax_num = $request->input('fax');
@@ -107,6 +109,7 @@ class AlumniController extends Controller
     public function update(Request $request, $id)
     {
 
+
         $request->validate($this->rules);
 
         $alumni = Alumni::find($request->id); // found on input hidden field in view
@@ -116,8 +119,8 @@ class AlumniController extends Controller
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');
         $alumni->diocese = $request->input('diocese');
-        $alumni->birthdate = $request->input('birthdate');
-        $alumni->ordination = $request->input('ordination');
+        $alumni->birthdate =  DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
+        $alumni->ordination =  DateTime::createFromFormat('m-d-Y', $request->ordination)->format('Y-m-d');
         $alumni->address = $request->input('address');
         $alumni->telephone_num = $request->input('telephone');
         $alumni->fax_num = $request->input('fax');

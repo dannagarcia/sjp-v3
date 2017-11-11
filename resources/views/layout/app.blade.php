@@ -186,7 +186,13 @@
 
     <!-- Custom Theme Scripts -->
     <script src="/js/custom.min.js"></script>
-
+    <script>
+      $(document).ready(function(){
+          $('.datePicker').datetimepicker({
+              format: 'MM-DD-YYYY'
+          });
+      });
+    </script>
     @section('scripts')
      @show
   </body>

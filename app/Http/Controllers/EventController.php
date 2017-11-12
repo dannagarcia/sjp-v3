@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Event;
 
 use App\Alumni;
- 
+
 use Illuminate\Http\Request;
 
 use DB;
-
+use DateTime;
 class EventController extends Controller
 {
     /**
@@ -52,7 +52,7 @@ class EventController extends Controller
         $event->name = $request->input('event_name');
         $event->description = $request->input('event_description');
         $event->place = $request->input('event_place');
-        $event->date = $request->input('event_date');
+        $event->date=  DateTime::createFromFormat('m-d-Y', $request->event_date)->format('Y-m-d');
 
         $event->save();
         $request->session()->flash('message', 'Successfuly created');
@@ -116,7 +116,8 @@ class EventController extends Controller
         $event->name = $request->input('event_name');
         $event->description = $request->input('event_description');
         $event->place = $request->input('event_place');
-        $event->date = $request->input('event_date');
+        $event->date=  DateTime::createFromFormat('m-d-Y', $request->event_date)->format('Y-m-d');
+
 
         $event->save();
         $request->session()->flash('message', 'Update Sucess');

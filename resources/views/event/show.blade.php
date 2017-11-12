@@ -127,9 +127,8 @@
 								<td>{{ $value->last_name }}, {{ $value->first_name }}</td>
 								<td>{{ $value->email }}</td>
 								<td>
-									<a href="/alumni/{{$value->id}}" class="btn btn-primary btn-xs">View Details</a>
 									<!-- Large modal -->
-									<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-lg-{{ $value->id }}">Modal Test</button>
+									<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-lg-{{ $value->id }}">Details</button>
 
 									<div class="modal fade" id="modal-lg-{{ $value->id }}" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog modal-lg">
@@ -145,7 +144,7 @@
                                                         $alumni = \App\Alumni::find($value->id);
                                                     ?>
                                                         <div class="content">
-                                                            <a class="btn btn-primary btn-xs" href="/alumni/{{$alumni->id}}/edit">Edit</a>
+                                                            <a class="btn btn-primary btn-xs" target="_blank" href="/alumni/{{$alumni->id}}/edit">Edit</a>
                                                             <ul class="details">
                                                                 <li><span>First Name:</span> {{$alumni->first_name}}</li>
                                                                 <li><span>Last Name:</span> {{$alumni->last_name}}</li>
@@ -156,7 +155,8 @@
                                                                 @else
                                                                     <li><span>Years in San Jose:</span>  {{ $alumni->years_in_sj }}</li>
                                                                 @endif
-
+																<li><span>BEC: </span>{{$alumni->bec }}</li>
+																<li><span>Batch Year: </span>{{$alumni->batch_year}}</li>
                                                                 <li><span>Birthdate: </span>{{$alumni->birthdate}}</li>
                                                                 <li><span>Address: </span>{{$alumni->address}}</li>
                                                                 <li><span>Telephone:</span> {{$alumni->telephone_num}}</li>

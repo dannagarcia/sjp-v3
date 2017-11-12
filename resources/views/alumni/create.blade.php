@@ -87,6 +87,20 @@
                         <input name="nickname" type="text" class="form-control" value="{{ old('nickname') }}">
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="bec" class="control-label col-md-3 col-sm-3 col-xs-12">BEC</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input name="bec" type="text" class="form-control" value="{{ old('bec') }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="batch_year" class="control-label col-md-3 col-sm-3 col-xs-12">Batch Year</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input name="batch_year" type="text" class="form-control" value="{{ old('batch_year') }}">
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Date of Birth</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>

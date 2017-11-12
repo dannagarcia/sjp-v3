@@ -56,8 +56,10 @@ class AlumniController extends Controller
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');
         $alumni->diocese = $request->input('diocese');
-        $alumni->birthdate =  DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
-        if ($alumni->type === 'ordained'){
+        if (isset($request->birthday)){
+            $alumni->birthdate =  DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
+        }
+        if (isset($request->ordination)){
             $alumni->ordination =  DateTime::createFromFormat('m-d-Y', $request->ordination)->format('Y-m-d');
         }
         $alumni->address = $request->input('address');
@@ -65,6 +67,10 @@ class AlumniController extends Controller
         $alumni->fax_num = $request->input('fax');
         $alumni->mobile_num = $request->input('mobile');
         $alumni->email = $request->input('email');
+
+        // new fields
+        $alumni->bec = $request->input('bec');
+        $alumni->batch_year = $request->input('batch_year');
 
         $alumni->save();
         $request->session()->flash('message', 'Successfuly registered');
@@ -119,14 +125,20 @@ class AlumniController extends Controller
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');
         $alumni->diocese = $request->input('diocese');
-        $alumni->birthdate =  DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
-        $alumni->ordination =  DateTime::createFromFormat('m-d-Y', $request->ordination)->format('Y-m-d');
+        if (isset($request->birthday)){
+            $alumni->birthdate =  DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
+        }
+        if (isset($request->ordination)){
+            $alumni->ordination =  DateTime::createFromFormat('m-d-Y', $request->ordination)->format('Y-m-d');
+        }
         $alumni->address = $request->input('address');
         $alumni->telephone_num = $request->input('telephone');
         $alumni->fax_num = $request->input('fax');
         $alumni->mobile_num = $request->input('mobile');
         $alumni->email = $request->input('email');
-
+        // new fields
+        $alumni->bec = $request->input('bec');
+        $alumni->batch_year = $request->input('batch_year');
         $alumni->save();
 
         $request->session()->flash('message', 'Update Sucess');

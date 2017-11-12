@@ -32,13 +32,14 @@
       }
       .details li {
         position: relative;
-        padding-left: 150px;
+        /*padding-left: 150px;*/
         margin-bottom: 5px;
       }
       .details li > span {
-        position: absolute;
-        top: 0;
-        left: 0;
+        /*position: absolute;*/
+        /*top: 0;*/
+        /*left: 0;*/
+
       }
       .dashb-title {
         margin: 20px 0;

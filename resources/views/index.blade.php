@@ -12,6 +12,22 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="x_panel">
                 <div class="x_title">
+                    <h2><i class="fa fa-calendar"></i> Information </h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <p>IP ADDRESS: <strong>{{ getHostByName(getHostName()) }}</strong></p>
+                    <p><em>Note: You can type the ip address above on another computer if you are connected on the same network</em></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
                     <h2><i class="fa fa-calendar"></i> Latest Events </h2>
                     <div class="pull-right">
                         <a class="btn btn-primary btn-xs" href="/event/create">Create an Event</a>

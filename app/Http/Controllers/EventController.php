@@ -12,6 +12,12 @@ use DB;
 use DateTime;
 class EventController extends Controller
 {
+    private $rules = [
+        'event_name' => 'required',
+        'event_description' => 'required',
+        'event_place' => 'required',
+        'event_date' => 'required'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -41,12 +47,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'event_name' => 'required',
-            'event_description' => 'required',
-            'event_place' => 'required',
-            'event_date' => 'required'
-        ]);
+        $request->validate($this->rules);
         $event = new Event(); // Initialize
 
         $event->name = $request->input('event_name');
@@ -105,12 +106,7 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'event_name' => 'required',
-            'event_description' => 'required',
-            'event_place' => 'required',
-            'event_date' => 'required'
-        ]);
+        $request->validate($this->rules);
         $event = Event::find($request->id);
 
         $event->name = $request->input('event_name');

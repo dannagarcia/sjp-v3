@@ -25,14 +25,14 @@ class ReportsController extends Controller
             $excel->sheet('Ordained', function ($sheet) {
 
 
-                $ordained = Alumni::select('first_name', 'last_name', 'nickname', 'diocese', 'birthdate',
+                $ordained = Alumni::select('first_name', 'last_name', 'nickname', 'bec', 'batch_year', 'diocese', 'birthdate',
                     'ordination', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'ordained')
                     ->get();
                 $sheet->fromModel($ordained->toArray(), null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Nickname', 'Dicoese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Nickname', 'BEC', 'Batch Year', 'Diocese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -53,14 +53,14 @@ class ReportsController extends Controller
             });
 
             $excel->sheet('Lay', function ($sheet) {
-                $lay = Alumni::select( 'first_name', 'last_name','nickname', 'birthdate',
+                $lay = Alumni::select('first_name', 'last_name', 'nickname', 'bec', 'batch_year', 'birthdate',
                     'years_in_sj', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'lay')
                     ->get();
                 $sheet->fromModel($lay->toArray(), null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Nickname','Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -75,33 +75,35 @@ class ReportsController extends Controller
 
     }
 
-    public function eventreport(Request $request) {
+
+    public function eventreport(Request $request)
+    {
 
 
         $event = Event::find($request->event_id);
-        $alumnis =  $event->alumnis;
+        $alumnis = $event->alumnis;
         $lay = array();
-        $ordained  = [];
-        foreach ($alumnis as $a){
-            if($a->alumni_type === 'lay'){
+        $ordained = [];
+        foreach ($alumnis as $a) {
+            if ($a->alumni_type === 'lay') {
                 $lay[] = [$a->first_name, $a->last_name, $a->nickname, $a->birthdate, $a->years_in_sj, $a->address, $a->telephone_num,
-                $a->fax_num, $a->mobile_num, $a->email];
-            } elseif ($a->alumni_type === 'ordained'){
-                $ordained[] = [$a->first_name, $a->last_name, $a->nickname, $a->diocese,$a->birthdate, $a->ordination, $a->address, $a->telephone_num,
+                    $a->fax_num, $a->mobile_num, $a->email];
+            } elseif ($a->alumni_type === 'ordained') {
+                $ordained[] = [$a->first_name, $a->last_name, $a->nickname, $a->diocese, $a->birthdate, $a->ordination, $a->address, $a->telephone_num,
                     $a->fax_num, $a->mobile_num, $a->email];
             }
 
         }
 
 
-        Excel::create($event->name . '-' . Carbon::now(), function($excel) use($ordained, $lay) {
+        Excel::create($event->name . '-' . Carbon::now(), function ($excel) use ($ordained, $lay) {
 
-            $excel->sheet('Ordained', function($sheet) use($ordained) {
+            $excel->sheet('Ordained', function ($sheet) use ($ordained) {
 
                 $sheet->fromArray($ordained, null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Nickname','Dicoese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Nickname', 'Dicoese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -112,7 +114,7 @@ class ReportsController extends Controller
 
             });
 
-            $excel->sheet('Lay', function($sheet) use($lay) {
+            $excel->sheet('Lay', function ($sheet) use ($lay) {
                 $sheet->fromArray($lay);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
@@ -130,7 +132,8 @@ class ReportsController extends Controller
 
     }
 
-    public function downloadId($id){
+    public function downloadId($id)
+    {
         $pdf = App::make('dompdf.wrapper');
         $pdf->setPaper([0, 0, 270, 360], 'portrait');
         $data = ['alumni' => Alumni::find($id)];

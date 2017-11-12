@@ -26,28 +26,26 @@
 
             $("#alumni_type > label.ord-lbl").click(function (e) {
                 e.preventDefault();
-                var yes = confirm('Confirm alumni is Ordained');
-                if (yes) {
-                    $(".for-ordination").show();
-                    $(".for-lay").hide();
-                }
+
+                $(".for-ordination").show();
+                $(".for-lay").hide();
             });
             $("#alumni_type > label.lay-lbl").click(function (e) {
                 e.preventDefault();
-                var yes = confirm('Confirm alumni is Lay');
-                if (yes) {
-                    $(".for-lay").show();
-                    $(".for-ordination").hide();
-                }
+                $(".for-lay").show();
+                $(".for-ordination").hide();
             });
 
             @if($alumni->alumni_type === 'ordained')
-            $(".for-ordination").show();
-            $(".for-lay").hide();
+            //            $(".for-ordination").show();
+            //            $(".for-lay").hide();
+            $('label.ord-lbl').click();
+
 
             @else
-                 $(".for-lay").show();
-            $(".for-ordination").hide();
+            //                 $(".for-lay").show();
+            //            $(".for-ordination").hide();
+            $('label.lay-lbl').click();
             @endif
 
         });

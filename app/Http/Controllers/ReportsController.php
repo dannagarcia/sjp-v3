@@ -86,10 +86,10 @@ class ReportsController extends Controller
         $ordained = [];
         foreach ($alumnis as $a) {
             if ($a->alumni_type === 'lay') {
-                $lay[] = [$a->first_name, $a->last_name, $a->nickname, $a->birthdate, $a->years_in_sj, $a->address, $a->telephone_num,
+                $lay[] = [$a->first_name, $a->last_name, $a->nickname, $a->bec, $a->batch_year, $a->birthdate, $a->years_in_sj, $a->address, $a->telephone_num,
                     $a->fax_num, $a->mobile_num, $a->email];
             } elseif ($a->alumni_type === 'ordained') {
-                $ordained[] = [$a->first_name, $a->last_name, $a->nickname, $a->diocese, $a->birthdate, $a->ordination, $a->address, $a->telephone_num,
+                $ordained[] = [$a->first_name, $a->last_name, $a->nickname, $a->bec, $a->batch_year, $a->diocese, $a->birthdate, $a->ordination, $a->address, $a->telephone_num,
                     $a->fax_num, $a->mobile_num, $a->email];
             }
 
@@ -103,7 +103,7 @@ class ReportsController extends Controller
                 $sheet->fromArray($ordained, null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Nickname', 'Dicoese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Nickname', 'Dicoese', 'BEC', 'Batch Year', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -118,7 +118,7 @@ class ReportsController extends Controller
                 $sheet->fromArray($lay);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Nickname', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(

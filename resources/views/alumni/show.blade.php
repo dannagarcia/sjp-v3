@@ -60,11 +60,11 @@
                 <li><span>Batch Year:</span> {{$alumni->batch_year}}</li>
                 @if($alumni->alumni_type === 'ordained')
                     <li><span>Diocese:</span> {{$alumni->diocese}}</li>
-                    <li><span>Ordination: </span> {{$alumni->ordination}} </li>
+                    <li><span>Ordination: </span>{{ date_format(date_create($alumni->ordination), 'm-d-Y')}}</li>
                 @else
                     <li><span>Years in San Jose:</span>  </li>
                 @endif
-                <li><span>Birthdate: </span> {{$alumni->birthdate}}</li>
+                <li><span>Birthdate: </span>{{ date_format(date_create($alumni->birthdate), 'm-d-Y')}}</li>
                 <li><span>Address: </span>{{$alumni->address}}</li>
                 <li><span>Telephone:</span> {{$alumni->telephone_num}}</li>
                 <li><span>Fax:</span> {{$alumni->fax_num}}</li>

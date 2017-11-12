@@ -17,7 +17,7 @@
     <p><strong class="nickname">{{ strtoupper($alumni->nickname) }}</strong> <br>
     {{ $alumni->id }} <br>
     {{ $alumni->last_name }}, {{ $alumni->first_name }} <br>
-    {{ isset($alumni->diocese) ?  $alumni->diocese . '<br>': ''  }}
+    {{ isEmptyOrNullString($alumni->diocese)?  $alumni->diocese . '<br>': ''  }}
     {{ $alumni->years_in_sj  }} {{ $alumni->ordination }}
 
     </p>

@@ -26,7 +26,7 @@
     <p><strong class="nickname">{{ strtoupper($alumni->nickname) }}</strong
     <div class="details">
         <div>#{{ $alumni->id }} {{ $alumni->last_name }}, {{ $alumni->first_name }} </div>
-        <div>{{ $alumni->diocese || $alumni->years_in_san_jose }} </div>
+        <div>{{ $alumni->diocese }} </div>
         <div>{{ $alumni->years_in_sj  }} </div>
         <div>{{ $alumni->ordination }}</div>
     </div>

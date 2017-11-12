@@ -138,7 +138,6 @@ class ReportsController extends Controller
         $pdf->setPaper([0, 0, 270, 360], 'portrait');
         $data = ['alumni' => Alumni::find($id)];
         $pdf = $pdf->loadView('pdf.id', $data);
-
         return $pdf->stream();
 
     }

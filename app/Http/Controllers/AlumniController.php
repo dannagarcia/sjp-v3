@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Alumni;
 use DateTime;
+
 class AlumniController extends Controller
 {
     private $rules = [
@@ -17,15 +18,17 @@ class AlumniController extends Controller
         'telephone' => 'string|nullable',
         'mobile' => 'string|nullable',
         'fax' => 'string|nullable',
-        'birthdate' => 'date_format:m-d-Y|nullable'
+        'birthdate' => 'date_format:m-d-Y|nullable',
+        'ordination' => 'date_format:m-d-Y|nullable'
     ];
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $alumni = Alumni::all();
         return view('alumni.index', compact('alumni'));
     }
@@ -43,7 +46,7 @@ class AlumniController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -56,11 +59,13 @@ class AlumniController extends Controller
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');
         $alumni->diocese = $request->input('diocese');
-        if (isset($request->birthdate)){
-            $alumni->birthdate =  DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
+        if (isset($request->birthdate)) {
+            $alumni->birthdate = DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
         }
-        if (isset($request->ordination)){
-            $alumni->ordination =  DateTime::createFromFormat('m-d-Y', $request->ordination)->format('Y-m-d');
+        if (isset($request->ordination)) {
+            $alumni->ordination = DateTime::createFromFormat('m-d-Y', $request->ordination)->format('Y-m-d');
+        } else {
+            $alumni->ordination = null;
         }
         $alumni->address = $request->input('address');
         $alumni->telephone_num = $request->input('telephone');
@@ -80,7 +85,7 @@ class AlumniController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -95,7 +100,7 @@ class AlumniController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -108,8 +113,8 @@ class AlumniController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -117,7 +122,6 @@ class AlumniController extends Controller
 
 
         $request->validate($this->rules);
-
         $alumni = Alumni::find($request->id); // found on input hidden field in view
         $alumni->first_name = $request->input('fName');
         $alumni->last_name = $request->input('lName');
@@ -125,12 +129,17 @@ class AlumniController extends Controller
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');
         $alumni->diocese = $request->input('diocese');
-        if (isset($request->birthdate)){
-            $alumni->birthdate =  DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
+        if ($request->birthdate == false) {
+            $alumni->birthdate = null;
+        } else {
+            $alumni->birthdate = DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
         }
-        if (isset($request->ordination)){
-            $alumni->ordination =  DateTime::createFromFormat('m-d-Y', $request->ordination)->format('Y-m-d');
+        if ($request->ordination == false) {
+            $alumni->ordination = null;
+        } else {
+            $alumni->ordination = DateTime::createFromFormat('m-d-Y', $request->ordination)->format('Y-m-d');
         }
+
         $alumni->address = $request->input('address');
         $alumni->telephone_num = $request->input('telephone');
         $alumni->fax_num = $request->input('fax');
@@ -150,14 +159,13 @@ class AlumniController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
     }
-
 
 
 }

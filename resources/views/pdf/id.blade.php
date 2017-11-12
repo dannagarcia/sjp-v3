@@ -6,19 +6,30 @@
         transform: translateX(-50%) translateY(-50%);
         text-align: center;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-
     }
-    .nickname{
+
+    .nickname {
         font-size: 3.5em;
+    }
+
+    .details {
+        font-size: 0.8em;
+    }
+
+    .details div {
+        white-space: nowrap;
+        display: block;
     }
 
 </style>
 <div class="center-all">
-    <p><strong class="nickname">{{ strtoupper($alumni->nickname) }}</strong> <br>
-    {{ $alumni->id }} <br>
-    {{ $alumni->last_name }}, {{ $alumni->first_name }} <br>
-    {{ isEmptyOrNullString($alumni->diocese)?  $alumni->diocese . '<br>': ''  }}
-    {{ $alumni->years_in_sj  }} {{ $alumni->ordination }}
+    <p><strong class="nickname">{{ strtoupper($alumni->nickname) }}</strong
+    <div class="details">
+        <div>#{{ $alumni->id }} {{ $alumni->last_name }}, {{ $alumni->first_name }} </div>
+        <div>{{ $alumni->diocese || $alumni->years_in_san_jose }} </div>
+        <div>{{ $alumni->years_in_sj  }} </div>
+        <div>{{ $alumni->ordination }}</div>
+    </div>
 
     </p>
 

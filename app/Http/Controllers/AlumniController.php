@@ -56,7 +56,7 @@ class AlumniController extends Controller
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');
         $alumni->diocese = $request->input('diocese');
-        if (isset($request->birthday)){
+        if (isset($request->birthdate)){
             $alumni->birthdate =  DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
         }
         if (isset($request->ordination)){
@@ -125,7 +125,7 @@ class AlumniController extends Controller
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');
         $alumni->diocese = $request->input('diocese');
-        if (isset($request->birthday)){
+        if (isset($request->birthdate)){
             $alumni->birthdate =  DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
         }
         if (isset($request->ordination)){
@@ -143,7 +143,7 @@ class AlumniController extends Controller
 
         $request->session()->flash('message', 'Update Sucess');
 
-        return redirect('/alumni/' . $request->id);
+        return redirect('/alumni');
 
     }
 

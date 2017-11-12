@@ -104,7 +104,7 @@
                 <div class="form-group">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Date of Birth</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
-                        <input name="birthdate" type='text' class="form-control" value="{{ old('birthdate') }}" placeholder="yyyy-mm-dd"/>
+                        <input name="birthdate" type='text' class="form-control" value="{{ old('birthdate') }}" placeholder="mm-dd-yyyy"/>
                         <span class="input-group-addon">
                            <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -113,13 +113,13 @@
                 <div class="form-group for-ordination">
                     <label for="Diocese" class="control-label col-md-3 col-sm-3 col-xs-12">Diocese</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input name="diocese" type="text" class="form-control" value="{{ old('diocese') }}">
+                      <input name="diocese" type="text" class="form-control" value="{{ old('diocese') }}" placeholder="Archdiocese/Diocese of...">
                     </div>
                 </div>
                 <div class="form-group for-ordination">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Ordination Date</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
-                        <input type='text' class="form-control" name="ordination" value="{{ old('ordination') }}"/>
+                        <input type='text' class="form-control" name="ordination" value="{{ old('ordination') }}" placeholder="mm-dd-yyyy"/>
                         <span class="input-group-addon">
                            <span name="ordination" class="glyphicon glyphicon-calendar"></span>
                         </span>

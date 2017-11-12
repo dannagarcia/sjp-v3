@@ -117,7 +117,7 @@
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Date of Birth</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
                         <input value="{{ date_format(date_create($alumni->birthdate), 'm-d-y')}}" name="birthdate"
-                               type='text' class="form-control"/>
+                               type='text' class="form-control" placeholder="mm-dd-yyyy"/>
                         <span class="input-group-addon">
                            <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -126,14 +126,14 @@
                 <div class="form-group for-ordination">
                     <label for="Diocese" class="control-label col-md-3 col-sm-3 col-xs-12">Diocese</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{$alumni->diocese}}" name="diocese" type="text" class="form-control">
+                        <input value="{{$alumni->diocese}}" name="diocese" type="text" class="form-control" placeholder="Archdiocese/Diocese of...">
                     </div>
                 </div>
                 <div class="form-group for-ordination">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Ordination Date</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
                         <input value="{{ date_format(date_create($alumni->ordination), 'm-d-y')}}" name="ordination"
-                               type='text' class="form-control"/>
+                               type='text' class="form-control" placeholder="mm-dd-yyyy"/>
                         <span class="input-group-addon">
                            <span name="ordination" class="glyphicon glyphicon-calendar"></span>
                         </span>

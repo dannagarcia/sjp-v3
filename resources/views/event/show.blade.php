@@ -51,7 +51,7 @@
                 <li><span>Event Name:</span> {{$event->name}}</li>
                 <li><span>Description:</span> {{$event->description}}</li>
                 <li><span>Place:</span> {{$event->place}}</li>
-                <li><span>Date:</span> {{$event->date}}</li>
+                <li><span>Date:</span> {{ $event->date ? date_format(date_create($event->date), 'm-d-Y') : '' }}</li>
             </ul>
         </div>
 

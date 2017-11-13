@@ -25,10 +25,11 @@
 <div class="center-all">
     <p><strong class="nickname">{{ strtoupper($alumni->nickname) }}</strong
     <div class="details">
-        <div>#{{ $alumni->id }} {{ $alumni->last_name }}, {{ $alumni->first_name }} </div>
+        <div>{{ $alumni->first_name }} {{ $alumni->last_name }} </div>
         <div>{{ $alumni->diocese }} </div>
-        <div>{{ $alumni->years_in_sj  }} </div>
-        <div>{{ $alumni->ordination }}</div>
+        {{--<div>{{ $alumni->years_in_sj  }} </div>--}}
+        {{--<div>{{ $alumni->ordination }}</div>--}}
+        <div>{{ $alumni->batch_year }}</div>
     </div>
 
     </p>

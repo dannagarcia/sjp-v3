@@ -103,11 +103,12 @@ class AlumniController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $alumni = Alumni::find($id);
         return view('alumni.edit')
-            ->with('alumni', $alumni);
+            ->with('alumni', $alumni)
+            ->with('redirect', $request->redirect_to);
     }
 
     /**
@@ -152,6 +153,9 @@ class AlumniController extends Controller
 
         $request->session()->flash('message', 'Update Sucess');
 
+        if ($request->redirect_to){
+            return redirect($request->redirect_to);
+        }
         return redirect('/alumni');
 
     }

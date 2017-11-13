@@ -51,7 +51,7 @@
                 <li><span>Event Name:</span> {{$event->name}}</li>
                 <li><span>Description:</span> {{$event->description}}</li>
                 <li><span>Place:</span> {{$event->place}}</li>
-                <li><span>Date:</span> {{ $event->date ? date_format(date_create($event->date), 'm-d-Y') : '' }}</li>
+                <li><span>Date:</span> {{$event->date}}</li>
             </ul>
         </div>
 
@@ -150,8 +150,9 @@
                                             $alumni = \App\Alumni::find($value->id);
                                             ?>
                                             <div class="content">
-                                                <a class="btn btn-primary btn-xs" target="_blank"
-                                                   href="/alumni/{{$alumni->id}}/edit">Edit</a>
+                                                <a class="btn btn-primary btn-md"
+                                                   href="/alumni/{{$alumni->id}}/edit?redirect_to=/event/{{$event->id}}">Edit</a>
+                                                <br>
                                                 <ul class="details">
                                                     <li><span>First Name:</span> {{$alumni->first_name}}</li>
                                                     <li><span>Last Name:</span> {{$alumni->last_name}}</li>

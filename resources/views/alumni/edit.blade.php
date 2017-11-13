@@ -70,6 +70,7 @@
 
             <form class="form-horizontal form-label-left" action="/alumni/update}" method="POST">
                 <input type="hidden" name="id" value="{{ $alumni->id }}">
+                <input type="hidden" name="redirect_to" value="{{ $redirect }}">
                 {{ csrf_field() }}
                 {{ method_field('PATCH') }}
                 <div class="form-group">

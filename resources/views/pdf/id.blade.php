@@ -1,7 +1,7 @@
 <style>
     .center-all {
         position: absolute;
-        top: 50%;
+        top: 35%;
         left: 50%;
         transform: translateX(-50%) translateY(-50%);
         text-align: center;
@@ -19,6 +19,7 @@
     .details div {
         white-space: nowrap;
         display: block;
+        font-size: 1.2em;
     }
 
 </style>

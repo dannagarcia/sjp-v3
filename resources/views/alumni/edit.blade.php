@@ -37,16 +37,22 @@
             });
 
             @if($alumni->alumni_type === 'ordained')
-            //            $(".for-ordination").show();
-            //            $(".for-lay").hide();
             $('label.ord-lbl').click();
-
-
             @else
-            //                 $(".for-lay").show();
-            //            $(".for-ordination").hide();
             $('label.lay-lbl').click();
             @endif
+
+             $('#diocese-btn').click(function () {
+                $('#diocese').val("Diocese of ").focus();
+            });
+
+            $('#archdiocese-btn').click(function () {
+                $('#diocese').val("Archdiocese of ").focus();
+            });
+
+            $('#others-btn').click(function () {
+                $('#diocese').val("").focus();
+            });
 
         });
 
@@ -116,23 +122,49 @@
                 <div class="form-group">
                     <label for="birthdate" class="control-label col-md-3 col-sm-3 col-xs-12">Date of Birth</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
-                        <input value="{{ $alumni->birthdate === null ? '' : date_format(date_create($alumni->birthdate), 'm-d-y')}}" name="birthdate"
+                        <input value="{{ $alumni->birthdate === null ? '' : date_format(date_create($alumni->birthdate), 'm-d-y')}}"
+                               name="birthdate"
                                type='text' class="form-control" placeholder="mm-dd-yyyy"/>
                         <span class="input-group-addon">
                            <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
                 </div>
-                <div class="form-group for-diocese">
+                <div class="form-group">
+                    <label for="" class="control-label col-md-3 col-sm-3 col-xs-12">Diocese Type</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12" data-toggle="buttons">
+                        <label id="diocese-btn" class="btn btn-primary {{ starts_with(strtolower($alumni->diocese), "diocese") ? 'active':'' }}">
+                            <input type="radio" class="sr-only" id="viewMode0" value="0" checked="">
+                            <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="View Mode 0">
+                            Diocese
+                          </span>
+                        </label>
+                        <label id="archdiocese-btn" class="btn btn-primary {{ starts_with(strtolower($alumni->diocese), "archdiocese") ? 'active':'' }}">
+                            <input type="radio" class="sr-only" id="viewMode1" value="1">
+                            <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="View Mode 1">
+                            Archdiocese
+                          </span>
+                        </label>
+                        <label id="others-btn" class="btn btn-primary {{ !starts_with(strtolower($alumni->diocese), ["archdiocese", "diocese"]) ? 'active':'' }}">
+                            <input type="radio" class="sr-only" id="viewMode2" value="2">
+                            <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="View Mode 2">
+                            Others
+                          </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="Diocese" class="control-label col-md-3 col-sm-3 col-xs-12">Diocese</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{$alumni->diocese}}" name="diocese" type="text" class="form-control" placeholder="Archdiocese/Diocese of...">
+                        <input id="diocese" name="diocese" type="text" class="form-control" value="{{ $alumni->diocese }}"
+                               placeholder="">
                     </div>
                 </div>
                 <div class="form-group for-ordination">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Ordination Date</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
-                        <input value="{{ $alumni->ordination === null ? '' : date_format(date_create($alumni->ordination), 'm-d-y')}}" name="ordination"
+                        <input value="{{ $alumni->ordination === null ? '' : date_format(date_create($alumni->ordination), 'm-d-y')}}"
+                               name="ordination"
                                type='text' class="form-control" placeholder="mm-dd-yyyy"/>
                         <span class="input-group-addon">
                            <span name="ordination" class="glyphicon glyphicon-calendar"></span>

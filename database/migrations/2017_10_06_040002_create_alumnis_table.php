@@ -15,7 +15,7 @@ class CreateAlumnisTable extends Migration
     {
         Schema::create('alumnis', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('alumni_type', ['lay', 'ordained']);
+            $table->enum('alumni_type', ['lay', 'ordained', 'current']);
             $table->string('first_name');
             $table->string('last_name');
             $table->string('nickname');

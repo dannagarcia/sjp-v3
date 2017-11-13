@@ -37,6 +37,12 @@
                 $(".for-ordination").hide();
             });
 
+            $("#alumni_type > label.current-lbl").click(function (e) {
+                e.preventDefault();
+                $(".for-lay").show();
+                $(".for-ordination").hide();
+            });
+
             $('#diocese-btn').click(function () {
                 $('#diocese').val("Diocese of ").focus();
             });
@@ -48,6 +54,8 @@
             $('#others-btn').click(function () {
                 $('#diocese').val("").focus();
             });
+
+
 
         });
 
@@ -80,6 +88,10 @@
                             <label class="btn btn-default ord-lbl" data-toggle-class="btn-primary"
                                    data-toggle-passive-class="btn-default">
                                 <input type="radio" name="alumni_type" value="ordained"> Ordained
+                            </label>
+                            <label class="btn btn-default current-lbl" data-toggle-class="btn-primary"
+                                   data-toggle-passive-class="btn-default">
+                                <input type="radio" name="alumni_type" value="current"> Current
                             </label>
                         </div>
                     </div>

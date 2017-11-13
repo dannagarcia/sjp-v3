@@ -38,6 +38,8 @@
 
             @if($alumni->alumni_type === 'ordained')
             $('label.ord-lbl').click();
+            @elseif($alumni->alumni_type === 'current')
+            $('label.current-lbl').click();
             @else
             $('label.lay-lbl').click();
             @endif
@@ -84,6 +86,10 @@
                             <label class="btn btn-default ord-lbl {{ $alumni->alumni_type === 'ordained' ? 'active' :  ''}}"
                                    data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                                 <input type="radio" name="alumni_type" value="ordained"> Ordained
+                            </label>
+                            <label class="btn btn-default current-lbl" data-toggle-class="btn-primary"
+                                   data-toggle-passive-class="btn-default">
+                                <input type="radio" name="alumni_type" value="current"> Current
                             </label>
                         </div>
                     </div>
@@ -134,19 +140,22 @@
                 <div class="form-group">
                     <label for="" class="control-label col-md-3 col-sm-3 col-xs-12">Diocese Type</label>
                     <div class="col-md-6 col-sm-6 col-xs-12" data-toggle="buttons">
-                        <label id="diocese-btn" class="btn btn-primary {{ starts_with(strtolower($alumni->diocese), "diocese") ? 'active':'' }}">
+                        <label id="diocese-btn"
+                               class="btn btn-primary {{ starts_with(strtolower($alumni->diocese), "diocese") ? 'active':'' }}">
                             <input type="radio" class="sr-only" id="viewMode0" value="0" checked="">
                             <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="View Mode 0">
                             Diocese
                           </span>
                         </label>
-                        <label id="archdiocese-btn" class="btn btn-primary {{ starts_with(strtolower($alumni->diocese), "archdiocese") ? 'active':'' }}">
+                        <label id="archdiocese-btn"
+                               class="btn btn-primary {{ starts_with(strtolower($alumni->diocese), "archdiocese") ? 'active':'' }}">
                             <input type="radio" class="sr-only" id="viewMode1" value="1">
                             <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="View Mode 1">
                             Archdiocese
                           </span>
                         </label>
-                        <label id="others-btn" class="btn btn-primary {{ !starts_with(strtolower($alumni->diocese), ["archdiocese", "diocese"]) ? 'active':'' }}">
+                        <label id="others-btn"
+                               class="btn btn-primary {{ !starts_with(strtolower($alumni->diocese), ["archdiocese", "diocese"]) ? 'active':'' }}">
                             <input type="radio" class="sr-only" id="viewMode2" value="2">
                             <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="View Mode 2">
                             Others
@@ -157,7 +166,8 @@
                 <div class="form-group">
                     <label for="Diocese" class="control-label col-md-3 col-sm-3 col-xs-12">Diocese</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="diocese" name="diocese" type="text" class="form-control" value="{{ $alumni->diocese }}"
+                        <input id="diocese" name="diocese" type="text" class="form-control"
+                               value="{{ $alumni->diocese }}"
                                placeholder="">
                     </div>
                 </div>

@@ -23,13 +23,13 @@
 
 </style>
 <div class="center-all">
-    <p><strong class="nickname">{{ strtoupper($alumni->nickname) }}</strong
+    <p><strong class="nickname">{{ strtoupper($alumni->nickname) }}</strong>
     <div class="details">
         <div>{{ $alumni->first_name }} {{ $alumni->last_name }} </div>
-        <div>{{ $alumni->diocese }} </div>
-        {{--<div>{{ $alumni->years_in_sj  }} </div>--}}
-        {{--<div>{{ $alumni->ordination }}</div>--}}
-        <div>{{ $alumni->batch_year }}</div>
+        @if($alumni->alumni_type !== 'current')
+            <div>{{ $alumni->diocese }} </div>
+            <div>{{ $alumni->batch_year }}</div>
+        @endif
     </div>
 
     </p>

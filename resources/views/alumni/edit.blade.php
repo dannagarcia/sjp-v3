@@ -112,6 +112,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="Middle Initial" class="control-label col-md-3 col-sm-3 col-xs-12">Middle Initial</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input placeholder="A." name="middle_initial" type="text" class="form-control" value="{{ $alumni->middle_initial }}">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="Nickname" class="control-label col-md-3 col-sm-3 col-xs-12">Nickname</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <input name="nickname" type="text" class="form-control" value="{{ $alumni->nickname }}">

@@ -26,7 +26,7 @@
 <div class="center-all">
     <p><strong class="nickname">{{ strtoupper($alumni->nickname) }}</strong>
     <div class="details">
-        <div>{{ $alumni->first_name }} {{ $alumni->last_name }} </div>
+        <div>{{ $alumni->first_name }} {{$alumni->middle_initial}} {{ $alumni->last_name }} </div>
         <div>{{ $alumni->diocese }} </div>
         @if($alumni->alumni_type !== 'current')
             

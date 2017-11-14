@@ -58,6 +58,7 @@ class AlumniController extends Controller
         $alumni = new Alumni;
         $alumni->first_name = $request->input('fName');
         $alumni->last_name = $request->input('lName');
+        $alumni->middle_initial = $request->input('middle_initial');
         $alumni->nickname = $request->input('nickname');
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');
@@ -132,6 +133,7 @@ class AlumniController extends Controller
         $alumni = Alumni::find($request->id); // found on input hidden field in view
         $alumni->first_name = $request->input('fName');
         $alumni->last_name = $request->input('lName');
+        $alumni->middle_initial = $request->input('middle_initial');
         $alumni->nickname = $request->input('nickname');
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');

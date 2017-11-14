@@ -25,14 +25,14 @@ class ReportsController extends Controller
             $excel->sheet('Ordained', function ($sheet) {
 
 
-                $ordained = Alumni::select('first_name', 'last_name', 'nickname', 'bec', 'batch_year', 'diocese', 'birthdate',
+                $ordained = Alumni::select('first_name', 'last_name', 'middle_initial', 'nickname', 'bec', 'batch_year', 'diocese', 'birthdate',
                     'ordination', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'ordained')
                     ->get();
                 $sheet->fromModel($ordained->toArray(), null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Nickname', 'BEC', 'Batch Year', 'Diocese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Middle Initial', 'Nickname', 'BEC', 'Batch Year', 'Diocese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -44,14 +44,14 @@ class ReportsController extends Controller
             });
 
             $excel->sheet('Lay', function ($sheet) {
-                $lay = Alumni::select('first_name', 'last_name', 'nickname', 'bec', 'batch_year', 'birthdate',
+                $lay = Alumni::select('first_name', 'last_name', 'middle_initial', 'nickname', 'bec', 'batch_year', 'birthdate',
                     'years_in_sj', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'lay')
                     ->get();
                 $sheet->fromModel($lay->toArray(), null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Middle Initial', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -62,14 +62,14 @@ class ReportsController extends Controller
             });
 
             $excel->sheet('Current', function ($sheet) {
-                $lay = Alumni::select('first_name', 'last_name', 'nickname', 'bec', 'batch_year', 'birthdate',
+                $lay = Alumni::select('first_name', 'last_name', 'middle_initial', 'nickname', 'bec', 'batch_year', 'birthdate',
                     'years_in_sj', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'current')
                     ->get();
                 $sheet->fromModel($lay->toArray(), null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Middle Initial', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -94,15 +94,14 @@ class ReportsController extends Controller
         $ordained = [];
         $current = [];
         foreach ($alumnis as $a) {
-            if($a->alumni_type === 'current'){
-                $current[] = [$a->first_name, $a->last_name, $a->nickname, $a->bec, $a->batch_year, $a->birthdate, $a->years_in_sj, $a->address, $a->telephone_num,
+            if ($a->alumni_type === 'current') {
+                $current[] = [$a->first_name, $a->last_name, $a->middle_initial, $a->nickname, $a->bec, $a->batch_year, $a->birthdate, $a->years_in_sj, $a->address, $a->telephone_num,
                     $a->fax_num, $a->mobile_num, $a->email];
-            }
-            elseif ($a->alumni_type === 'lay') {
-                $lay[] = [$a->first_name, $a->last_name, $a->nickname, $a->bec, $a->batch_year, $a->birthdate, $a->years_in_sj, $a->address, $a->telephone_num,
+            } elseif ($a->alumni_type === 'lay') {
+                $lay[] = [$a->first_name, $a->last_name, $a->middle_initial, $a->nickname, $a->bec, $a->batch_year, $a->birthdate, $a->years_in_sj, $a->address, $a->telephone_num,
                     $a->fax_num, $a->mobile_num, $a->email];
             } elseif ($a->alumni_type === 'ordained') {
-                $ordained[] = [$a->first_name, $a->last_name, $a->nickname, $a->bec, $a->batch_year, $a->diocese, $a->birthdate, $a->ordination, $a->address, $a->telephone_num,
+                $ordained[] = [$a->first_name, $a->last_name, $a->middle_initial, $a->nickname, $a->bec, $a->batch_year, $a->diocese, $a->birthdate, $a->ordination, $a->address, $a->telephone_num,
                     $a->fax_num, $a->mobile_num, $a->email];
             }
 
@@ -116,7 +115,7 @@ class ReportsController extends Controller
                 $sheet->fromArray($ordained, null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Nickname', 'Dicoese', 'BEC', 'Batch Year', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Middle Initial', 'Nickname', 'Dicoese', 'BEC', 'Batch Year', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -131,7 +130,7 @@ class ReportsController extends Controller
                 $sheet->fromArray($lay);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Middle Initial', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -144,7 +143,7 @@ class ReportsController extends Controller
                 $sheet->fromArray($current);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Middle Initial', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(

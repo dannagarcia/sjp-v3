@@ -17,12 +17,11 @@ class CreateAlumnisTable extends Migration
             $table->increments('id');
             $table->enum('alumni_type', ['lay', 'ordained', 'current']);
             $table->string('first_name');
+            $table->string('middle_initial')->nullable();
             $table->string('last_name');
             $table->string('nickname');
-            // new fields
             $table->string('bec')->nullable();
             $table->string('batch_year')->nullable();
-            // end-new fields
             $table->string('diocese')->nullable();
             $table->date('birthdate')->nullable();
             $table->string('ordination')->nullable();

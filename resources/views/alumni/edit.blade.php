@@ -102,39 +102,39 @@
                 <div class="form-group">
                     <label for="First Name" class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{$alumni->first_name}}" name="fName" type="text" class="form-control">
+                        <input value="{{ old('fName', $alumni->first_name) }}" name="fName" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Last Name" class="control-label col-md-3 col-sm-3 col-xs-12">Last Name</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{$alumni->last_name}}" name="lName" type="text" class="form-control">
+                        <input value="{{ old('lName', $alumni->last_name) }}" name="lName" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Middle Initial" class="control-label col-md-3 col-sm-3 col-xs-12">Middle Initial</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input placeholder="A." name="middle_initial" type="text" class="form-control" value="{{ $alumni->middle_initial }}">
+                        <input placeholder="A." name="middle_initial" type="text" class="form-control" value="{{ old('middle_initial', $alumni->middle_initial) }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Nickname" class="control-label col-md-3 col-sm-3 col-xs-12">Nickname</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input name="nickname" type="text" class="form-control" value="{{ $alumni->nickname }}">
+                        <input name="nickname" type="text" class="form-control" value="{{ old('nickname', $alumni->nickname)  }}">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="bec" class="control-label col-md-3 col-sm-3 col-xs-12">BEC</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input name="bec" type="text" class="form-control" value="{{ $alumni->bec }}">
+                        <input name="bec" type="text" class="form-control" value="{{ old('bec', $alumni->bec) }}">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="batch_year" class="control-label col-md-3 col-sm-3 col-xs-12">Batch Year</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input name="batch_year" type="text" class="form-control" value="{{ $alumni->batch_year }}">
+                        <input name="batch_year" type="text" class="form-control" value="{{ old('batch_year', $alumni->batch_year) }}">
                     </div>
                 </div>
                 <div class="form-group">
@@ -178,7 +178,7 @@
                     <label for="Diocese" class="control-label col-md-3 col-sm-3 col-xs-12">Diocese</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <input id="diocese" name="diocese" type="text" class="form-control"
-                               value="{{ $alumni->diocese }}"
+                               value="{{ old('diocese', $alumni->diocese) }}"
                                placeholder="">
                     </div>
                 </div>
@@ -197,37 +197,37 @@
                     <label for="Years in San Jose" class="control-label col-md-3 col-sm-3 col-xs-12">Years in San
                         Jose</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{$alumni->years_in_sj}}" name="yrs_sj" type="text" class="form-control">
+                        <input value="{{ old('yrs_sj', $alumni->years_in_sj) }}" name="yrs_sj" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Address" class="control-label col-md-3 col-sm-3 col-xs-12">Address</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{$alumni->address}}" name="address" type="text" class="form-control">
+                        <input value="{{ old('address', $alumni->address) }}" name="address" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Telephone" class="control-label col-md-3 col-sm-3 col-xs-12">Telephone</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{$alumni->telephone_num}}" name="telephone" type="text" class="form-control">
+                        <input value="{{ old('telephone', $alumni->telephone_num) }}" name="telephone" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Fax" class="control-label col-md-3 col-sm-3 col-xs-12">Fax</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{$alumni->fax_num}}" name="fax" type="text" class="form-control">
+                        <input value="{{ old('fax', $alumni->fax_num) }}" name="fax" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Mobile" class="control-label col-md-3 col-sm-3 col-xs-12">Mobile</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{$alumni->mobile_num}}" name="mobile" type="text" class="form-control">
+                        <input value="{{ old('mobile', $alumni->mobile_num) }}" name="mobile" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Email" class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{$alumni->email}}" name="email" type="email" class="form-control">
+                        <input value="{{ old('email', $alumni->email) }}" name="email" type="email" class="form-control">
                     </div>
                 </div>
                 <div class="ln_solid"></div>

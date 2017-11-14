@@ -55,6 +55,7 @@
             <ul class="details">
                 <li><span>First Name:</span> {{$alumni->first_name}}</li>
                 <li><span>Last Name:</span> {{$alumni->last_name}}</li>
+                <li><span>Last Name:</span> {{$alumni->middle_initial}}</li>
                 <li><span>Alumni Type:</span> {{$alumni->alumni_type}}</li>
                 <li><span>BEC:</span> {{$alumni->bec}}</li>
                 <li><span>Batch Year:</span> {{$alumni->batch_year}}</li>

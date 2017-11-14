@@ -23,3 +23,4 @@ Route::get('/reports/test', 'ReportsController@test');
 Route::get('/reports/alumni', 'ReportsController@reports');
 Route::get('/reports/eventreports', 'ReportsController@eventreport');
 Route::get('/reports/download-id/{id}', 'ReportsController@downloadId');
+

@@ -39,15 +39,6 @@ class ReportsController extends Controller
                     'List of all registered Ordained as of ' . Carbon::now()
                 ));
 
-//                // Set black background
-//                $sheet->row(2, function($row) {
-//
-//                    // call cell manipulation methods
-//                    $row->setBackground('#000000');
-//
-//                });
-
-
                 $sheet->mergeCells('A1:J1');
                 // Formatting
             });
@@ -70,6 +61,23 @@ class ReportsController extends Controller
 
             });
 
+            $excel->sheet('Current', function ($sheet) {
+                $lay = Alumni::select('first_name', 'last_name', 'nickname', 'bec', 'batch_year', 'birthdate',
+                    'years_in_sj', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
+                    ->where('alumni_type', 'current')
+                    ->get();
+                $sheet->fromModel($lay->toArray(), null, 'A1', false, true);
+                $sheet->setOrientation('landscape');
+                $sheet->row(1, array(
+                    'First Name', 'Last Name', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
+                    'Fax Number', 'Mobile Number', 'Email'
+                ));
+                $sheet->prependRow(1, array(
+                    'List of all registered Lay Alumni as of ' . Carbon::now()
+                ));
+                $sheet->mergeCells('A1:J1');
+
+            });
 
         })->export('xls');
 
@@ -84,8 +92,13 @@ class ReportsController extends Controller
         $alumnis = $event->alumnis;
         $lay = array();
         $ordained = [];
+        $current = [];
         foreach ($alumnis as $a) {
-            if ($a->alumni_type === 'lay') {
+            if($a->alumni_type === 'current'){
+                $current[] = [$a->first_name, $a->last_name, $a->nickname, $a->bec, $a->batch_year, $a->birthdate, $a->years_in_sj, $a->address, $a->telephone_num,
+                    $a->fax_num, $a->mobile_num, $a->email];
+            }
+            elseif ($a->alumni_type === 'lay') {
                 $lay[] = [$a->first_name, $a->last_name, $a->nickname, $a->bec, $a->batch_year, $a->birthdate, $a->years_in_sj, $a->address, $a->telephone_num,
                     $a->fax_num, $a->mobile_num, $a->email];
             } elseif ($a->alumni_type === 'ordained') {
@@ -96,7 +109,7 @@ class ReportsController extends Controller
         }
 
 
-        Excel::create($event->name . '-' . Carbon::now(), function ($excel) use ($ordained, $lay) {
+        Excel::create($event->name . '-' . Carbon::now(), function ($excel) use ($ordained, $lay, $current) {
 
             $excel->sheet('Ordained', function ($sheet) use ($ordained) {
 
@@ -125,7 +138,19 @@ class ReportsController extends Controller
                     'Lay as of ' . Carbon::now()
                 ));
                 $sheet->mergeCells('A1:J1');
+            });
 
+            $excel->sheet('Current', function ($sheet) use ($current) {
+                $sheet->fromArray($current);
+                $sheet->setOrientation('landscape');
+                $sheet->row(1, array(
+                    'First Name', 'Last Name', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
+                    'Fax Number', 'Mobile Number', 'Email'
+                ));
+                $sheet->prependRow(1, array(
+                    'Lay as of ' . Carbon::now()
+                ));
+                $sheet->mergeCells('A1:J1');
             });
 
         })->export('xls');

@@ -76,6 +76,7 @@
         <div class="x_content">
 
             <form class="form-horizontal form-label-left" action="/alumni" method="POST">
+                <input type="hidden" name="redirect_to" value="{{ $redirect_to }}">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Type</label>

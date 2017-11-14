@@ -38,9 +38,12 @@ class AlumniController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('alumni.create');
+        return view('alumni.create',
+            [
+                'redirect_to' => $request->redirect_to
+            ]);
     }
 
     /**
@@ -79,6 +82,9 @@ class AlumniController extends Controller
 
         $alumni->save();
         $request->session()->flash('message', 'Successfuly registered');
+        if ($request->redirect_to){
+            return redirect($request->redirect_to);
+        }
         return redirect('/alumni');
     }
 

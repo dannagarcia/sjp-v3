@@ -41,7 +41,7 @@
 
 @section('body')
 
-	
+
 	<div class="x_panel">
 		<div class="x_content">
 			<a href="/event/create" class="btn btn-primary btn-lg">Create Event</a>
@@ -55,8 +55,8 @@
 	        <ul class="nav navbar-right panel_toolbox">
 	            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 	        </ul>
-	        <div class="clearfix"></div>                
-	    </div> <!-- end of x_title -->  
+	        <div class="clearfix"></div>
+	    </div> <!-- end of x_title -->
 	    <div class="x_content">
 	        <table class="table table-hover dataTable">
 	            <thead>

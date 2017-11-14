@@ -46,6 +46,7 @@
             <div class="clearfix"></div>
         </div>
         <div class="content">
+            <a href="/alumni/create?redirect_to=/event/{{$event->id}}" class="btn btn-primary btn-xs">Register Alumni</a>
             <a class="btn btn-primary btn-xs" href="/event/{{$event->id}}/edit">Edit</a>
             <ul class="details">
                 <li><span>Event Name:</span> {{$event->name}}</li>

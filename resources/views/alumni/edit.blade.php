@@ -56,6 +56,11 @@
                 $('#diocese').val("").focus();
             });
 
+            $('a[type=reset]').click(function(){
+                $('input').val('');
+                $('#diocese-types label').removeClass('active');
+            });
+
         });
 
     </script>
@@ -139,7 +144,7 @@
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label col-md-3 col-sm-3 col-xs-12">Diocese Type</label>
-                    <div class="col-md-6 col-sm-6 col-xs-12" data-toggle="buttons">
+                    <div id="diocese-types" class="col-md-6 col-sm-6 col-xs-12" data-toggle="buttons">
                         <label id="diocese-btn"
                                class="btn btn-primary {{ starts_with(strtolower($alumni->diocese), "diocese") ? 'active':'' }}">
                             <input type="radio" class="sr-only" id="viewMode0" value="0" checked="">

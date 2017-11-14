@@ -9,7 +9,7 @@
     }
 
     .nickname {
-        font-size: 3.5em;
+        font-size: 4.5em;
     }
 
     .details {
@@ -27,8 +27,9 @@
     <p><strong class="nickname">{{ strtoupper($alumni->nickname) }}</strong>
     <div class="details">
         <div>{{ $alumni->first_name }} {{ $alumni->last_name }} </div>
+        <div>{{ $alumni->diocese }} </div>
         @if($alumni->alumni_type !== 'current')
-            <div>{{ $alumni->diocese }} </div>
+            
             <div>{{ $alumni->batch_year }}</div>
         @endif
     </div>

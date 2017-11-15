@@ -60,7 +60,7 @@
 	        <div class="clearfix"></div>                
 	    </div> <!-- end of x_title -->  
 	    <div class="x_content">
-	        <table class="table table-hover dataTable">
+	        <table class="table table-hover table-responsive table-condensed dataTable">
 	            <thead>
 		            <tr>
 		            	<th>ID</th>

@@ -10,6 +10,7 @@
 
     .nickname {
         font-size: 4.5em;
+        white-space: nowrap;
     }
 
     .details {

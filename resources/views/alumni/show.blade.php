@@ -52,10 +52,16 @@
         </div>
         <div class="content">
             <a class="btn btn-primary btn-xs" href="/alumni/{{$alumni->id}}/edit">Edit</a>
+            <form method="POST" action="{{ url('/alumni' . '/' . $alumni->id) }}" accept-charset="UTF-8" style="display:inline">
+                {{ method_field('DELETE') }}
+                {{ csrf_field() }}
+                <button type="submit" class="btn btn-danger btn-xs" title="Delete Administrator" onclick="return confirm('Confirm delete?')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+            </form>
             <ul class="details">
                 <li><span>First Name:</span> {{$alumni->first_name}}</li>
                 <li><span>Last Name:</span> {{$alumni->last_name}}</li>
-                <li><span>Last Name:</span> {{$alumni->middle_initial}}</li>
+                <li><span>Middle Initial:</span> {{$alumni->middle_initial}}</li>
+                <li><span>Nickname:</span> {{$alumni->nickname}}</li>
                 <li><span>Alumni Type:</span> {{$alumni->alumni_type}}</li>
                 <li><span>BEC:</span> {{$alumni->bec}}</li>
                 <li><span>Batch Year:</span> {{$alumni->batch_year}}</li>

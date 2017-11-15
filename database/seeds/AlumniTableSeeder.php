@@ -36,7 +36,7 @@ class AlumniTableSeeder extends Seeder
 
                 $current->first_name = preg_replace('/[^A-Za-z0-9\-\ \.\,]/', '', $first_name);
                 $current->last_name = preg_replace('/[^A-Za-z0-9\-\ \.\,]/', '', $last_name);
-                $current->middle_initial = $middle_initial . '.';
+                $current->middle_initial = $middle_initial;
                 $current->nickname= '';
 
                 $current->birthdate= $this->getDate($birthday);
@@ -84,7 +84,7 @@ class AlumniTableSeeder extends Seeder
                 $current->first_name = preg_replace('/[^A-Za-z0-9\-\ \.\,]/', '', $first_name);
                 $current->last_name = preg_replace('/[^A-Za-z0-9\-\ \.\,]/', '', $last_name);
                 $current->nickname= '';
-                $current->middle_initial = $middle_initial . '.';
+                $current->middle_initial = $middle_initial;
 
                 $current->birthdate= $this->getDate($birthday);
                 $current->years_in_sj= preg_replace('/[^A-Za-z0-9\-\ \.\,]/', '', $years_in_sj);

@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('page_title',"Edit {{ $alumni->first_name }} {{ $alumni->last_name }}")
+@section('page_title',"Edit")
 
 @section('styles')
 

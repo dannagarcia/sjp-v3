@@ -56,7 +56,6 @@
             });
 
 
-
         });
 
     </script>
@@ -112,7 +111,8 @@
                 <div class="form-group">
                     <label for="Middle Initial" class="control-label col-md-3 col-sm-3 col-xs-12">Middle Initial</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input placeholder="A." name="middle_initial" type="text" class="form-control" value="{{ old('middle_initial') }}">
+                        <input placeholder="A." name="middle_initial" type="text" class="form-control"
+                               value="{{ old('middle_initial') }}">
                     </div>
                 </div>
                 <div class="form-group">
@@ -222,6 +222,30 @@
                         <input name="email" type="email" class="form-control" value="{{ old('email') }}">
                     </div>
                 </div>
+
+                @foreach($alumni_custom_fields as $alcf)
+
+                    @if($alcf->type === 'textarea')
+                        <div class="form-group">
+                            <label for="{{ $alcf->id }}"
+                                   class="control-label col-md-3 col-sm-3 col-xs-12">{{ $alcf->key }}</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea name="{{ $alcf->id }}" id="{{ $alcf->id }}" class="form-control">{{ old($alcf->id) }}</textarea>
+                            </div>
+                        </div>
+
+                    @else
+                        <div class="form-group">
+                            <label for="{{ $alcf->id }}"
+                                   class="control-label col-md-3 col-sm-3 col-xs-12">{{ $alcf->key }}</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input name="{{ $alcf->id }}" type="text" class="form-control"
+                                       value="{{ old($alcf->id) }}">
+                            </div>
+                        </div>
+                    @endif
+
+                @endforeach
                 <div class="ln_solid"></div>
                 <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">

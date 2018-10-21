@@ -52,10 +52,14 @@
         </div>
         <div class="content">
             <a class="btn btn-primary btn-xs" href="/alumni/{{$alumni->id}}/edit">Edit</a>
-            <form method="POST" action="{{ url('/alumni' . '/' . $alumni->id) }}" accept-charset="UTF-8" style="display:inline">
+            <form method="POST" action="{{ url('/alumni' . '/' . $alumni->id) }}" accept-charset="UTF-8"
+                  style="display:inline">
                 {{ method_field('DELETE') }}
                 {{ csrf_field() }}
-                <button type="submit" class="btn btn-danger btn-xs" title="Delete Administrator" onclick="return confirm('Confirm delete?')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                <button type="submit" class="btn btn-danger btn-xs" title="Delete Administrator"
+                        onclick="return confirm('Confirm delete?')"><i class="fa fa-trash-o" aria-hidden="true"></i>
+                    Delete
+                </button>
             </form>
             <ul class="details">
                 <li><span>First Name:</span> {{$alumni->first_name}}</li>
@@ -82,6 +86,9 @@
                 <li><span>Mobile:</span> {{$alumni->mobile_num}}</li>
                 <li><span>Email:</span> <a href="mailto:{{$alumni->email}}"><strong><em>{{$alumni->email}}</em></strong></a>
                 </li>
+                @foreach($alumni_custom_fields as $alcf)
+                    <li><span>{{ $alcf->key }}:</span> {{$alumni->{$alcf->id} }}</li>
+                @endforeach
             </ul>
         </div>
 

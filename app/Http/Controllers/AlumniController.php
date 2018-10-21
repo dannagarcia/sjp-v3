@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\AlumniAlumniCustomField;
+use App\AlumniCustomField;
 use Illuminate\Http\Request;
 
 use DB;
 use App\Alumni;
 use DateTime;
+use Mockery\Exception;
 
 class AlumniController extends Controller
 {
@@ -42,7 +45,8 @@ class AlumniController extends Controller
     {
         return view('alumni.create',
             [
-                'redirect_to' => $request->redirect_to
+                'redirect_to' => $request->redirect_to,
+                'alumni_custom_fields' => AlumniCustomField::all()
             ]);
     }
 
@@ -54,38 +58,67 @@ class AlumniController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate($this->rules);
-        $alumni = new Alumni;
-        $alumni->first_name = $request->input('fName');
-        $alumni->last_name = $request->input('lName');
-        $alumni->middle_initial = $request->input('middle_initial');
-        $alumni->nickname = $request->input('nickname');
-        $alumni->alumni_type = $request->input('alumni_type');
-        $alumni->years_in_sj = $request->input('yrs_sj');
-        $alumni->diocese = $request->input('diocese');
-        if (isset($request->birthdate)) {
-            $alumni->birthdate = DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
-        }
-        if (isset($request->ordination)) {
-            $alumni->ordination = DateTime::createFromFormat('m-d-Y', $request->ordination)->format('Y-m-d');
-        } else {
-            $alumni->ordination = null;
-        }
-        $alumni->address = $request->input('address');
-        $alumni->telephone_num = $request->input('telephone');
-        $alumni->fax_num = $request->input('fax');
-        $alumni->mobile_num = $request->input('mobile');
-        $alumni->email = $request->input('email');
 
-        // new fields
-        $alumni->bec = $request->input('bec');
-        $alumni->batch_year = $request->input('batch_year');
+        DB::beginTransaction();
 
-        $alumni->save();
+        try {
+
+            $request->validate($this->rules);
+            $alumni = new Alumni;
+            $alumni->first_name = $request->input('fName');
+            $alumni->last_name = $request->input('lName');
+            $alumni->middle_initial = $request->input('middle_initial');
+            $alumni->nickname = $request->input('nickname');
+            $alumni->alumni_type = $request->input('alumni_type');
+            $alumni->years_in_sj = $request->input('yrs_sj');
+            $alumni->diocese = $request->input('diocese');
+            if (isset($request->birthdate)) {
+                $alumni->birthdate = DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
+            }
+            if (isset($request->ordination)) {
+                $alumni->ordination = DateTime::createFromFormat('m-d-Y', $request->ordination)->format('Y-m-d');
+            } else {
+                $alumni->ordination = null;
+            }
+            $alumni->address = $request->input('address');
+            $alumni->telephone_num = $request->input('telephone');
+            $alumni->fax_num = $request->input('fax');
+            $alumni->mobile_num = $request->input('mobile');
+            $alumni->email = $request->input('email');
+
+            // new fields
+            $alumni->bec = $request->input('bec');
+            $alumni->batch_year = $request->input('batch_year');
+
+            $alumni->save();
+
+            /**
+             * Custom fields
+             */
+            foreach (AlumniCustomField::all() as $alcf) {
+                if(!empty($request->{$alcf->id})){
+                    $aalcf = new AlumniAlumniCustomField();
+                    $aalcf->alumni_id = $alumni->id;
+                    $aalcf->alumni_custom_field_id = $alcf->id;
+                    $aalcf->value = $request->{$alcf->id};
+                    $aalcf->save();
+                }
+                // if empty continue to next alcf
+            }
+
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
+
+        DB::commit();
+
+
         $request->session()->flash('message', 'Successfuly registered');
-        if ($request->redirect_to){
+        if ($request->redirect_to) {
             return redirect($request->redirect_to);
         }
+
+
         return redirect('/alumni');
     }
 
@@ -97,11 +130,19 @@ class AlumniController extends Controller
      */
     public function show($id)
     {
+
+
         $alumni = Alumni::find($id);
         $events = $alumni->events;
+
+        foreach(AlumniAlumniCustomField::where('alumni_id', $alumni->id)->get() as $aacf){
+            $alumni->{$aacf->alumni_custom_field_id} = $aacf->value;
+        }
+
         return view('alumni.show')
             ->with('alumni', $alumni)
-            ->with('events', $events);
+            ->with('events', $events)
+            ->with('alumni_custom_fields', AlumniCustomField::all());
     }
 
     /**
@@ -113,9 +154,18 @@ class AlumniController extends Controller
     public function edit(Request $request, $id)
     {
         $alumni = Alumni::find($id);
+
+        foreach(AlumniAlumniCustomField::where('alumni_id', $alumni->id)->get() as $aacf){
+            $alumni->{$aacf->alumni_custom_field_id} = $aacf->value;
+        }
+
         return view('alumni.edit')
             ->with('alumni', $alumni)
-            ->with('redirect', $request->redirect_to);
+            ->with('redirect', $request->redirect_to)
+            /**
+             * Mapping
+             */
+            ->with('alumni_custom_fields', AlumniCustomField::all());
     }
 
     /**
@@ -157,11 +207,27 @@ class AlumniController extends Controller
         // new fields
         $alumni->bec = $request->input('bec');
         $alumni->batch_year = $request->input('batch_year');
+
         $alumni->save();
+
+        /**
+         * Custom fields
+         */
+        foreach (AlumniCustomField::all() as $alcf) {
+            if(!empty($request->{$alcf->id})){
+                $aalcf = new AlumniAlumniCustomField();
+                $aalcf->alumni_id = $alumni->id;
+                $aalcf->alumni_custom_field_id = $alcf->id;
+                $aalcf->value = $request->{$alcf->id};
+                $aalcf->save();
+            }
+            // if empty continue to next alcf
+        }
+
 
         $request->session()->flash('message', 'Update Sucess');
 
-        if ($request->redirect_to){
+        if ($request->redirect_to) {
             return redirect($request->redirect_to);
         }
         return redirect('/alumni');

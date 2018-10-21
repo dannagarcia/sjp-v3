@@ -25,6 +25,9 @@ class ReportsController extends Controller
             $excel->sheet('Ordained', function ($sheet) {
 
 
+                /**
+                 * TODO: Add left join here or rewrite query
+                 */
                 $ordained = Alumni::select('first_name', 'last_name', 'middle_initial', 'nickname', 'bec', 'batch_year', 'diocese', 'birthdate',
                     'ordination', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'ordained')
@@ -44,6 +47,9 @@ class ReportsController extends Controller
             });
 
             $excel->sheet('Lay', function ($sheet) {
+                /**
+                 * TODO: Add left join here
+                 */
                 $lay = Alumni::select('first_name', 'last_name', 'middle_initial', 'nickname', 'bec', 'batch_year', 'birthdate',
                     'years_in_sj', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'lay')

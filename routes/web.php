@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Resources\AlumniCustomFieldsCollection;
+use App\AlumniCustomField;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +26,9 @@ Route::get('/reports/alumni', 'ReportsController@reports');
 Route::get('/reports/eventreports', 'ReportsController@eventreport');
 Route::get('/reports/download-id/{id}', 'ReportsController@downloadId');
 
+/**
+ * Custom and Settings
+ */
+Route::get('/settings', 'SettingsController@index');
+Route::get('/settings/alumni_custom_fields', 'SettingsController@alumni_custom_fields');
+Route::resource('/api/alumni_custom_fields', 'AlumniCustomFieldsController');

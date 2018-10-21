@@ -10,6 +10,16 @@
     <link href="/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <style>
+        ul li {
+            list-style:  none;
+        }
+
+        ul li strong {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    </style>
 
 @endsection
 
@@ -33,11 +43,91 @@
 
     <script type="text/javascript">
         $('.dataTable').DataTable();
+
     </script>
+
+    <script>
+        $(document).ready(function(){
+
+            $('button.alumni-details-btn').on('click', function(e){
+                var id = $(e.target).data('id');
+
+                $.getJSON('/api/alumni/' + id)
+                    .done(function(data){
+                        if(data.status === 'success'){
+                            /**
+                             * Populate and display modal
+                             */
+                            $('#modal-details').empty()
+
+                            if(data.alumnus){
+                                var id = data.alumnus.id
+                                $('#edit-btn').attr('href',"/alumni/" + id +"/edit?redirect_to=/event/{{$event->id}}" );
+                                for(key in data.alumnus){
+
+                                    if(key != "customFields"){
+                                        var $li = $('<li>')
+                                            .html("<strong>" + key +": </strong>" + ( data.alumnus[key] + "").replace(/\_/, ' '));
+
+                                        $('#modal-details').append($li);
+                                    } else {
+                                        for(cf in data.alumnus.customFields){
+                                            var $li = $('<li>')
+                                                .html("<strong>" + cf +": </strong>" +  data.alumnus.customFields[cf] + "");
+                                            $('#modal-details').append($li);
+                                        }
+                                    }
+                                }
+                                $('#modal').modal('show');
+
+                            }
+                        } else if(data.status === 'error') {
+                            alert("Alumni id not found..");
+                        }
+                        console.log(data);
+                    })
+                    .fail(function(){
+                        alert("There was an error");
+                    });
+
+            });
+        });
+    </script>
+
+
 
 @endsection
 
 @section('body')
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+         aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                                aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Alumni Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="content">
+                        <a class="btn btn-primary btn-md" id="edit-btn"
+                        >Edit</a>
+                        <br>
+                        <ul id="modal-details">
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                    </button>
+                    {{--<button type="button" class="btn btn-primary">Save changes</button>--}}
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <div class="x_panel">
 
@@ -131,65 +221,9 @@
                         <td>{{ $value->email }}</td>
                         <td>
                             <!-- Large modal -->
-                            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal"
-                                    data-target="#modal-md-{{ $value->id }}">Details
+                            <button type="button" class="btn btn-primary btn-xs alumni-details-btn"
+                                    data-id="{{ $value->id }}">Details
                             </button>
-
-                            <div class="modal fade" id="modal-md-{{ $value->id }}" tabindex="-1" role="dialog"
-                                 aria-hidden="true">
-                                <div class="modal-dialog modal-md">
-                                    <div class="modal-content">
-
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal"><span
-                                                        aria-hidden="true">×</span>
-                                            </button>
-                                            <h4 class="modal-title" id="myModalLabel">Alumni Details</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <?php
-                                            $alumni = \App\Alumni::find($value->id);
-                                            ?>
-                                            <div class="content">
-                                                <a class="btn btn-primary btn-md"
-                                                   href="/alumni/{{$alumni->id}}/edit?redirect_to=/event/{{$event->id}}">Edit</a>
-                                                <br>
-                                                <ul class="details">
-                                                    <li><span>First Name:</span> {{$alumni->first_name}}</li>
-                                                    <li><span>Last Name:</span> {{$alumni->last_name}}</li>
-                                                    <li><span>Alumni Type:</span> {{$alumni->alumni_type}} </li>
-                                                    @if($alumni->alumni_type === 'ordained')
-                                                        <li><span>Diocese:</span> {{$alumni->diocese}}</li>
-                                                        <li>
-                                                            <span>Ordination: </span>{{ date_format(date_create($alumni->ordination), 'm-d-Y')}}
-                                                        </li>
-                                                    @else
-                                                        <li><span>Years in San Jose:</span> {{ $alumni->years_in_sj }}
-                                                        </li>
-                                                    @endif
-                                                    <li><span>BEC: </span>{{$alumni->bec }}</li>
-                                                    <li><span>Batch Year: </span>{{$alumni->batch_year}}</li>
-                                                    <li>
-                                                        <span>Birthdate: </span>{{ date_format(date_create($alumni->birthdate), 'm-d-Y')}}
-                                                    </li>
-                                                    <li><span>Address: </span>{{$alumni->address}}</li>
-                                                    <li><span>Telephone:</span> {{$alumni->telephone_num}}</li>
-                                                    <li><span>Fax:</span> {{$alumni->fax_num}}</li>
-                                                    <li><span>Mobile:</span> {{$alumni->mobile_num}}</li>
-                                                    <li><span>Email:</span> <a href="mailto:{{$alumni->email}}"><strong><em>{{$alumni->email}}</em></strong></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close
-                                            </button>
-                                            {{--<button type="button" class="btn btn-primary">Save changes</button>--}}
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
                             <form style="display:inline" method="post" action="/event/attend">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="event_id" value="{{ $event->id }}">

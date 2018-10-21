@@ -96,7 +96,7 @@ class AlumniController extends Controller
              * Custom fields
              */
             foreach (AlumniCustomField::all() as $alcf) {
-                if(!empty($request->{$alcf->id})){
+                if (!empty($request->{$alcf->id})) {
                     $aalcf = new AlumniAlumniCustomField();
                     $aalcf->alumni_id = $alumni->id;
                     $aalcf->alumni_custom_field_id = $alcf->id;
@@ -135,7 +135,7 @@ class AlumniController extends Controller
         $alumni = Alumni::find($id);
         $events = $alumni->events;
 
-        foreach(AlumniAlumniCustomField::where('alumni_id', $alumni->id)->get() as $aacf){
+        foreach (AlumniAlumniCustomField::where('alumni_id', $alumni->id)->get() as $aacf) {
             $alumni->{$aacf->alumni_custom_field_id} = $aacf->value;
         }
 
@@ -155,7 +155,7 @@ class AlumniController extends Controller
     {
         $alumni = Alumni::find($id);
 
-        foreach(AlumniAlumniCustomField::where('alumni_id', $alumni->id)->get() as $aacf){
+        foreach (AlumniAlumniCustomField::where('alumni_id', $alumni->id)->get() as $aacf) {
             $alumni->{$aacf->alumni_custom_field_id} = $aacf->value;
         }
 
@@ -214,12 +214,11 @@ class AlumniController extends Controller
          * Custom fields
          */
         foreach (AlumniCustomField::all() as $alcf) {
-            if(!empty($request->{$alcf->id})){
-                $aalcf = new AlumniAlumniCustomField();
-                $aalcf->alumni_id = $alumni->id;
-                $aalcf->alumni_custom_field_id = $alcf->id;
-                $aalcf->value = $request->{$alcf->id};
-                $aalcf->save();
+            if (!empty($request->{$alcf->id})) {
+                AlumniAlumniCustomField::updateOrCreate([
+                    'alumni_id' => $alumni->id,
+                    'alumni_custom_field_id' => $alcf->id,
+                ],[ 'value' => $request->{$alcf->id} ]);
             }
             // if empty continue to next alcf
         }

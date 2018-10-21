@@ -31,4 +31,8 @@ Route::get('/reports/download-id/{id}', 'ReportsController@downloadId');
  */
 Route::get('/settings', 'SettingsController@index');
 Route::get('/settings/alumni_custom_fields', 'SettingsController@alumni_custom_fields');
+/**
+ * APIs
+ */
+Route::resource('/api/alumni', 'AlumniAPIController');
 Route::resource('/api/alumni_custom_fields', 'AlumniCustomFieldsController');

@@ -224,7 +224,8 @@ class AlumniController extends Controller
         }
 
 
-        $request->session()->flash('message', 'Update Sucess');
+        $request->session()->flash('update_message', 'Update Sucess');
+        $request->session()->flash('alumni', $alumni);
 
         if ($request->redirect_to) {
             return redirect($request->redirect_to);

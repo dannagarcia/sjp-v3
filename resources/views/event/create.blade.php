@@ -64,7 +64,7 @@
                 <div class="form-group">
                     <label for="Event Date" class="control-label col-md-3 col-sm-3 col-xs-12">Date</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
-                        <input name="event_date" type='text' class="form-control" value="{{ old('event_date') }}"/>
+                        <input name="event_date" type='date' class="form-control" value="{{ old('event_date') }}"/>
                         <span class="input-group-addon">
                            <span class="glyphicon glyphicon-calendar"></span>
                         </span>

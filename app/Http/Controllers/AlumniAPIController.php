@@ -12,30 +12,49 @@ class AlumniAPIController extends Controller
 
     public function search(Request $request)
     {
-        $q = $request->q;
-        $event_id = $request->event_id;
+        $q = $request->input('query');
 
-        if(!$q){
-            $response = Alumni::select('id' ,'first_name', 'last_name', 'email',
-                DB::raw('CONCAT(last_name,  ", ", first_name, " (", email ,")") AS formatted'))
-                ->get();
-        } else {
-            $response = Alumni::select('id', 'first_name', 'last_name', 'email',
-                DB::raw('CONCAT(last_name,  ", ", first_name, " (", email ,")") AS formatted'))
-                /**
-                 * TODO
-                 */
-                //->join('alumni_event', 'alumni_event.alumni_id', '=', 'alumni.id','inner')
-                ->where('first_name', 'like', '%' . $q . '%')
-                ->orWhere('last_name', 'like', '%' . $q . '%')
-                ->orWhere('email', 'like', '%' . $q . '%')
-                ->orWhere(DB::raw('CONCAT(last_name, ", ", "first_name")'), 'like', '%' . $q . '%')
-                ->orderBy('last_name')
-                ->get();
+
+        if (!$q) {
+            throw new Exception("Forbidden.");
+        }
+
+        $q = strtolower($q);
+        $response = Alumni::select('alumnis.id', 'first_name', 'last_name', 'email', 'events.id AS event_id',
+            DB::raw('CONCAT(last_name,  ", ", first_name, " (", email ,")") AS formatted'))
+            ->join('alumni_event', 'alumni_event.alumni_id', '=', 'alumnis.id', 'left')
+            ->join('events', 'alumni_event.event_id', '=', 'events.id', 'left')
+            ->where('first_name', 'like', '%' . $q . '%')
+            ->orWhere('last_name', 'like', '%' . $q . '%')
+            ->orWhere('email', 'like', '%' . $q . '%')
+            ->orWhere(DB::raw('CONCAT(last_name, ", ", "first_name")'), 'like', '%' . strtolower($q) . '%')
+            ->orderBy('last_name')
+            ->get();
+
+        $suggestions = [];
+        $alumni = $response;
+
+        foreach ($alumni as $key => $value) {
+
+            if (!empty($value['event_id'])) // alumni already added to event
+                continue;
+
+            $suggestionText = empty($value->formatted) ? $value->first_name : $value->formatted;
+            $suggestionText = "({$value->id}) {$suggestionText}";
+
+            $suggestions[] = [
+                'value' => $suggestionText,
+                'data' => [
+                    'id' => $value->id
+                ]
+            ];
         }
 
 
-        return response()->json($response);
+        return response()->json([
+            'suggestions' => $suggestions,
+            'q' => $q
+        ]);
     }
 
     /**

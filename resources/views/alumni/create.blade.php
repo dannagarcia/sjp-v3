@@ -138,7 +138,7 @@
                 <div class="form-group">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Date of Birth</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
-                        <input name="birthdate" type='text' class="form-control" value="{{ old('birthdate') }}"
+                        <input name="birthdate" type='date' class="form-control" value="{{ old('birthdate') }}"
                                placeholder="mm-dd-yyyy"/>
                         <span class="input-group-addon">
                            <span class="glyphicon glyphicon-calendar"></span>

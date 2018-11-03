@@ -16,8 +16,9 @@ use App\AlumniCustomField;
 
 Route::get('/', 'DashboardController@index');
 Route::resource('/alumni', 'AlumniController');
-Route::resource('/event', 'EventController');
+Route::get('/event/attend', 'EventController@attend');
 Route::post('/event/attend', 'EventController@attend');
+Route::resource('/event', 'EventController');
 Route::post('/event/remove', 'EventController@remove');
 Route::get('/reports/test', 'ReportsController@test');
 

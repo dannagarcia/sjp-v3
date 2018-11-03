@@ -24,13 +24,7 @@
             width: 100%;
         }
     </style>
-    <!-- JS file -->
 
-    <!-- CSS file -->
-    <link rel="stylesheet" href="/easyautocomplete/easy-autocomplete.min.css">
-
-    <!-- Additional CSS Themes file - not required-->
-    <link rel="stylesheet" href="/easyautocomplete/easy-autocomplete.themes.min.css">
 @endsection
 
 @section('scripts')
@@ -51,9 +45,7 @@
     <script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
 
-
-    <script src="/easyautocomplete/jquery.easy-autocomplete.min.js"></script>
-
+    <script src="/vendor/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
 
     <script type="text/javascript">
 
@@ -61,104 +53,84 @@
 
             $('.dataTable').DataTable();
 
+            var functions = {
+                fetchAlumnusDetails: function (suggestion) {
+                    var id = suggestion.data.id;
 
-            var options = {
-                url: function (phrase) {
-                    return "/api/search?q=" + phrase;
-                },
-                getValue: "formatted",
-                requestDelay: 500,
-                list: {
-                    onSelectItemEvent: function () {
-                        var id = $("#search").getSelectedItemData().id;
-                        $.getJSON('/api/alumni/' + id + '&event_id={{ $event->id }}')
-                            .done(function (data) {
-                                if (data.status === 'success') {
 
-                                    $('#search-data').empty();
+                    /**
+                     * Called after clicking on a search element
+                     */
+                    $.getJSON('/api/alumni/' + id + '&event_id={{ $event->id }}')
+                        .done(function (data) {
+                            if (data.status === 'success') {
 
-                                    if (data.alumnus) {
-                                        var id = data.alumnus.id;
+                                $('#search-data').empty();
 
-                                        for (key in data.alumnus) {
-                                            /**
-                                             * Output:
-                                             *  tr
-                                             *      td strong $x
-                                             *      td $y
-                                             */
-                                            var $tr = $('<tr>')
-                                                .append('<td><strong>' + key + ' </strong></td>')
-                                                .append('<td>' + data.alumnus[key] + ' </td>');
-                                            $('#search-data').append($tr);
-                                        }
+                                if (data.alumnus) {
+                                    var id = data.alumnus.id;
 
+                                    for (key in data.alumnus) {
+                                        /**
+                                         * Output:
+                                         *  tr
+                                         *      td strong $x
+                                         *      td $y
+                                         */
+                                        var $tr = $('<tr>')
+                                            .append('<td><strong>' + key + ' </strong></td>')
+                                            .append('<td>' + data.alumnus[key] + ' </td>');
+                                        $('#search-data').append($tr);
                                     }
-                                } else if (data.status === 'error') {
-                                    alert("Alumni id not found..");
+
+                                    /**
+                                     * Add action buttons
+                                     */
+                                    var id = data.alumnus['id']
+                                    $('#search-data-actions')
+                                        .empty()
+                                        .append($('<a class="btn btn-warning pull-right" href="/alumni/' + id + '/edit?redirect_to=/event/{{$event->id}}">Edit</a>'))
+                                        .append($('<a class="btn btn-warning pull-right" href="/event/attend?alumni_id=' + id + '&event_id={{ $event->id }}">Add to Attendees</a>'))
+
                                 }
-                                console.log(data);
-                            })
-                            .fail(function () {
-                                alert("There was an error");
-                            });
-                        // $("#data-holder").val(value).trigger("change");
-                    }
+                            } else if (data.status === 'error') {
+                                alert("Alumni id not found..");
+                            }
+                            console.log(data);
+                        })
+                        .fail(function (err) {
+                            alert("There was an error");
+                            console.log(err);
+                        });
+                    // $("#data-holder").val(value).trigger("change");
+
                 }
             };
 
-            $("#provider-remote").easyAutocomplete(options);
-            $("#search").easyAutocomplete(options);
-
+            $('#search').autocomplete({
+                serviceUrl: '/api/search',
+                onSelect: functions.fetchAlumnusDetails,
+                showNoSuggestionNotice: true,
+                deferRequestBy: 300
+            });
 
         });
 
 
     </script>
 
-
-
-    {{--<script>--}}
-    {{--$(document).ready(function () {--}}
-
-    {{--$('button.alumni-details-btn').on('click', function (e) {--}}
-    {{--var id = $(e.target).data('id');--}}
-
-    {{--alert('here');--}}
-    {{--$.getJSON('/api/alumni/' + id)--}}
-    {{--.done(function (data) {--}}
-    {{--if (data.status === 'success') {--}}
-    {{--/**--}}
-    {{--* Populate and display modal--}}
-    {{--*/--}}
-    {{--$('#modal-details').empty();--}}
-
-    {{--if (data.alumnus) {--}}
-    {{--var id = data.alumnus.id;--}}
-    {{--  $('#edit-btn').attr('href', "/alumni/" + id + "/edit?redirect_to=/event/{{$event->id}}"); --}}
-    {{--for (key in data.alumnus) {--}}
-    {{--$('#search-data').append(JSON.stringify(data.alumnus[key]));--}}
-    {{--}--}}
-
-    {{--}--}}
-    {{--} else if (data.status === 'error') {--}}
-    {{--alert("Alumni id not found..");--}}
-    {{--}--}}
-    {{--console.log(data);--}}
-    {{--})--}}
-    {{--.fail(function () {--}}
-    {{--alert("There was an error");--}}
-    {{--});--}}
-
-    {{--});--}}
-    {{--});--}}
-    {{--</script>--}}
-
-
-
 @endsection
 
 @section('body')
+    @if (Session::has('alumni'))
+        <div class="alert alert-success">
+            <?php $alumni = session('alumni') ?>
+            <?php $name = "{$alumni->first_name} {$alumni->last_name} " ?>
+            Update Success. Would you also want to add {{ $name  }} to this event?
+            <a href="/event/attend?alumni_id={{ $alumni->id }}&event_id={{ $event->id }}" class="btn btn-primary">Add to Event</a>
+        </div>
+
+    @endif
     <div class="modal fade" id="modal" tabindex="-1" role="dialog"
          aria-hidden="true">
         <div class="modal-dialog modal-md">
@@ -215,17 +187,20 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <form id="search-form">
+            <div id="search-form">
                 <div class="col-lg-6">
-                    <div class="input-group">
-                        <input id="search" type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                          <button class="btn btn-default" type="submit">Search</button>
-                         </span>
-                    </div><!-- /input-group -->
+                    {{--<div class="input-group">--}}
+                    <input id="search" type="text" class="form-control" placeholder="Search for...">
+                    {{--<span class="input-group-btn">--}}
+                    {{--<button class="btn btn-default" type="submit">Search</button>--}}
+                    {{--</span>--}}
+                    {{--</div><!-- /input-group -->--}}
                 </div><!-- /.col-lg-6 -->
                 <div class="clearfix"></div>
                 <div class="col-xs-6">
+                    <div id="search-data-actions">
+
+                    </div>
                     <table class="table table-condensed ">
                         <tbody id="search-data">
                         <tr>
@@ -235,7 +210,7 @@
                         </tbody>
                     </table>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 

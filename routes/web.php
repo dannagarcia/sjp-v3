@@ -35,4 +35,5 @@ Route::get('/settings/alumni_custom_fields', 'SettingsController@alumni_custom_f
  * APIs
  */
 Route::resource('/api/alumni', 'AlumniAPIController');
+Route::get('/api/search', 'AlumniAPIController@search');
 Route::resource('/api/alumni_custom_fields', 'AlumniCustomFieldsController');

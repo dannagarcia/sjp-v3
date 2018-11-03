@@ -12,15 +12,25 @@
     <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <style>
         ul li {
-            list-style:  none;
+            list-style: none;
         }
 
         ul li strong {
             font-weight: bold;
             text-transform: uppercase;
         }
-    </style>
 
+        #search {
+            width: 100%;
+        }
+    </style>
+    <!-- JS file -->
+
+    <!-- CSS file -->
+    <link rel="stylesheet" href="/easyautocomplete/easy-autocomplete.min.css">
+
+    <!-- Additional CSS Themes file - not required-->
+    <link rel="stylesheet" href="/easyautocomplete/easy-autocomplete.themes.min.css">
 @endsection
 
 @section('scripts')
@@ -41,58 +51,108 @@
     <script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
 
+
+    <script src="/easyautocomplete/jquery.easy-autocomplete.min.js"></script>
+
+
     <script type="text/javascript">
-        $('.dataTable').DataTable();
 
-    </script>
+        $(document).ready(function () {
 
-    <script>
-        $(document).ready(function(){
+            $('.dataTable').DataTable();
 
-            $('button.alumni-details-btn').on('click', function(e){
-                var id = $(e.target).data('id');
 
-                $.getJSON('/api/alumni/' + id)
-                    .done(function(data){
-                        if(data.status === 'success'){
-                            /**
-                             * Populate and display modal
-                             */
-                            $('#modal-details').empty()
+            var options = {
+                url: function (phrase) {
+                    return "/api/search?q=" + phrase;
+                },
+                getValue: "formatted",
+                requestDelay: 500,
+                list: {
+                    onSelectItemEvent: function () {
+                        var id = $("#search").getSelectedItemData().id;
+                        $.getJSON('/api/alumni/' + id + '&event_id={{ $event->id }}')
+                            .done(function (data) {
+                                if (data.status === 'success') {
 
-                            if(data.alumnus){
-                                var id = data.alumnus.id
-                                $('#edit-btn').attr('href',"/alumni/" + id +"/edit?redirect_to=/event/{{$event->id}}" );
-                                for(key in data.alumnus){
+                                    $('#search-data').empty();
 
-                                    if(key != "customFields"){
-                                        var $li = $('<li>')
-                                            .html("<strong>" + key +": </strong>" + ( data.alumnus[key] + "").replace(/\_/, ' '));
+                                    if (data.alumnus) {
+                                        var id = data.alumnus.id;
 
-                                        $('#modal-details').append($li);
-                                    } else {
-                                        for(cf in data.alumnus.customFields){
-                                            var $li = $('<li>')
-                                                .html("<strong>" + cf +": </strong>" +  data.alumnus.customFields[cf] + "");
-                                            $('#modal-details').append($li);
+                                        for (key in data.alumnus) {
+                                            /**
+                                             * Output:
+                                             *  tr
+                                             *      td strong $x
+                                             *      td $y
+                                             */
+                                            var $tr = $('<tr>')
+                                                .append('<td><strong>' + key + ' </strong></td>')
+                                                .append('<td>' + data.alumnus[key] + ' </td>');
+                                            $('#search-data').append($tr);
                                         }
+
                                     }
+                                } else if (data.status === 'error') {
+                                    alert("Alumni id not found..");
                                 }
-                                $('#modal').modal('show');
+                                console.log(data);
+                            })
+                            .fail(function () {
+                                alert("There was an error");
+                            });
+                        // $("#data-holder").val(value).trigger("change");
+                    }
+                }
+            };
 
-                            }
-                        } else if(data.status === 'error') {
-                            alert("Alumni id not found..");
-                        }
-                        console.log(data);
-                    })
-                    .fail(function(){
-                        alert("There was an error");
-                    });
+            $("#provider-remote").easyAutocomplete(options);
+            $("#search").easyAutocomplete(options);
 
-            });
+
         });
+
+
     </script>
+
+
+
+    {{--<script>--}}
+    {{--$(document).ready(function () {--}}
+
+    {{--$('button.alumni-details-btn').on('click', function (e) {--}}
+    {{--var id = $(e.target).data('id');--}}
+
+    {{--alert('here');--}}
+    {{--$.getJSON('/api/alumni/' + id)--}}
+    {{--.done(function (data) {--}}
+    {{--if (data.status === 'success') {--}}
+    {{--/**--}}
+    {{--* Populate and display modal--}}
+    {{--*/--}}
+    {{--$('#modal-details').empty();--}}
+
+    {{--if (data.alumnus) {--}}
+    {{--var id = data.alumnus.id;--}}
+    {{--  $('#edit-btn').attr('href', "/alumni/" + id + "/edit?redirect_to=/event/{{$event->id}}"); --}}
+    {{--for (key in data.alumnus) {--}}
+    {{--$('#search-data').append(JSON.stringify(data.alumnus[key]));--}}
+    {{--}--}}
+
+    {{--}--}}
+    {{--} else if (data.status === 'error') {--}}
+    {{--alert("Alumni id not found..");--}}
+    {{--}--}}
+    {{--console.log(data);--}}
+    {{--})--}}
+    {{--.fail(function () {--}}
+    {{--alert("There was an error");--}}
+    {{--});--}}
+
+    {{--});--}}
+    {{--});--}}
+    {{--</script>--}}
 
 
 
@@ -112,7 +172,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="content">
-                        <a class="btn btn-primary btn-md" id="edit-btn"
+                        <a class="btn btn-primary btn-md pull-right" id="edit-btn"
                         >Edit</a>
                         <br>
                         <ul id="modal-details">
@@ -136,7 +196,8 @@
             <div class="clearfix"></div>
         </div>
         <div class="content">
-            <a href="/alumni/create?redirect_to=/event/{{$event->id}}" class="btn btn-primary btn-xs">Register Alumni</a>
+            <a href="/alumni/create?redirect_to=/event/{{$event->id}}" class="btn btn-primary btn-xs">Register
+                Alumni</a>
             <a class="btn btn-primary btn-xs" href="/event/{{$event->id}}/edit">Edit</a>
             <ul class="details">
                 <li><span>Event Name:</span> {{$event->name}}</li>
@@ -146,6 +207,36 @@
             </ul>
         </div>
 
+    </div>
+    <div class="x_panel">
+        <div class="x_title">
+            <h2><i class="fa fa-users" aria-hidden="true"></i> Add Attendees</h2>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <form id="search-form">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input id="search" type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="submit">Search</button>
+                         </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+                <div class="clearfix"></div>
+                <div class="col-xs-6">
+                    <table class="table table-condensed ">
+                        <tbody id="search-data">
+                        <tr>
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
     </div>
 
 
@@ -197,45 +288,45 @@
         </div>
     </div>
 
-    <div class="x_panel">
-        <div class="x_title">
-            <h2><i class="fa fa-users" aria-hidden="true"></i> Search Alumni</h2>
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
+    {{--<div class="x_panel">--}}
+    {{--<div class="x_title">--}}
+    {{--<h2><i class="fa fa-users" aria-hidden="true"></i> Search Alumni</h2>--}}
+    {{--<div class="clearfix"></div>--}}
+    {{--</div>--}}
+    {{--<div class="x_content">--}}
 
-            <table class="table table-hover dataTable">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Manage</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ( $unattended as $unattend => $value )
-                    <tr>
-                        <td>{{ $value->id }}</td>
-                        <td>{{ $value->last_name }}, {{ $value->first_name }}</td>
-                        <td>{{ $value->email }}</td>
-                        <td>
-                            <!-- Large modal -->
-                            <button type="button" class="btn btn-primary btn-xs alumni-details-btn"
-                                    data-id="{{ $value->id }}">Details
-                            </button>
-                            <form style="display:inline" method="post" action="/event/attend">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="event_id" value="{{ $event->id }}">
-                                <input type="hidden" name="alumni_id" value="{{ $value->id }}">
-                                <button class="btn btn-danger btn-xs">Attend</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
+    {{--<table class="table table-hover dataTable">--}}
+    {{--<thead>--}}
+    {{--<tr>--}}
+    {{--<th>ID</th>--}}
+    {{--<th>Name</th>--}}
+    {{--<th>Email</th>--}}
+    {{--<th>Manage</th>--}}
+    {{--</tr>--}}
+    {{--</thead>--}}
+    {{--<tbody>--}}
+    {{--@foreach ( $unattended as $unattend => $value )--}}
+    {{--<tr>--}}
+    {{--<td>{{ $value->id }}</td>--}}
+    {{--<td>{{ $value->last_name }}, {{ $value->first_name }}</td>--}}
+    {{--<td>{{ $value->email }}</td>--}}
+    {{--<td>--}}
+    {{--<!-- Large modal -->--}}
+    {{--<button type="button" class="btn btn-primary btn-xs alumni-details-btn"--}}
+    {{--data-id="{{ $value->id }}">Details--}}
+    {{--</button>--}}
+    {{--<form style="display:inline" method="post" action="/event/attend">--}}
+    {{--{{ csrf_field() }}--}}
+    {{--<input type="hidden" name="event_id" value="{{ $event->id }}">--}}
+    {{--<input type="hidden" name="alumni_id" value="{{ $value->id }}">--}}
+    {{--<button class="btn btn-danger btn-xs">Attend</button>--}}
+    {{--</form>--}}
+    {{--</td>--}}
+    {{--</tr>--}}
+    {{--@endforeach--}}
+    {{--</tbody>--}}
+    {{--</table>--}}
+    {{--</div>--}}
+    {{--</div>--}}
 
 @endsection

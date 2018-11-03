@@ -4,10 +4,40 @@ namespace App\Http\Controllers;
 
 use App\Alumni;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Mockery\Exception;
 
 class AlumniAPIController extends Controller
 {
+
+    public function search(Request $request)
+    {
+        $q = $request->q;
+        $event_id = $request->event_id;
+
+        if(!$q){
+            $response = Alumni::select('id' ,'first_name', 'last_name', 'email',
+                DB::raw('CONCAT(last_name,  ", ", first_name, " (", email ,")") AS formatted'))
+                ->get();
+        } else {
+            $response = Alumni::select('id', 'first_name', 'last_name', 'email',
+                DB::raw('CONCAT(last_name,  ", ", first_name, " (", email ,")") AS formatted'))
+                /**
+                 * TODO
+                 */
+                //->join('alumni_event', 'alumni_event.alumni_id', '=', 'alumni.id','inner')
+                ->where('first_name', 'like', '%' . $q . '%')
+                ->orWhere('last_name', 'like', '%' . $q . '%')
+                ->orWhere('email', 'like', '%' . $q . '%')
+                ->orWhere(DB::raw('CONCAT(last_name, ", ", "first_name")'), 'like', '%' . $q . '%')
+                ->orderBy('last_name')
+                ->get();
+        }
+
+
+        return response()->json($response);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -74,7 +104,7 @@ class AlumniAPIController extends Controller
         try {
 
             $alumni = Alumni::find($id);
-            $alumni->loadCustomFields();
+            $alumni->loadCustomFields(true);
 
 
             if (!empty($alumni)) {

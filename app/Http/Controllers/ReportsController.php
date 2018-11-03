@@ -12,10 +12,13 @@ use Illuminate\Support\Facades\View;
 use Jimmyjs\ReportGenerator\ReportMedia\PdfReport;
 use Maatwebsite\Excel\Facades\Excel;
 use App;
+use DB;
 
 
 class ReportsController extends Controller
 {
+    private $alumni_columns = ['first_name', 'last_name', 'middle_initial', 'nickname', 'bec', 'batch_year', 'diocese', 'birthdate',
+        'ordination', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email'];
 
     public function reports(Request $request)
     {
@@ -28,16 +31,22 @@ class ReportsController extends Controller
                 /**
                  * TODO: Add left join here or rewrite query
                  */
+                // Old Query
                 $ordained = Alumni::select('first_name', 'last_name', 'middle_initial', 'nickname', 'bec', 'batch_year', 'diocese', 'birthdate',
                     'ordination', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'ordained')
                     ->get();
-                $sheet->fromModel($ordained->toArray(), null, 'A1', false, true);
+
+                foreach ($ordained as $o) {
+                    $o->loadCustomFields(true);
+                }
+
+                $sheet->fromArray($ordained->toArray(), null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
-                $sheet->row(1, array(
+                $sheet->row(1, [
                     'First Name', 'Last Name', 'Middle Initial', 'Nickname', 'BEC', 'Batch Year', 'Diocese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
-                ));
+                ]);
                 $sheet->prependRow(1, array(
                     'List of all registered Ordained as of ' . Carbon::now()
                 ));
@@ -47,14 +56,19 @@ class ReportsController extends Controller
             });
 
             $excel->sheet('Lay', function ($sheet) {
-                /**
-                 * TODO: Add left join here
-                 */
+
                 $lay = Alumni::select('first_name', 'last_name', 'middle_initial', 'nickname', 'bec', 'batch_year', 'birthdate',
                     'years_in_sj', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'lay')
                     ->get();
-                $sheet->fromModel($lay->toArray(), null, 'A1', false, true);
+
+                foreach ($lay as $l) {
+                    $l->loadCustomFields(true);
+                }
+                dd($l->first());
+
+
+                $sheet->fromArray($lay->toArray(), null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
                     'First Name', 'Last Name', 'Middle Initial', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',
@@ -68,11 +82,16 @@ class ReportsController extends Controller
             });
 
             $excel->sheet('Current', function ($sheet) {
-                $lay = Alumni::select('first_name', 'last_name', 'middle_initial', 'nickname', 'bec', 'batch_year', 'birthdate',
+                $current = Alumni::select('first_name', 'last_name', 'middle_initial', 'nickname', 'bec', 'batch_year', 'birthdate',
                     'years_in_sj', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'current')
                     ->get();
-                $sheet->fromModel($lay->toArray(), null, 'A1', false, true);
+
+                foreach ($current as $c) {
+                    $c->loadCustomFields(true);
+                }
+
+                $sheet->fromArray($current->toArray(), null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
                     'First Name', 'Last Name', 'Middle Initial', 'Nickname', 'BEC', 'Batch Year', 'Birthdate', 'Years in San Jose', 'Address', 'Telephone Number',

@@ -71,7 +71,7 @@ class EventController extends Controller
         $event = Event::find($id);
         $attendees = $event->alumnis;
 
-        $attendees_ids = array();
+        $attendees_ids = [];
         foreach ($attendees as $key => $value) {
             $attendees_ids[] = $value->id;
         }

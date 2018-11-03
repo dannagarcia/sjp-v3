@@ -18,7 +18,7 @@ class Alumni extends Model
     /**
      * Adds the alumni custom fields to attributes
      */
-    public function loadCustomFields()
+    public function loadCustomFields($direct_to_model = false)
     {
         $acf = AlumniCustomField::getAllCustomFieldsArray();
         /**
@@ -43,8 +43,21 @@ class Alumni extends Model
 
         } // end foreach
 
+        if($direct_to_model){
 
-        $this->customFields = $customFields;
+            /**
+             * Directly inject to model attributes
+             */
+            foreach($customFields as $cfk =>  $cfvalue) {
+                $this->{$cfk} = $cfvalue;
+            }
+        } else {
+            /**
+             * Store in array
+             */
+            $this->customFields = $customFields;
+        }
+
     }
 
 }

@@ -13,6 +13,15 @@
     <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
+    <style>
+        ul {
+            margin-top: 10px;
+            padding: 0;
+            list-style: none;
+        }
+    </style>
+
+
 @endsection
 
 @section('scripts')
@@ -62,9 +71,11 @@
                     Delete
                 </button>
             </form>
+            <ul id="alumni-details-list">
                 <li><span>First Name:</span> {{$alumni->first_name}}</li>
                 <li><span>Last Name:</span> {{$alumni->last_name}}</li>
                 <li><span>Middle Initial:</span> {{$alumni->middle_initial}}</li>
+                <li><span>Title:</span> {{$alumni->title}}</li>
                 <li><span>Nickname:</span> {{$alumni->nickname}}</li>
                 <li><span>Alumni Type:</span> {{$alumni->alumni_type}}</li>
                 <li><span>BEC:</span> {{$alumni->bec}}</li>

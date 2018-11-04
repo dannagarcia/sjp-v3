@@ -12,7 +12,7 @@
             padding: 0 10px !important;
         }
 
-        .for-ordination {
+        .for-ordained {
             display: none;
         }
     </style>
@@ -26,23 +26,41 @@
 
         $(document).ready(function () {
 
+            /**
+             * Event handlers on Nav Tab
+             */
+
+            /**
+             * Ordained
+             */
             $("#alumni_type > label.ord-lbl").click(function (e) {
+
                 e.preventDefault();
-                $(".for-ordination").show();
+                $(".for-ordained").show();
                 $(".for-lay").hide();
             });
+
+            /**
+             * Lay
+             */
             $("#alumni_type > label.lay-lbl").click(function (e) {
                 e.preventDefault();
                 $(".for-lay").show();
-                $(".for-ordination").hide();
+                $(".for-ordained").hide();
             });
 
+            /**
+             * Current
+             */
             $("#alumni_type > label.current-lbl").click(function (e) {
                 e.preventDefault();
                 $(".for-lay").show();
-                $(".for-ordination").hide();
+                $(".for-ordained").hide();
             });
 
+            /**
+             * Event Handler for Diocese type buttons
+             */
             $('#diocese-btn').click(function () {
                 $('#diocese').val("Diocese of ").focus();
             });
@@ -115,6 +133,12 @@
                                value="{{ old('middle_initial') }}">
                     </div>
                 </div>
+                <div class="form-group for-ordained">
+                    <label for="Title" class="control-label col-md-3 col-sm-3 col-xs-12">Title</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input name="title" type="text" class="form-control" value="{{ old('title') }}" placeholder='"Monsignor", "Father", "Bishop","Cardinal", ...'>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="Nickname" class="control-label col-md-3 col-sm-3 col-xs-12">Nickname</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -175,7 +199,7 @@
                                placeholder="">
                     </div>
                 </div>
-                <div class="form-group for-ordination">
+                <div class="form-group for-ordained">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Ordination Date</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
                         <input type='text' class="form-control" name="ordination" value="{{ old('ordination') }}"

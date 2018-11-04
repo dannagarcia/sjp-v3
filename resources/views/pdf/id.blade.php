@@ -26,7 +26,7 @@
 </style>
 <div class="center-all">
 
-    <?php $nicknameCount = strlen($alumni->nickname) ?>
+    <?php $nicknameCount = strlen($alumni->nickname) ? strlen($alumni->nickname) : 1 ?>
     <?php $ems = 30 / $nicknameCount  ?>
     <?php $ems = $ems > 3 ? 3 : $ems ?>
     <p>

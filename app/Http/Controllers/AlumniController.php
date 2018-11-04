@@ -68,6 +68,10 @@ class AlumniController extends Controller
             $alumni->first_name = $request->input('fName');
             $alumni->last_name = $request->input('lName');
             $alumni->middle_initial = $request->input('middle_initial');
+            /**
+             * New fieldd
+             */
+            $alumni->title = $request->input('title');
             $alumni->nickname = $request->input('nickname');
             $alumni->alumni_type = $request->input('alumni_type');
             $alumni->years_in_sj = $request->input('yrs_sj');
@@ -184,6 +188,7 @@ class AlumniController extends Controller
         $alumni->first_name = $request->input('fName');
         $alumni->last_name = $request->input('lName');
         $alumni->middle_initial = $request->input('middle_initial');
+        $alumni->title = $request->input('title');
         $alumni->nickname = $request->input('nickname');
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');

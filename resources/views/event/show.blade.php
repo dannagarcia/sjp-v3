@@ -23,6 +23,10 @@
         #search {
             width: 100%;
         }
+
+        #search-data-actions{
+            padding: 4% 0;
+        }
     </style>
 
 @endsection
@@ -51,6 +55,26 @@
 
         $(document).ready(function () {
 
+            var alumniColumnMapping = {
+                id: 'System Id',
+                first_name: 'First Name',
+                last_name: 'Last Name',
+                middle_initial: 'Middle Initial',
+                title: 'Title',
+                nickname: 'Nickname',
+                alumni_type: 'Alumni Type',
+                bec: 'BEC',
+                batch_year: 'Batch Year',
+                diocese: 'Diocese',
+                ordination: 'Ordination',
+                birthdate: 'Birthdate',
+                address: 'Address',
+                telephone_num: 'Telephone',
+                fax_num: 'Fax',
+                mobile_num: 'Mobile',
+                email: 'Email'
+            };
+
             $('.dataTable').DataTable();
 
             var functions = {
@@ -70,16 +94,22 @@
                                 if (data.alumnus) {
                                     var id = data.alumnus.id;
 
-                                    for (key in data.alumnus) {
+                                    for (key in alumniColumnMapping) {
+                                        console.log(key);
                                         /**
                                          * Output:
                                          *  tr
                                          *      td strong $x
                                          *      td $y
                                          */
+                                        var val = "";
+
+                                        if (data.alumnus[key]) {
+                                            val = data.alumnus[key]
+                                        }
                                         var $tr = $('<tr>')
-                                            .append('<td><strong>' + key + ' </strong></td>')
-                                            .append('<td>' + data.alumnus[key] + ' </td>');
+                                            .append('<td><strong>' + alumniColumnMapping[key] + ' </strong></td>')
+                                            .append('<td>' + val + ' </td>');
                                         $('#search-data').append($tr);
                                     }
 
@@ -89,8 +119,8 @@
                                     var id = data.alumnus['id']
                                     $('#search-data-actions')
                                         .empty()
-                                        .append($('<a class="btn btn-warning pull-right" href="/alumni/' + id + '/edit?redirect_to=/event/{{$event->id}}">Edit</a>'))
-                                        .append($('<a class="btn btn-warning pull-right" href="/event/attend?alumni_id=' + id + '&event_id={{ $event->id }}">Add to Attendees</a>'))
+                                        .append($('<a class="btn btn-success pull-right" href="/event/attend?alumni_id=' + id + '&event_id={{ $event->id }}">Add as Attendee</a>'))
+                                        .append($('<a class="btn btn-warning pull-right" href="/alumni/' + id + '/edit?redirect_to=/event/{{$event->id}}">Edit</a>'));
 
                                 }
                             } else if (data.status === 'error') {
@@ -127,7 +157,8 @@
             <?php $alumni = session('alumni') ?>
             <?php $name = "{$alumni->first_name} {$alumni->last_name} " ?>
             Update Success. Would you also want to add {{ $name  }} to this event?
-            <a href="/event/attend?alumni_id={{ $alumni->id }}&event_id={{ $event->id }}" class="btn btn-primary">Add to Event</a>
+            <a href="/event/attend?alumni_id={{ $alumni->id }}&event_id={{ $event->id }}" class="btn btn-primary">Add to
+                Event</a>
         </div>
 
     @endif

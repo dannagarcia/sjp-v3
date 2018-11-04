@@ -26,6 +26,7 @@ class AlumniAPIController extends Controller
             ->join('events', 'alumni_event.event_id', '=', 'events.id', 'left')
             ->where('first_name', 'like', '%' . $q . '%')
             ->orWhere('last_name', 'like', '%' . $q . '%')
+            ->orWhere('alumnis.id', 'like', '%' . $q . '%')
             ->orWhere('email', 'like', '%' . $q . '%')
             ->orWhere(DB::raw('CONCAT(last_name, ", ", "first_name")'), 'like', '%' . strtolower($q) . '%')
             ->orderBy('last_name')

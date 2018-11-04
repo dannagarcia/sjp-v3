@@ -10,7 +10,7 @@
             padding: 0 10px !important;
         }
 
-        .for-ordination {
+        .for-ordained {
             display: none;
         }
     </style>
@@ -27,13 +27,13 @@
             $("#alumni_type > label.ord-lbl").click(function (e) {
                 e.preventDefault();
 
-                $(".for-ordination").show();
+                $(".for-ordained").show();
                 $(".for-lay").hide();
             });
             $("#alumni_type > label.lay-lbl").click(function (e) {
                 e.preventDefault();
                 $(".for-lay").show();
-                $(".for-ordination").hide();
+                $(".for-ordained").hide();
             });
 
             @if($alumni->alumni_type === 'ordained')
@@ -44,7 +44,7 @@
             $('label.lay-lbl').click();
             @endif
 
-             $('#diocese-btn').click(function () {
+            $('#diocese-btn').click(function () {
                 $('#diocese').val("Diocese of ").focus();
             });
 
@@ -56,7 +56,7 @@
                 $('#diocese').val("").focus();
             });
 
-            $('a[type=reset]').click(function(){
+            $('a[type=reset]').click(function () {
                 $('input').val('');
                 $('#diocese-types label').removeClass('active');
             });
@@ -102,25 +102,36 @@
                 <div class="form-group">
                     <label for="First Name" class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{ old('fName', $alumni->first_name) }}" name="fName" type="text" class="form-control">
+                        <input value="{{ old('fName', $alumni->first_name) }}" name="fName" type="text"
+                               class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Last Name" class="control-label col-md-3 col-sm-3 col-xs-12">Last Name</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{ old('lName', $alumni->last_name) }}" name="lName" type="text" class="form-control">
+                        <input value="{{ old('lName', $alumni->last_name) }}" name="lName" type="text"
+                               class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Middle Initial" class="control-label col-md-3 col-sm-3 col-xs-12">Middle Initial</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input placeholder="A." name="middle_initial" type="text" class="form-control" value="{{ old('middle_initial', $alumni->middle_initial) }}">
+                        <input placeholder="A." name="middle_initial" type="text" class="form-control"
+                               value="{{ old('middle_initial', $alumni->middle_initial) }}">
+                    </div>
+                </div>
+                <div class="form-group for-ordained">
+                    <label for="title" class="control-label col-md-3 col-sm-3 col-xs-12">Title</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input name="title" type="text" class="form-control" value="{{ old('title', $alumni->title)  }}"
+                               placeholder='"Monsignor", "Father", "Bishop","Cardinal", ...'>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Nickname" class="control-label col-md-3 col-sm-3 col-xs-12">Nickname</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input name="nickname" type="text" class="form-control" value="{{ old('nickname', $alumni->nickname)  }}">
+                        <input name="nickname" type="text" class="form-control"
+                               value="{{ old('nickname', $alumni->nickname)  }}">
                     </div>
                 </div>
 
@@ -134,7 +145,8 @@
                 <div class="form-group">
                     <label for="batch_year" class="control-label col-md-3 col-sm-3 col-xs-12">Batch Year</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input name="batch_year" type="text" class="form-control" value="{{ old('batch_year', $alumni->batch_year) }}">
+                        <input name="batch_year" type="text" class="form-control"
+                               value="{{ old('batch_year', $alumni->batch_year) }}">
                     </div>
                 </div>
                 <div class="form-group">
@@ -182,7 +194,7 @@
                                placeholder="">
                     </div>
                 </div>
-                <div class="form-group for-ordination">
+                <div class="form-group for-ordained">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Ordination Date</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
                         <input value="{{ $alumni->ordination === null ? '' : date_format(date_create($alumni->ordination), 'm-d-y')}}"
@@ -197,19 +209,22 @@
                     <label for="Years in San Jose" class="control-label col-md-3 col-sm-3 col-xs-12">Years in San
                         Jose</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{ old('yrs_sj', $alumni->years_in_sj) }}" name="yrs_sj" type="text" class="form-control">
+                        <input value="{{ old('yrs_sj', $alumni->years_in_sj) }}" name="yrs_sj" type="text"
+                               class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Address" class="control-label col-md-3 col-sm-3 col-xs-12">Address</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{ old('address', $alumni->address) }}" name="address" type="text" class="form-control">
+                        <input value="{{ old('address', $alumni->address) }}" name="address" type="text"
+                               class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Telephone" class="control-label col-md-3 col-sm-3 col-xs-12">Telephone</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{ old('telephone', $alumni->telephone_num) }}" name="telephone" type="text" class="form-control">
+                        <input value="{{ old('telephone', $alumni->telephone_num) }}" name="telephone" type="text"
+                               class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
@@ -221,13 +236,15 @@
                 <div class="form-group">
                     <label for="Mobile" class="control-label col-md-3 col-sm-3 col-xs-12">Mobile</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{ old('mobile', $alumni->mobile_num) }}" name="mobile" type="text" class="form-control">
+                        <input value="{{ old('mobile', $alumni->mobile_num) }}" name="mobile" type="text"
+                               class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Email" class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{ old('email', $alumni->email) }}" name="email" type="email" class="form-control">
+                        <input value="{{ old('email', $alumni->email) }}" name="email" type="email"
+                               class="form-control">
                     </div>
                 </div>
                 @foreach($alumni_custom_fields as $alcf)
@@ -237,7 +254,8 @@
                             <label for="{{ $alcf->id }}"
                                    class="control-label col-md-3 col-sm-3 col-xs-12">{{ $alcf->key }}</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea name="{{ $alcf->id }}" id="{{ $alcf->id }}" class="form-control">{{ old($alcf->id, $alumni->{$alcf->id}) }}</textarea>
+                                <textarea name="{{ $alcf->id }}" id="{{ $alcf->id }}"
+                                          class="form-control">{{ old($alcf->id, $alumni->{$alcf->id}) }}</textarea>
                             </div>
                         </div>
 

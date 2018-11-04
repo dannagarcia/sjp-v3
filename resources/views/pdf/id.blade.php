@@ -25,12 +25,21 @@
 
 </style>
 <div class="center-all">
-    <p><strong class="nickname">{{ strtoupper($alumni->nickname) }}</strong>
+
+    <?php $nicknameCount = strlen($alumni->nickname) ?>
+    <?php $ems = 30 / $nicknameCount  ?>
+    <?php $ems = $ems > 3 ? 3 : $ems ?>
+    <p>
+        <strong class="nickname"
+                style="font-size: {{ $ems }}em">
+            {{ strtoupper($alumni->nickname) }}
+        </strong>
+
     <div class="details">
         <div>{{ $alumni->first_name }} {{$alumni->middle_initial}} {{ $alumni->last_name }} </div>
         <div>{{ $alumni->diocese }} </div>
         @if($alumni->alumni_type !== 'current')
-            
+
             <div>{{ $alumni->batch_year }}</div>
         @endif
     </div>

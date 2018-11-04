@@ -51,7 +51,8 @@
             <div class="clearfix"></div>
         </div>
         <div class="content">
-            <a class="btn btn-primary btn-xs" href="/alumni/{{$alumni->id}}/edit">Edit</a>
+            <a class="btn btn-primary btn-xs" href="/alumni/{{$alumni->id}}/edit?redirect_to=/alumni/{{$alumni->id}}">Edit</a>
+            <a class="btn btn-primary btn-xs" href="/reports/download-id/{{$alumni->id}}" target="_blank">Id</a>
             <form method="POST" action="{{ url('/alumni' . '/' . $alumni->id) }}" accept-charset="UTF-8"
                   style="display:inline">
                 {{ method_field('DELETE') }}
@@ -61,7 +62,6 @@
                     Delete
                 </button>
             </form>
-            <ul class="details">
                 <li><span>First Name:</span> {{$alumni->first_name}}</li>
                 <li><span>Last Name:</span> {{$alumni->last_name}}</li>
                 <li><span>Middle Initial:</span> {{$alumni->middle_initial}}</li>

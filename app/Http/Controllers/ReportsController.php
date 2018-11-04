@@ -185,7 +185,7 @@ class ReportsController extends Controller
     {
         $pdf = App::make('dompdf.wrapper');
         $pdf->setPaper([0, 0, 288, 432], 'portrait');
-//        $pdf->setPaper([0, 0, 270, 360], 'portrait');
+        // $pdf->setPaper([0, 0, 270, 360], 'portrait');
         $data = ['alumni' => Alumni::find($id)];
         $pdf = $pdf->loadView('pdf.id', $data);
         return $pdf->stream();

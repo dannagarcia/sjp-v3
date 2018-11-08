@@ -102,14 +102,14 @@
                 <div class="form-group">
                     <label for="First Name" class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{ old('fName', $alumni->first_name) }}" name="fName" type="text"
+                        <input required value="{{ old('fName', $alumni->first_name) }}" name="fName" type="text"
                                class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Last Name" class="control-label col-md-3 col-sm-3 col-xs-12">Last Name</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input value="{{ old('lName', $alumni->last_name) }}" name="lName" type="text"
+                        <input required value="{{ old('lName', $alumni->last_name) }}" name="lName" type="text"
                                class="form-control">
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                 <div class="form-group">
                     <label for="Nickname" class="control-label col-md-3 col-sm-3 col-xs-12">Nickname</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input name="nickname" type="text" class="form-control"
+                        <input required name="nickname" type="text" class="form-control"
                                value="{{ old('nickname', $alumni->nickname)  }}">
                     </div>
                 </div>

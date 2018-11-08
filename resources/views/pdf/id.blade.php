@@ -11,6 +11,7 @@
     .nickname {
         font-size: 4.5em;
         white-space: nowrap;
+        text-align: center;
     }
 
     .details {
@@ -29,6 +30,7 @@
     <?php $nicknameCount = strlen($alumni->nickname) ? strlen($alumni->nickname) : 1 ?>
     <?php $ems = 30 / $nicknameCount  ?>
     <?php $ems = $ems > 3 ? 3 : $ems ?>
+    <h2>{{ $alumni->title }}</h2>
     <p>
         <strong class="nickname"
                 style="font-size: {{ $ems }}em">

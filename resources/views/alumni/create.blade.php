@@ -73,6 +73,14 @@
                 $('#diocese').val("").focus();
             });
 
+            var oldType = '{{old('alumni_type', 'lay')}}';
+            if (oldType === 'current') {
+                $('.current-lbl').click();
+            } else if (oldType === 'ordained') {
+                $('.ord-lbl').click();
+
+            }
+
 
         });
 
@@ -117,13 +125,13 @@
                 <div class="form-group">
                     <label for="First Name" class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input name="fName" type="text" class="form-control" value="{{ old('fName') }}">
+                        <input required name="fName" type="text" class="form-control" value="{{ old('fName') }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Last Name" class="control-label col-md-3 col-sm-3 col-xs-12">Last Name</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input name="lName" type="text" class="form-control" value="{{ old('lName') }}">
+                        <input required name="lName" type="text" class="form-control" value="{{ old('lName') }}">
                     </div>
                 </div>
                 <div class="form-group">
@@ -136,13 +144,14 @@
                 <div class="form-group for-ordained">
                     <label for="Title" class="control-label col-md-3 col-sm-3 col-xs-12">Title</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input name="title" type="text" class="form-control" value="{{ old('title') }}" placeholder='"Monsignor", "Father", "Bishop","Cardinal", ...'>
+                        <input name="title" type="text" class="form-control" value="{{ old('title') }}"
+                               placeholder='"Monsignor", "Father", "Bishop","Cardinal", ...'>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Nickname" class="control-label col-md-3 col-sm-3 col-xs-12">Nickname</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input name="nickname" type="text" class="form-control" value="{{ old('nickname') }}">
+                        <input required name="nickname" type="text" class="form-control" value="{{ old('nickname') }}">
                     </div>
                 </div>
 
@@ -254,7 +263,8 @@
                             <label for="{{ $alcf->id }}"
                                    class="control-label col-md-3 col-sm-3 col-xs-12">{{ $alcf->key }}</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea name="{{ $alcf->id }}" id="{{ $alcf->id }}" class="form-control">{{ old($alcf->id) }}</textarea>
+                                <textarea name="{{ $alcf->id }}" id="{{ $alcf->id }}"
+                                          class="form-control">{{ old($alcf->id) }}</textarea>
                             </div>
                         </div>
 

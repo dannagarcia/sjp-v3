@@ -13,34 +13,43 @@ class AlumniAPIController extends Controller
     public function search(Request $request)
     {
         $q = $request->input('query');
+        $event_id = $request->input('event_id');
 
 
-        if (!$q) {
+        if (!$q || !$event_id) {
             throw new Exception("Forbidden.");
         }
 
         $q = strtolower($q);
-        $response = Alumni::select('alumnis.id', 'first_name', 'last_name', 'email', 'events.id AS event_id',
-            DB::raw('CONCAT(last_name,  ", ", first_name, " (", email ,")") AS formatted'))
-            ->join('alumni_event', 'alumni_event.alumni_id', '=', 'alumnis.id', 'left')
-            ->join('events', 'alumni_event.event_id', '=', 'events.id', 'left')
-            ->where('first_name', 'like', '%' . $q . '%')
-            ->orWhere('last_name', 'like', '%' . $q . '%')
-            ->orWhere('alumnis.id', 'like', '%' . $q . '%')
-            ->orWhere('email', 'like', '%' . $q . '%')
-            ->orWhere(DB::raw('CONCAT(last_name, ", ", "first_name")'), 'like', '%' . strtolower($q) . '%')
-            ->orderBy('last_name')
-            ->get();
+        $response =
+            DB::select("
+                SELECT * FROM alumnis WHERE id NOT IN
+                    (
+                    SELECT a.id
+                    FROM alumnis a LEFT JOIN  alumni_event ae 
+                        ON a.id = ae.alumni_id
+                        LEFT JOIN events e on e.id = ae.event_id
+                    WHERE ae.event_id = '$event_id'
+                    )
+                   AND 
+                     (first_name LIKE '%$q%' OR 
+                     last_name LIKE '%$q%' OR 
+                     nickname LIKE '%$q%' OR 
+                     email LIKE '%$q%' OR 
+                     CONCAT(first_name, ' ', last_name) LIKE '%$q%' OR
+                     id LIKE '%$q%'
+                     )
+            ;");
+//            ->orderBy('last_name')
+//            ->get();
 
         $suggestions = [];
         $alumni = $response;
 
         foreach ($alumni as $key => $value) {
 
-            if (!empty($value['event_id'])) // alumni already added to event
-                continue;
 
-            $suggestionText = empty($value->formatted) ? $value->first_name : $value->formatted;
+            $suggestionText = $value->first_name . ' ' . $value->last_name;
             $suggestionText = "({$value->id}) {$suggestionText}";
 
             $suggestions[] = [

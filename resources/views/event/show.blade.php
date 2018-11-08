@@ -141,7 +141,8 @@
                 serviceUrl: '/api/search',
                 onSelect: functions.fetchAlumnusDetails,
                 showNoSuggestionNotice: true,
-                deferRequestBy: 300
+                deferRequestBy: 300,
+                params: { "event_id": "{{ $event->id }}"}
             });
 
         });

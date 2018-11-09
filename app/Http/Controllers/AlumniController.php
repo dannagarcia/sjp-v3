@@ -233,7 +233,7 @@ class AlumniController extends Controller
         $request->session()->flash('alumni', $alumni);
 
         if ($request->redirect_to) {
-            return redirect($request->redirect_to);
+            return redirect($request->redirect_to . "?alumni_id_updated=" . $alumni->id);
         }
         return redirect('/alumni');
 

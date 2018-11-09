@@ -24,7 +24,7 @@
             width: 100%;
         }
 
-        #search-data-actions{
+        #search-data-actions {
             padding: 4% 0;
         }
     </style>
@@ -90,6 +90,7 @@
                             if (data.status === 'success') {
 
                                 $('#search-data').empty();
+                                $('#search-data').hide();
 
                                 if (data.alumnus) {
                                     var id = data.alumnus.id;
@@ -122,6 +123,15 @@
                                         .append($('<a class="btn btn-success pull-right" href="/event/attend?alumni_id=' + id + '&event_id={{ $event->id }}">Add as Attendee</a>'))
                                         .append($('<a class="btn btn-warning pull-right" href="/alumni/' + id + '/edit?redirect_to=/event/{{$event->id}}">Edit</a>'));
 
+
+
+                                    $([document.documentElement, document.body]).animate({
+                                        scrollTop: ($("#search-data-actions").offset().top - 200)
+                                    }, 800);
+
+                                    $('#search-data').show(300);
+
+
                                 }
                             } else if (data.status === 'error') {
                                 alert("Alumni id not found..");
@@ -142,8 +152,21 @@
                 onSelect: functions.fetchAlumnusDetails,
                 showNoSuggestionNotice: true,
                 deferRequestBy: 300,
-                params: { "event_id": "{{ $event->id }}"}
+                params: {"event_id": "{{ $event->id }}"}
             });
+
+            /**
+             * From redirectTo
+             */
+            var updateId = "{{ app('request')->input('alumni_id_updated')}}";
+            if (updateId) {
+                var suggestion = {
+                    data: {
+                        id: updateId
+                    }
+                };
+                functions.fetchAlumnusDetails(suggestion);
+            }
 
         });
 

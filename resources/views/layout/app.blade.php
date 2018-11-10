@@ -117,7 +117,7 @@
                     @endif
                     @if (Session::has('message'))
                         <div class="alert alert-success">
-                            {{ session('message') }}
+                            {!! session('message') !!}
                         </div>
                     @endif
                     @section('body')

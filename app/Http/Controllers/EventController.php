@@ -177,8 +177,8 @@ class EventController extends Controller
 
 
 
-        $request->session()->flash('message', "Successfuly added {$alumni->first_name} {$alumni->last_name} to this event.");
-        return redirect('/event/' . $request->event_id . "&attendee_id={$alumni_id}");
+        $request->session()->flash('message', "Successfuly Added {$alumni->first_name} {$alumni->last_name} to this Event. <a href='/reports/download-id/{$alumni->id}' class='btn btn-info'>Print ID</a>");
+        return redirect('/event/' . $request->event_id);
 
     }
 

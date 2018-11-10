@@ -27,11 +27,16 @@ Route::get('/reports/alumni', 'ReportsController@reports');
 Route::get('/reports/event_report', 'ReportsController@event_report');
 Route::get('/reports/download-id/{id}', 'ReportsController@downloadId');
 
+
 /**
  * Custom and Settings
  */
 Route::get('/settings', 'SettingsController@index');
 Route::get('/settings/alumni_custom_fields', 'SettingsController@alumni_custom_fields');
+Route::post('/settings/update', 'SettingsController@update');
+Route::get('/settings/id', 'SettingsController@id');
+Route::get('/settings/preview_id', 'SettingsController@preview_id');
+
 /**
  * APIs
  */

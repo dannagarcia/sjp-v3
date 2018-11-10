@@ -13,6 +13,7 @@ use Jimmyjs\ReportGenerator\ReportMedia\PdfReport;
 use Maatwebsite\Excel\Facades\Excel;
 use App;
 use DB;
+use App\Setting;
 
 
 class ReportsController extends Controller
@@ -27,7 +28,7 @@ class ReportsController extends Controller
 
             $excel->sheet('Ordained', function ($sheet) {
 
-                $ordained = Alumni::select('first_name', 'last_name', 'middle_initial', 'title' ,'nickname', 'bec', 'batch_year', 'diocese', 'birthdate',
+                $ordained = Alumni::select('first_name', 'last_name', 'middle_initial', 'title', 'nickname', 'bec', 'batch_year', 'diocese', 'birthdate',
                     'ordination', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'ordained')
                     ->get();
@@ -36,7 +37,7 @@ class ReportsController extends Controller
                 $sheet->fromArray($ordained->toArray(), null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, [
-                    'First Name', 'Last Name', 'Middle Initial', 'Title' ,'Nickname', 'BEC', 'Batch Year', 'Diocese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Middle Initial', 'Title', 'Nickname', 'BEC', 'Batch Year', 'Diocese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ]);
                 $sheet->prependRow(1, array(
@@ -172,10 +173,17 @@ class ReportsController extends Controller
 
     public function downloadId($id)
     {
+
+        $idSettings = Setting::find(1); // id setting will always be 1
+        $idSettings = json_decode($idSettings->value);
+
         $pdf = App::make('dompdf.wrapper');
-        $pdf->setPaper([0, 0, 288, 432], 'portrait');
-        // $pdf->setPaper([0, 0, 270, 360], 'portrait');
-        $data = ['alumni' => Alumni::find($id)];
+        $pdf->setPaper($idSettings->paper_size, $idSettings->orientation);
+
+        $data = [
+            'alumni' => Alumni::find($id),
+            'settings' => $idSettings
+        ];
         $pdf = $pdf->loadView('pdf.id', $data);
         return $pdf->stream();
 

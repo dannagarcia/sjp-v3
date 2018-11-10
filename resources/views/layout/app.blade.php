@@ -81,8 +81,8 @@
                             </li>
                             <li><a href="/event"><i class="fa fa-calendar"></i> Events</a>
                             </li>
-                            {{--<li><a href="/settings/alumni_custom_fields"><i class="fa fa-cogs"></i> Settings</a>--}}
-                            {{--</li>--}}
+                            <li><a href="/settings/id"><i class="fa fa-cogs"></i> Settings</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

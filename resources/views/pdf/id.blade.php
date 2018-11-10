@@ -1,8 +1,8 @@
 <style>
     .center-all {
         position: absolute;
-        top: 35%;
-        left: 50%;
+        top: {{ $settings->position->from_top }};
+        left: {{ $settings->position->from_left }};;
         transform: translateX(-50%) translateY(-50%);
         text-align: center;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -15,7 +15,7 @@
     }
 
     .details {
-        font-size: 0.8em;
+        font-size: {{ $settings->details_font_size }};
     }
 
     .details div {
@@ -28,9 +28,9 @@
 <div class="center-all">
 
     <?php $nicknameCount = strlen($alumni->nickname) ? strlen($alumni->nickname) : 1 ?>
-    <?php $ems = 30 / $nicknameCount  ?>
+    <?php $ems = $settings->nickname_proportion / $nicknameCount  ?>
     <?php $ems = $ems > 3 ? 3 : $ems ?>
-    <h2>{{ $alumni->title }}</h2>
+    <h2 style="font-size: {{$settings->title_font_size}}">{{ $alumni->title }}</h2>
     <p>
         <strong class="nickname"
                 style="font-size: {{ $ems }}em">

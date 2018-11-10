@@ -66,8 +66,8 @@
                 bec: 'BEC',
                 batch_year: 'Batch Year',
                 diocese: 'Diocese',
-                ordination: 'Ordination',
                 birthdate: 'Birthdate',
+                ordination: 'Ordination',
                 address: 'Address',
                 telephone_num: 'Telephone',
                 fax_num: 'Fax',
@@ -75,7 +75,12 @@
                 email: 'Email'
             };
 
-            $('.dataTable').DataTable();
+            $('.dataTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'print'
+                ]
+            });
 
             var functions = {
                 fetchAlumnusDetails: function (suggestion) {
@@ -108,6 +113,14 @@
                                         if (data.alumnus[key]) {
                                             val = data.alumnus[key]
                                         }
+
+                                        /**
+                                         * Skip if key is ordination and alumni type is not ordained
+                                         */
+                                        if(key === 'ordination' && data.alumnus.alumni_type !== 'ordained'){
+                                            continue; // skip to next key
+                                        }
+
                                         var $tr = $('<tr>')
                                             .append('<td><strong>' + alumniColumnMapping[key] + ' </strong></td>')
                                             .append('<td>' + val + ' </td>');

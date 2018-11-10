@@ -134,6 +134,11 @@ class AlumniAPIController extends Controller
 
             $alumni = Alumni::find($id);
             $alumni->loadCustomFields(true);
+            /**
+             * Formats fields for view
+             * i.e. dates will be converted from the db format yyyy/mm/dd to mm/dd/yyy
+             */
+            $alumni->formatFieldsForView();
 
 
             if (!empty($alumni)) {

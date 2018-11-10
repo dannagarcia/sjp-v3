@@ -152,9 +152,9 @@
                 <div class="form-group">
                     <label for="birthdate" class="control-label col-md-3 col-sm-3 col-xs-12">Date of Birth</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
-                        <input value="{{ $alumni->birthdate === null ? '' : date_format(date_create($alumni->birthdate), 'm-d-Y')}}"
+                        <input value="{{ $alumni->birthdate  }}"
                                name="birthdate"
-                               type='date' class="form-control" placeholder="mm-dd-yyyy"/>
+                               type='date' class="form-control"/>
                         <span class="input-group-addon">
                            <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -197,9 +197,9 @@
                 <div class="form-group for-ordained">
                     <label for="Ordination" class="control-label col-md-3 col-sm-3 col-xs-12">Ordination Date</label>
                     <div class='col-md-6 col-sm-6 col-xs-12 input-group date datePicker'>
-                        <input value="{{ $alumni->ordination === null ? '' : date_format(date_create($alumni->ordination), 'm-d-y')}}"
+                        <input value="{{ $alumni->ordination }}"
                                name="ordination"
-                               type='text' class="form-control" placeholder="mm-dd-yyyy"/>
+                               type='text' class="form-control" placeholder="mm/dd/yyyy" />
                         <span class="input-group-addon">
                            <span name="ordination" class="glyphicon glyphicon-calendar"></span>
                         </span>

@@ -19,7 +19,7 @@ class EventController extends Controller
         'event_name' => 'required',
         'event_description' => 'required',
         'event_place' => 'required',
-        'event_date' => 'required'
+        'event_date' => 'required|date'
     ];
 
     /**
@@ -57,7 +57,7 @@ class EventController extends Controller
         $event->name = $request->input('event_name');
         $event->description = $request->input('event_description');
         $event->place = $request->input('event_place');
-        $event->date = $request->event_date;
+        $event->date = $request->input('event_date');
 
         $event->save();
         $request->session()->flash('message', 'Successfuly created');
@@ -80,6 +80,8 @@ class EventController extends Controller
         foreach ($attendees as $key => $value) {
             $attendees_ids[] = $value->id;
         }
+
+        $event->formatFieldsForView();
 
         $unattended = Alumni::whereNotIn('id', $attendees_ids)->get();
 
@@ -117,7 +119,7 @@ class EventController extends Controller
         $event->name = $request->input('event_name');
         $event->description = $request->input('event_description');
         $event->place = $request->input('event_place');
-        $event->date = DateTime::createFromFormat('m-d-Y', $request->event_date)->format('Y-m-d');
+        $event->date = $request->input('event_date');
 
 
         $event->save();
@@ -151,6 +153,14 @@ class EventController extends Controller
         $alumni_id = $request->alumni_id;
         $event_id = $request->event_id;
 
+        $alumni = Alumni::find($alumni_id);
+
+        if(!$alumni){
+            throw new InvalidArgumentException("Invalid Alumni id passed");
+        }
+
+        $alumni = Alumni::find($alumni_id);
+
         $rowCount = DB::table('alumni_event')
             ->where('alumni_id', $alumni_id)
             ->where('event_id', $event_id)
@@ -164,7 +174,11 @@ class EventController extends Controller
             'alumni_id' => $alumni_id,
             'event_id' => $event_id
         ]);
-        return redirect('/event/' . $request->event_id);
+
+
+
+        $request->session()->flash('message', "Successfuly added {$alumni->first_name} {$alumni->last_name} to this event.");
+        return redirect('/event/' . $request->event_id . "&attendee_id={$alumni_id}");
 
     }
 

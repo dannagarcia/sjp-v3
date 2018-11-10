@@ -15,16 +15,6 @@
 
 @section('scripts')
     <script src="/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-
-    <script type="text/javascript">
-
-        $(document).ready(function() {
-            $('.datePicker').datetimepicker({
-                format: 'YYYY-MM-DD'
-            });
-        });
-
-    </script>
 @endsection
 
 

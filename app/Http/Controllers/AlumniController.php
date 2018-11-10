@@ -21,8 +21,8 @@ class AlumniController extends Controller
         'telephone' => 'string|nullable',
         'mobile' => 'string|nullable',
         'fax' => 'string|nullable',
-        'birthdate' => 'date_format:m-d-Y|nullable',
-        'ordination' => 'date_format:m-d-Y|nullable'
+        'birthdate' => 'date|nullable',
+        'ordination' => 'string|nullable'
     ];
 
     /**
@@ -77,10 +77,10 @@ class AlumniController extends Controller
             $alumni->years_in_sj = $request->input('yrs_sj');
             $alumni->diocese = $request->input('diocese');
             if (isset($request->birthdate)) {
-                $alumni->birthdate = DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
+                $alumni->birthdate = $request->input('birthdate');
             }
             if (isset($request->ordination)) {
-                $alumni->ordination = DateTime::createFromFormat('m-d-Y', $request->ordination)->format('Y-m-d');
+                $alumni->ordination = $request->input('ordination');
             } else {
                 $alumni->ordination = null;
             }
@@ -143,6 +143,11 @@ class AlumniController extends Controller
             $alumni->{$aacf->alumni_custom_field_id} = $aacf->value;
         }
 
+        /**
+         * Formats fields for view
+         */
+        $alumni->formatFieldsForView();
+
         return view('alumni.show')
             ->with('alumni', $alumni)
             ->with('events', $events)
@@ -196,12 +201,12 @@ class AlumniController extends Controller
         if ($request->birthdate == false) {
             $alumni->birthdate = null;
         } else {
-            $alumni->birthdate = DateTime::createFromFormat('m-d-Y', $request->birthdate)->format('Y-m-d');
+            $alumni->birthdate = $request->birthdate;
         }
         if ($request->ordination == false) {
             $alumni->ordination = null;
         } else {
-            $alumni->ordination = DateTime::createFromFormat('m-d-Y', $request->ordination)->format('Y-m-d');
+            $alumni->ordination = $request->ordination;
         }
 
         $alumni->address = $request->input('address');
@@ -223,10 +228,15 @@ class AlumniController extends Controller
                 AlumniAlumniCustomField::updateOrCreate([
                     'alumni_id' => $alumni->id,
                     'alumni_custom_field_id' => $alcf->id,
-                ],[ 'value' => $request->{$alcf->id} ]);
+                ], ['value' => $request->{$alcf->id}]);
             }
             // if empty continue to next alcf
         }
+
+
+        /**
+         * Format fields for view
+         */
 
 
         $request->session()->flash('update_message', 'Update Sucess');

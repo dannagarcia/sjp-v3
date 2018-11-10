@@ -43,12 +43,12 @@ class Alumni extends Model
 
         } // end foreach
 
-        if($direct_to_model){
+        if ($direct_to_model) {
 
             /**
              * Directly inject to model attributes
              */
-            foreach($customFields as $cfk =>  $cfvalue) {
+            foreach ($customFields as $cfk => $cfvalue) {
                 $this->{$cfk} = $cfvalue;
             }
         } else {
@@ -56,6 +56,31 @@ class Alumni extends Model
              * Store in array
              */
             $this->customFields = $customFields;
+        }
+
+    }
+
+
+    /**
+     * Format values for view
+     */
+    public function formatFieldsForView()
+    {
+        /**
+         *
+         *
+         * Format necessary fields
+         *
+         *
+         */
+
+        if (!empty($this->birthdate)) {
+            $this->birthdate = date('m/d/Y', strtotime($this->birthdate));
+        }
+
+
+        if (!empty($this->ordination)) {
+            $this->ordination = date('m/d/Y', strtotime($this->ordination));
         }
 
     }

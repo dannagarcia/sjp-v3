@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    public function alumnis() {
+    public function alumnis()
+    {
 
-    	return $this->belongsToMany(Alumni::class)->withTimestamps();
+        return $this->belongsToMany(Alumni::class)->withTimestamps();
 
     }
 
@@ -17,9 +18,11 @@ class Event extends Model
      * @param Event $event
      * @return mixed
      */
-    public static function get_unatendees(Event $event){
+    public static function get_unatendees(Event $event)
+    {
         $attendees_ids = [];
         $attendees = $event->alumnis;
+
         foreach ($attendees as $key => $value) {
             $attendees_ids[] = $value->id;
         }
@@ -27,6 +30,16 @@ class Event extends Model
         $unattended = Alumni::whereNotIn('id', $attendees_ids)->get();
 
         return $unattended;
+    }
+
+    /**
+     * Format fields for view
+     */
+    public function formatFieldsForView()
+    {
+        if (!empty($this->date)) {
+            $this->date = date('m/d/Y', strtotime($this->date));
+        }
     }
 
 }

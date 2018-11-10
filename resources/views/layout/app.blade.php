@@ -181,12 +181,5 @@
 @section('scripts')
 @show
 
-<script>
-    $(document).ready(function () {
-        $('.datePicker').datetimepicker({
-            format: 'MM-DD-YYYY'
-        });
-    });
-</script>
 </body>
 </html>

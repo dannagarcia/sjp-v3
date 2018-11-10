@@ -24,7 +24,7 @@ Route::get('/reports/test', 'ReportsController@test');
 
 // Reports
 Route::get('/reports/alumni', 'ReportsController@reports');
-Route::get('/reports/eventreports', 'ReportsController@eventreport');
+Route::get('/reports/event_report', 'ReportsController@event_report');
 Route::get('/reports/download-id/{id}', 'ReportsController@downloadId');
 
 /**

@@ -75,12 +75,7 @@
                 email: 'Email'
             };
 
-            $('.dataTable').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    'print'
-                ]
-            });
+            $('.dataTable').DataTable();
 
             var functions = {
                 fetchAlumnusDetails: function (suggestion) {
@@ -286,7 +281,7 @@
     <div class="x_panel">
         <div class="x_title">
             <h2><i class="fa fa-users" aria-hidden="true"></i> Attendees List</h2>
-            <a href="/reports/eventreports?event_id={{ $event->id }}" class="pull-right btn btn-success btn-xs">Download
+            <a href="/reports/event_report?event_id={{ $event->id }}" class="pull-right btn btn-success btn-xs">Download
                 Excel</a>
 
             <div class="clearfix"></div>

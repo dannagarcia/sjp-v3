@@ -27,24 +27,16 @@ class ReportsController extends Controller
 
             $excel->sheet('Ordained', function ($sheet) {
 
-
-                /**
-                 * TODO: Add left join here or rewrite query
-                 */
-                // Old Query
-                $ordained = Alumni::select('first_name', 'last_name', 'middle_initial', 'nickname', 'bec', 'batch_year', 'diocese', 'birthdate',
+                $ordained = Alumni::select('first_name', 'last_name', 'middle_initial', 'title' ,'nickname', 'bec', 'batch_year', 'diocese', 'birthdate',
                     'ordination', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'ordained')
                     ->get();
 
-                foreach ($ordained as $o) {
-                    $o->loadCustomFields(true);
-                }
 
                 $sheet->fromArray($ordained->toArray(), null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, [
-                    'First Name', 'Last Name', 'Middle Initial', 'Nickname', 'BEC', 'Batch Year', 'Diocese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Middle Initial', 'Title' ,'Nickname', 'BEC', 'Batch Year', 'Diocese', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ]);
                 $sheet->prependRow(1, array(
@@ -61,11 +53,6 @@ class ReportsController extends Controller
                     'years_in_sj', 'address', 'telephone_num', 'fax_num', 'mobile_num', 'email')
                     ->where('alumni_type', 'lay')
                     ->get();
-
-                foreach ($lay as $l) {
-                    $l->loadCustomFields(true);
-                }
-                dd($l->first());
 
 
                 $sheet->fromArray($lay->toArray(), null, 'A1', false, true);
@@ -87,9 +74,6 @@ class ReportsController extends Controller
                     ->where('alumni_type', 'current')
                     ->get();
 
-                foreach ($current as $c) {
-                    $c->loadCustomFields(true);
-                }
 
                 $sheet->fromArray($current->toArray(), null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
@@ -104,12 +88,15 @@ class ReportsController extends Controller
 
             });
 
+            $excel->setActiveSheetIndex(0);
+
         })->export('xls');
+
 
     }
 
 
-    public function eventreport(Request $request)
+    public function event_report(Request $request)
     {
 
 
@@ -126,7 +113,7 @@ class ReportsController extends Controller
                 $lay[] = [$a->first_name, $a->last_name, $a->middle_initial, $a->nickname, $a->bec, $a->batch_year, $a->birthdate, $a->years_in_sj, $a->address, $a->telephone_num,
                     $a->fax_num, $a->mobile_num, $a->email];
             } elseif ($a->alumni_type === 'ordained') {
-                $ordained[] = [$a->first_name, $a->last_name, $a->middle_initial, $a->nickname, $a->bec, $a->batch_year, $a->diocese, $a->birthdate, $a->ordination, $a->address, $a->telephone_num,
+                $ordained[] = [$a->first_name, $a->last_name, $a->middle_initial, $a->title, $a->nickname, $a->bec, $a->batch_year, $a->diocese, $a->birthdate, $a->ordination, $a->address, $a->telephone_num,
                     $a->fax_num, $a->mobile_num, $a->email];
             }
 
@@ -140,7 +127,7 @@ class ReportsController extends Controller
                 $sheet->fromArray($ordained, null, 'A1', false, true);
                 $sheet->setOrientation('landscape');
                 $sheet->row(1, array(
-                    'First Name', 'Last Name', 'Middle Initial', 'Nickname', 'Dicoese', 'BEC', 'Batch Year', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
+                    'First Name', 'Last Name', 'Middle Initial', 'Title', 'Nickname', 'Dicoese', 'BEC', 'Batch Year', 'Birthdate', 'Ordination', 'Address', 'Telephone Number',
                     'Fax Number', 'Mobile Number', 'Email'
                 ));
                 $sheet->prependRow(1, array(
@@ -176,6 +163,8 @@ class ReportsController extends Controller
                 ));
                 $sheet->mergeCells('A1:J1');
             });
+
+            $excel->setActiveSheetIndex(0);
 
         })->export('xls');
 

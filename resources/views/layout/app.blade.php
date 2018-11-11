@@ -180,10 +180,11 @@
 
 @section('scripts')
 
-    <script>
-        $("form").attr('autocomplete', 'off'); // Switching form autocomplete attribute to off
-    </script>
 @show
+
+<script>
+    $("form").attr('autocomplete', 'off'); // Switching form autocomplete attribute to off
+</script>
 
 </body>
 </html>

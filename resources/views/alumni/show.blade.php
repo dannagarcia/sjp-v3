@@ -85,11 +85,14 @@
                 </li>
                 <li><span>Diocese:</span> {{$alumni->diocese}}</li>
                 <li>
-                @if($alumni->alumni_type === 'ordained')
+                    @if($alumni->alumni_type === 'ordained')
                         <span>Ordination: </span>{{ $alumni->ordination }}
-                    </li>
+                </li>
+                @elseif($alumni->alumni_type === 'lay')
+                    <li><span>Years in San Jose: {{ $alumni->years_in_sj }}</span></li>
+                    <li><span>Occupation: {{ $alumni->occupation }}</span></li>
                 @else
-                    <li><span>Years in San Jose:</span></li>
+                    <li><span>Years in San Jose: {{ $alumni->years_in_sj }}</span></li>
                 @endif
 
                 <li><span>Address: </span>{{$alumni->address}}</li>

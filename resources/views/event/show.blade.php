@@ -66,6 +66,8 @@
                 bec: 'BEC',
                 batch_year: 'Batch Year',
                 diocese: 'Diocese',
+                years_in_sj: 'Years in San Jose',
+                occupation: 'Occupation',
                 birthdate: 'Birthdate',
                 ordination: 'Ordination',
                 address: 'Address',
@@ -113,6 +115,14 @@
                                          * Skip if key is ordination and alumni type is not ordained
                                          */
                                         if(key === 'ordination' && data.alumnus.alumni_type !== 'ordained'){
+                                            continue; // skip to next key
+                                        }
+
+                                        /**
+                                         * If key is years_in_sj or occupation the type must not be ordained before appending
+                                         * these two keys
+                                         */
+                                        if((key === 'years_in_sj' || key === 'occupation' ) && data.alumnus.alumni_type === 'ordained'){
                                             continue; // skip to next key
                                         }
 

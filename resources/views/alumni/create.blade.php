@@ -226,6 +226,13 @@
                         <input name="yrs_sj" type="text" class="form-control" value="{{ old('yrs_sj') }}">
                     </div>
                 </div>
+                <div class="form-group for-lay">
+                    <label for="occupation" class="control-label col-md-3 col-sm-3 col-xs-12">Occupation</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="occupation" name="occupation" type="text" class="form-control" value="{{ old('occupation') }}"
+                               placeholder="">
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="Address" class="control-label col-md-3 col-sm-3 col-xs-12">Address</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">

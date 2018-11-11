@@ -75,6 +75,7 @@ class AlumniController extends Controller
             $alumni->nickname = $request->input('nickname');
             $alumni->alumni_type = $request->input('alumni_type');
             $alumni->years_in_sj = $request->input('yrs_sj');
+            $alumni->occupation = $request->input('occupation');
             $alumni->diocese = $request->input('diocese');
             if (isset($request->birthdate)) {
                 $alumni->birthdate = $request->input('birthdate');
@@ -197,6 +198,7 @@ class AlumniController extends Controller
         $alumni->nickname = $request->input('nickname');
         $alumni->alumni_type = $request->input('alumni_type');
         $alumni->years_in_sj = $request->input('yrs_sj');
+        $alumni->occupation = $request->input('occupation');
         $alumni->diocese = $request->input('diocese');
         if ($request->birthdate == false) {
             $alumni->birthdate = null;

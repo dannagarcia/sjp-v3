@@ -213,6 +213,13 @@
                                class="form-control">
                     </div>
                 </div>
+                <div class="form-group for-lay">
+                    <label for="occupation" class="control-label col-md-3 col-sm-3 col-xs-12">Occupation</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input value="{{ old('occupation', $alumni->occupation) }}" name="occupation" type="text"
+                               class="form-control">
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="Address" class="control-label col-md-3 col-sm-3 col-xs-12">Address</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">

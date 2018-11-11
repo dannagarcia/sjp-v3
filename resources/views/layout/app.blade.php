@@ -179,6 +179,10 @@
 <script src="/js/custom.min.js"></script>
 
 @section('scripts')
+
+    <script>
+        $("form").attr('autocomplete', 'off'); // Switching form autocomplete attribute to off
+    </script>
 @show
 
 </body>

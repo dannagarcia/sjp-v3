@@ -119,8 +119,9 @@ class AlumniController extends Controller
 
 
         $request->session()->flash('message', 'Successfuly registered');
+
         if ($request->redirect_to) {
-            return redirect($request->redirect_to);
+            return redirect($request->redirect_to . "?alumni_id_updated=" . $alumni->id);
         }
 
 

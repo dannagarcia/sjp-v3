@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App;
 use App\Setting;
 use Mockery\Exception;
+use App\Alumni;
 
 
 class SettingsController extends Controller
@@ -74,8 +75,18 @@ class SettingsController extends Controller
         $pdf = App::make('dompdf.wrapper');
         $pdf->setPaper($idSettings->paper_size, $idSettings->orientation);
 
+        /**
+         * Sample alumni
+         */
+        $alumni = new Alumni();
+        $alumni->nickname = "BENJIEE";
+        $alumni->title = "Father";
+        $alumni->first_name = "Benjamin";
+        $alumni->last_name ="Espiritu";
+        $alumni->diocese = "Diocese of San Fernando";
+
         $data = [
-            'alumni' => App\Alumni::find(2),
+            'alumni' => $alumni,
             'settings' => $idSettings
         ];
         $pdf = $pdf->loadView('pdf.id', $data);

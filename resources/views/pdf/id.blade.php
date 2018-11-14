@@ -41,7 +41,6 @@
         <div>{{ $alumni->first_name }} {{$alumni->middle_initial}} {{ $alumni->last_name }} </div>
         <div>{{ $alumni->diocese }} </div>
         @if($alumni->alumni_type !== 'current')
-
             <div>{{ $alumni->batch_year }}</div>
         @endif
     </div>
